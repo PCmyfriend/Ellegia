@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ellegia.Domain.Core\Ellegia.Domain.Core.csproj" />
+  </ItemGroup>
+</Project>
