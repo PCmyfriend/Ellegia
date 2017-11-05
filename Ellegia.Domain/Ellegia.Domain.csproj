@@ -6,9 +6,6 @@
     <PackageReference Include="FluentValidation" Version="7.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Ellegia.Domain.Core\Ellegia.Domain.Core.csproj" />
   </ItemGroup>
 </Project>
