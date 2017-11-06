@@ -20,7 +20,6 @@ namespace Ellegia.Infra.CrossCutting.IoC
             // Application
             services.AddSingleton(Mapper.Configuration);
             services.AddScoped<IMapper>(sp => new Mapper(AutoMapperConfig.RegisterMappings()));
-            services.AddScoped<IColorAppService, ColorAppService>();
             
             // Infra - Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
