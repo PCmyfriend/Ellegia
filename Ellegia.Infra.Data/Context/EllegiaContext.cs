@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,9 @@ namespace Ellegia.Infra.Data.Context
     public class EllegiaContext : DbContext
     {
         public DbSet<Color> Colors { get; set; }
+        public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
+        public DbSet<ContactType> ContactTypes { get; set; }
+        public DbSet<MeasurementUnit> MeasurementUnits { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -17,7 +21,10 @@ namespace Ellegia.Infra.Data.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ColorEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<PlasticBagType>(100));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<ContactType>(100));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
             
             base.OnModelCreating(modelBuilder);
         }
@@ -29,7 +36,7 @@ namespace Ellegia.Infra.Data.Context
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            optionsBuilder.UseInMemoryDatabase();
+            optionsBuilder.UseInMemoryDatabase("EllegiaDb");
             //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         }
     }

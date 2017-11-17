@@ -9,11 +9,29 @@ namespace Ellegia.Application.AutoMapper
         public DtoToDomainMappingProfile()
         {
             CreateColorMap();
+            CreateContactTypeMap();
+            CreateMeasuremntUnitMap();
+            CreatePlasticBagTypeMap();
         }
 
         private void CreateColorMap()
         {
             CreateMap<ColorDto, Color>();
+        }
+        
+        private void CreateContactTypeMap()
+        {
+            CreateMap<ContactTypeDto, ContactType>();
+        }
+
+        private void CreateMeasuremntUnitMap()
+        {
+            CreateMap<MeasurementUnitDto, MeasurementUnit>();
+        }
+
+        private void CreatePlasticBagTypeMap()
+        {
+            CreateMap<PlasticBagTypeDto, PlasticBagType>();
         }
     }
 }
