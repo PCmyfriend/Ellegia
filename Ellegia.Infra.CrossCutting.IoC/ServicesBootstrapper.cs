@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Ellegia.Application.AutoMapper;
-using Ellegia.Application.Contracts;
-using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Infra.Data.UoW;
 using Microsoft.Extensions.DependencyInjection;

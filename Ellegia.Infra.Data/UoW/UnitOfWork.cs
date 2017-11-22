@@ -12,11 +12,14 @@ namespace Ellegia.Infra.Data.UoW
     {
         private readonly EllegiaContext _context;
         public ICommonHandbookRepository<Color> Colors { get; }
+        public ICommonHandbookRepository<FilmType> FilmTypes { get; }
+
 
         public UnitOfWork(EllegiaContext context)
         {
             _context = context;
             Colors = new CommonHandbookRepository<Color>(context);
+            FilmTypes = new CommonHandbookRepository<FilmType>(context);
         }
         
         public CommandResponse Complete()

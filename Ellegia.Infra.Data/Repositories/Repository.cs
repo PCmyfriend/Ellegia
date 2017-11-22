@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Infra.Data.Context;
