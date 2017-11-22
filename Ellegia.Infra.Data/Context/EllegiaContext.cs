@@ -3,12 +3,13 @@ using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
+    
 
 namespace Ellegia.Infra.Data.Context
 {
     public class EllegiaContext : DbContext
     {
+        public DbSet<FilmTypeOptions> FilmTypesOptions { get; set; }
         public DbSet<FilmType> FilmTypes { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
@@ -22,6 +23,7 @@ namespace Ellegia.Infra.Data.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOptions>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<PlasticBagType>(100));

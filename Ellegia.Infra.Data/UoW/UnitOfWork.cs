@@ -11,6 +11,7 @@ namespace Ellegia.Infra.Data.UoW
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EllegiaContext _context;
+        public ICommonHandbookRepository<FilmTypeOptions> FilmTypeOptions { get; }
         public ICommonHandbookRepository<Color> Colors { get; }
         public ICommonHandbookRepository<FilmType> FilmTypes { get; }
 
@@ -18,6 +19,8 @@ namespace Ellegia.Infra.Data.UoW
         public UnitOfWork(EllegiaContext context)
         {
             _context = context;
+
+            FilmTypeOptions = new CommonHandbookRepository<FilmTypeOptions>(context);
             Colors = new CommonHandbookRepository<Color>(context);
             FilmTypes = new CommonHandbookRepository<FilmType>(context);
         }

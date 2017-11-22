@@ -6,9 +6,9 @@ using Color = Ellegia.Domain.Models.Color;
 
 namespace Ellegia.Domain.Contracts.Data
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork    
     {
-        ICommonHandbookRepository<FilmTypesOptions> FilmTypesOptions { get; }
+        ICommonHandbookRepository<FilmTypeOptions> FilmTypeOptions { get; }
         ICommonHandbookRepository<Color> Colors { get; }
         ICommonHandbookRepository<FilmType> FilmTypes { get; } 
         CommandResponse Complete();

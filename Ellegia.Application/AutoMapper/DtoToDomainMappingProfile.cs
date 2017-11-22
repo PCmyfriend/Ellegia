@@ -13,6 +13,12 @@ namespace Ellegia.Application.AutoMapper
             CreateMeasuremntUnitMap();
             CreatePlasticBagTypeMap();
             CreateFilmTypeMap();
+            CreateFilmTypeOptions();
+        }
+
+        private void CreateFilmTypeOptions()
+        {
+            CreateMap<FilmTypeOptionsDto, FilmTypeOptions>();
         }
 
         private void CreateFilmTypeMap()
