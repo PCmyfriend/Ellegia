@@ -9,12 +9,14 @@ namespace Ellegia.Infra.Data.Context
 {
     public class EllegiaContext : DbContext
     {
-        public DbSet<FilmTypeOptions> FilmTypesOptions { get; set; }
-        public DbSet<FilmType> FilmTypes { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
         public DbSet<ContactType> ContactTypes { get; set; }
-        public DbSet<MeasurementUnit> MeasurementUnits { get; set; }
+        public DbSet<MeasurementUnit> MeasurementUnits { get; set; }    
+        public DbSet<FilmType> FilmTypes { get; set; }
+        public DbSet<FilmTypeOption> FilmTypesOptions { get; set; }
+        public DbSet<Shift> Shifts { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -22,14 +24,16 @@ namespace Ellegia.Infra.Data.Context
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOptions>(100));
-            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
+        { 
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<PlasticBagType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<ContactType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
-            
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOption>(100));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Shift>(255));
+            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<OrderStatus>(255));
+
             base.OnModelCreating(modelBuilder);
         }
 

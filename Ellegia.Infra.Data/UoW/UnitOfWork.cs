@@ -11,18 +11,21 @@ namespace Ellegia.Infra.Data.UoW
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EllegiaContext _context;
-        public ICommonHandbookRepository<FilmTypeOptions> FilmTypeOptions { get; }
+   
         public ICommonHandbookRepository<Color> Colors { get; }
         public ICommonHandbookRepository<FilmType> FilmTypes { get; }
-
+        public ICommonHandbookRepository<FilmTypeOption> FilmTypeOptions { get; }
+        public ICommonHandbookRepository<Shift> Shifts { get; }
+        public ICommonHandbookRepository<OrderStatus> OrderStatuses { get; }
 
         public UnitOfWork(EllegiaContext context)
         {
-            _context = context;
-
-            FilmTypeOptions = new CommonHandbookRepository<FilmTypeOptions>(context);
+            _context = context;        
             Colors = new CommonHandbookRepository<Color>(context);
             FilmTypes = new CommonHandbookRepository<FilmType>(context);
+            FilmTypeOptions = new CommonHandbookRepository<FilmTypeOption>(context);
+            Shifts = new CommonHandbookRepository<Shift>(context);
+            OrderStatuses = new CommonHandbookRepository<OrderStatus>(context);
         }
         
         public CommandResponse Complete()

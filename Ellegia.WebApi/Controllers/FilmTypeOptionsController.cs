@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ellegia.WebApi.Controllers
 {
     [Route("api/filmTypeOptions")]
-    public class FilmTypeOptionsController: CommonHandbookController<FilmTypeOptions, FilmTypeOptionsDto>
+    public class FilmTypeOptionsController: CommonHandbookController<FilmTypeOption, FilmTypeOptionDto>
     {
         public FilmTypeOptionsController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {

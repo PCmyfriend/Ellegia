@@ -3,20 +3,19 @@ using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class FilmType : Entity, ICommonHandbook
+    public class FilmTypeOption : Entity, ICommonHandbook
     {
-        public string Name { get; private set; }
+        public string Name { get; private set; }    
 
-        public FilmType(int id, string name)
-        {   
+        public FilmTypeOption(int id, string name)
+        {
             Id = id;
             Name = name;
         }
 
-        protected FilmType()
+        protected FilmTypeOption()
         {
             // empty constructor for EF
         }
-    }
+    } 
 }
- 

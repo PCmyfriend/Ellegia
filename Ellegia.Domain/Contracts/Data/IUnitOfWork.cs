@@ -7,10 +7,12 @@ using Color = Ellegia.Domain.Models.Color;
 namespace Ellegia.Domain.Contracts.Data
 {
     public interface IUnitOfWork    
-    {
-        ICommonHandbookRepository<FilmTypeOptions> FilmTypeOptions { get; }
+    { 
         ICommonHandbookRepository<Color> Colors { get; }
-        ICommonHandbookRepository<FilmType> FilmTypes { get; } 
+        ICommonHandbookRepository<FilmType> FilmTypes { get; }
+        ICommonHandbookRepository<FilmTypeOption> FilmTypeOptions { get; }
+        ICommonHandbookRepository<Shift> Shifts { get; }
+        ICommonHandbookRepository<OrderStatus> OrderStatuses { get; }
         CommandResponse Complete();
 
         ICommonHandbookRepository<TEntity> CreateRepository<TEntity>() where TEntity : class, ICommonHandbook;
