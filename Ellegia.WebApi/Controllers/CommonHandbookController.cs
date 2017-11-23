@@ -3,6 +3,7 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Contracts.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
@@ -13,7 +14,7 @@ namespace Ellegia.WebApi.Controllers
     {
         private readonly ICommonHandbookAppService<TEntity, TEntityDto> _appService;
 
-        public CommonHandbookController(IMapper mapper, IUnitOfWork unitOfWork)
+        protected CommonHandbookController(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _appService = new CommonHandbookAppService<TEntity, TEntityDto>(mapper, unitOfWork);
         }
@@ -53,7 +54,7 @@ namespace Ellegia.WebApi.Controllers
             
             _appService.Remove(id);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

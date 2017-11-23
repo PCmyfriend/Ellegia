@@ -17,6 +17,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<FilmTypeOption> FilmTypesOptions { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<StandardSize> StandardSizes { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -26,7 +27,6 @@ namespace Ellegia.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
-            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<PlasticBagType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<ContactType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));

@@ -16,6 +16,7 @@ namespace Ellegia.Application.AutoMapper
             CreateFilmTypeOptions();
             CreateShift();
             CreateOrderStatus();
+            CreateStandardSizeMap();
         }
 
         private void CreateColorMap()
@@ -37,22 +38,10 @@ namespace Ellegia.Application.AutoMapper
         {
             CreateMap<PlasticBagTypeDto, PlasticBagType>();
         }
-        private void CreateFilmTypeMap()
-        {
-            CreateMap<FilmTypeDto, FilmType>();
-        }
-        private void CreateFilmTypeOptions()
-        {
-            CreateMap<FilmTypeOptionDto, FilmTypeOption>();
-        }
 
-        private void CreateShift()
+        private void CreateStandardSizeMap()
         {
-            CreateMap<ShiftDto, Shift>();
-        }
-        private void CreateOrderStatus()
-        {
-            CreateMap<OrderStatusDto, OrderStatus>();
+            CreateMap<StandardSizeDto, StandardSize>();
         }
     }
 }

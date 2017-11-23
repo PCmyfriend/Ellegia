@@ -14,6 +14,7 @@ namespace Ellegia.Application.AutoMapper
             CreateMeasuremntUnitMap();
             CreatePlasticBagTypeMap();
             CreateFilmTypeMap();
+            CreateStandardSizeMap();
             CreateFilmTypeOption();
             CreateShift();
             CreateOrderStatus();
@@ -37,6 +38,11 @@ namespace Ellegia.Application.AutoMapper
         private void CreatePlasticBagTypeMap()
         {
             CreateMap<PlasticBagType, PlasticBagTypeDto>();
+        }
+
+        private void CreateStandardSizeMap()
+        {
+            CreateMap<StandardSize, StandardSizeDto>();
         }
 
         private void CreateFilmTypeMap()
