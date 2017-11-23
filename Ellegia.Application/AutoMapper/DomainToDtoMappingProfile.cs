@@ -13,6 +13,7 @@ namespace Ellegia.Application.AutoMapper
             CreateContactTypeMap();
             CreateMeasuremntUnitMap();
             CreatePlasticBagTypeMap();
+            CreateStandardSizeMap();
         }
 
         private void CreateColorMap()
@@ -33,6 +34,11 @@ namespace Ellegia.Application.AutoMapper
         private void CreatePlasticBagTypeMap()
         {
             CreateMap<PlasticBagType, PlasticBagTypeDto>();
+        }
+
+        private void CreateStandardSizeMap()
+        {
+            CreateMap<StandardSize, StandardSizeDto>();
         }
     }
 }

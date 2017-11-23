@@ -13,6 +13,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
         public DbSet<ContactType> ContactTypes { get; set; }
         public DbSet<MeasurementUnit> MeasurementUnits { get; set; }
+        public DbSet<StandardSize> StandardSizes { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -22,9 +23,10 @@ namespace Ellegia.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
-            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<PlasticBagType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<ContactType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
+            modelBuilder.ApplyConfiguration(new PlasticBagTypeConfiguration(100));
+            modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }
