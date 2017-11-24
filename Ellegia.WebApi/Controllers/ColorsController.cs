@@ -11,6 +11,7 @@ namespace Ellegia.WebApi.Controllers
     {
         public ColorsController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
+
         }
     }
 }

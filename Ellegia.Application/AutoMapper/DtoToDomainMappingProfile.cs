@@ -10,13 +10,33 @@ namespace Ellegia.Application.AutoMapper
         {
             CreateColorMap();
             CreateContactTypeMap();
-            CreateMeasuremntUnitMap();
+            CreateMeasurementUnitMap();
             CreatePlasticBagTypeMap();
             CreateFilmTypeMap();
             CreateFilmTypeOptions();
             CreateShift();
             CreateOrderStatus();
             CreateStandardSizeMap();
+        }
+
+        public void CreateOrderStatus()
+        {
+            CreateMap<OrderStatusDto, OrderStatus>();
+        }
+
+        public void CreateShift()
+        {
+            CreateMap<ShiftDto, Shift>();
+        }
+
+        public void CreateFilmTypeOptions()
+        {
+            CreateMap<FilmTypeOptionDto, FilmTypeOption>();
+        }
+
+        public void CreateFilmTypeMap()
+        {
+            CreateMap<FilmTypeDto, FilmType>();
         }
 
         private void CreateColorMap()
@@ -29,7 +49,7 @@ namespace Ellegia.Application.AutoMapper
             CreateMap<ContactTypeDto, ContactType>();
         }
 
-        private void CreateMeasuremntUnitMap()
+        private void CreateMeasurementUnitMap()
         {
             CreateMap<MeasurementUnitDto, MeasurementUnit>();
         }

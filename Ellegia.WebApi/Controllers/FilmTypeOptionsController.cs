@@ -11,6 +11,7 @@ namespace Ellegia.WebApi.Controllers
     {
         public FilmTypeOptionsController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
+
         }
     }
 }
