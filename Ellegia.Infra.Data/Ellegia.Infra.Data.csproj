@@ -12,9 +12,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
+    <PackageReference Include="OpenIddict" Version="2.0.0-*" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ellegia.Domain\Ellegia.Domain.csproj" />
+    <ProjectReference Include="..\Ellegia.Infra.CrossCutting.Identity\Ellegia.Infra.CrossCutting.Identity.csproj" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />

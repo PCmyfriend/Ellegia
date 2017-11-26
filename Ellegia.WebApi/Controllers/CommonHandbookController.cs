@@ -3,7 +3,6 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Contracts.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers

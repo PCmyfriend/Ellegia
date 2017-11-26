@@ -1,13 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Ellegia.Domain.Models;
+using Ellegia.Infra.CrossCutting.Identity.Models;
 using Ellegia.Infra.Data.EntityConfigurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-    
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Ellegia.Infra.Data.Context
 {
-    public class EllegiaContext : DbContext
+    public class EllegiaContext : IdentityDbContext<EllegiaUser, EllegiaRole, int>
     {
         public DbSet<Color> Colors { get; set; }
         public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
@@ -46,6 +52,40 @@ namespace Ellegia.Infra.Data.Context
 
             optionsBuilder.UseInMemoryDatabase("EllegiaDb");
             //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+
+            optionsBuilder.UseOpenIddict<int>();
+        }
+        
+        public static async Task CreateAdminAccount(
+            IServiceProvider serviceProvider,
+            IConfigurationRoot configuration)
+        {
+            var userManager =
+                serviceProvider.GetRequiredService<UserManager<EllegiaUser>>();
+            var roleManager =
+                serviceProvider.GetRequiredService<RoleManager<EllegiaRole>>();
+
+            var userName = configuration["Users:AdminUser:Name"];
+            var email = configuration["Users:AdminUser:Email"];
+            var password = configuration["Users:AdminUser:Password"];
+            var role = configuration["Users:AdminUser:Role"];
+
+            if (await userManager.FindByNameAsync(userName) == null)
+            {
+                if (await roleManager.FindByNameAsync(role) == null)
+                    await roleManager.CreateAsync(new EllegiaRole { Name = role });
+
+                var user = new EllegiaUser
+                {
+                    UserName = userName,
+                    Email = email
+                };
+
+                var result = await userManager
+                    .CreateAsync(user, password);
+                if (result.Succeeded)
+                    await userManager.AddToRoleAsync(user, role);
+            }
         }
     }
 }

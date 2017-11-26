@@ -1,11 +1,17 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
+using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
+using Ellegia.Infra.CrossCutting.Identity.Models;
 using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
 using Ellegia.WebApi.Configurations;
+using Ellegia.WebApi.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +30,7 @@ namespace Ellegia.WebApi
 
             if (env.IsDevelopment())
             {
-                builder.AddUserSecrets<Startup>();
+                //builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -35,6 +41,42 @@ namespace Ellegia.WebApi
         {
             services.AddDbContext<EllegiaContext>();
 
+            services.AddIdentity<EllegiaUser, EllegiaRole>(options =>
+                {
+                    options.ClaimsIdentity.UserNameClaimType = OpenIdConnectConstants.Claims.Name;
+                    options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
+                    options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
+                })
+                .AddEntityFrameworkStores<EllegiaContext>()
+                .AddDefaultTokenProviders();
+            
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = OAuthValidationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OAuthValidationDefaults.AuthenticationScheme;
+                })
+                .AddOAuthValidation();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
+
+            services.AddDistributedMemoryCache();
+            
+            services.AddOpenIddict<int>(options =>
+            {
+                options.AddEntityFrameworkCoreStores<EllegiaContext>();
+                options.AddMvcBinders();
+                options.EnableTokenEndpoint($"/{Routes.TokenEndpoint}");
+                options.AllowPasswordFlow();
+                options.DisableHttpsRequirement();
+            });
+
             services.AddWebApi();
 
             services.AddAutoMapper();
@@ -42,7 +84,7 @@ namespace Ellegia.WebApi
             RegisterServices(services);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -56,9 +98,10 @@ namespace Ellegia.WebApi
                 c.AllowAnyOrigin();
             });
 
+            app.UseAuthentication();
             app.UseMvc();
 
-            app.Run(async context => { await context.Response.WriteAsync("Resource is not found."); });
+            await EllegiaContext.CreateAdminAccount(serviceProvider, Configuration);
         }
 
         private static void RegisterServices(IServiceCollection services)

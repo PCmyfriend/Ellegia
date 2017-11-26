@@ -15,7 +15,8 @@ namespace Ellegia.WebApi.Configurations
                 .AddJsonFormatters()
                 .AddApiExplorer()
                 .AddCors()
-                .AddDataAnnotations();
+                .AddDataAnnotations()
+                .AddAuthorization();
             
             return new MvcBuilder(builder.Services, builder.PartManager);
         }
