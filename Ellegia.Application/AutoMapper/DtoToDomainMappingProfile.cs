@@ -13,23 +13,23 @@ namespace Ellegia.Application.AutoMapper
             CreateMeasurementUnitMap();
             CreatePlasticBagTypeMap();
             CreateFilmTypeMap();
-            CreateFilmTypeOptions();
-            CreateShift();
-            CreateOrderStatus();
+            CreateFilmTypeOptionsMap();
+            CreateShiftMap();
+            CreateOrderStatusMap();
             CreateStandardSizeMap();
         }
 
-        public void CreateOrderStatus()
+        public void CreateOrderStatusMap()
         {
             CreateMap<OrderStatusDto, OrderStatus>();
         }
 
-        public void CreateShift()
+        public void CreateShiftMap()
         {
             CreateMap<ShiftDto, Shift>();
         }
 
-        public void CreateFilmTypeOptions()
+        public void CreateFilmTypeOptionsMap()
         {
             CreateMap<FilmTypeOptionDto, FilmTypeOption>();
         }
