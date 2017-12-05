@@ -7,15 +7,15 @@ namespace Ellegia.Domain.Models
     {
         public string Name { get; private set; }
 
-        public Color(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-        
         protected Color()
         {
             // empty constructor for EF
         }
+
+        public Color(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }               
     }
 }

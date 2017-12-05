@@ -7,16 +7,16 @@ namespace Ellegia.Domain.Models
     {
         public string Name { get; private set; }
 
-        public FilmType(int id, string name)
-        {   
-            Id = id;
-            Name = name;
-        }
-
         protected FilmType()
         {
             // empty constructor for EF
         }
+
+        public FilmType(int id, string name)
+        {   
+            Id = id;
+            Name = name;
+        }     
     }
 }
  

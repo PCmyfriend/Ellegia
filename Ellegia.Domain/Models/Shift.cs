@@ -7,15 +7,16 @@ namespace Ellegia.Domain.Models
     {
         public string Name { get; private set; }
 
+        protected Shift()
+        {
+            // empty constructor for EF
+        }
+
         public Shift(int id, string name)
         {
             Id = id;
             Name = name;    
         }
-
-        protected Shift()
-        {
-            // empty constructor for EF
-        }
+       
     }
 }

@@ -14,6 +14,8 @@ namespace Ellegia.Domain.Contracts.Data
         ICommonHandbookRepository<Shift> Shifts { get; }
         ICommonHandbookRepository<OrderStatus> OrderStatuses { get; }
         ICommonHandbookRepository<PlasticBagType> PlasticBagTypes { get; }
+       
+            
         CommandResponse Complete();
 
         ICommonHandbookRepository<TEntity> CreateCommonHandbookRepository<TEntity>() where TEntity : class, ICommonHandbook;

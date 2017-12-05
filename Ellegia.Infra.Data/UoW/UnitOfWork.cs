@@ -19,6 +19,7 @@ namespace Ellegia.Infra.Data.UoW
         public ICommonHandbookRepository<Shift> Shifts { get; }
         public ICommonHandbookRepository<OrderStatus> OrderStatuses { get; }
         public ICommonHandbookRepository<PlasticBagType> PlasticBagTypes { get; }
+        
 
         public UnitOfWork(EllegiaContext context)
         {

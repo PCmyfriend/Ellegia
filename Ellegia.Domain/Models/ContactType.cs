@@ -1,4 +1,5 @@
-﻿using Ellegia.Domain.Contracts.Common;
+﻿using System.Text.RegularExpressions;
+using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
@@ -6,16 +7,24 @@ namespace Ellegia.Domain.Models
     public class ContactType : Entity, ICommonHandbook
     {
         public string Name { get; private set; }
+        public string InputMask { get; private set; }
 
-        public ContactType(int id, string name)
+         protected ContactType()
+        {
+            // empty constructor for EF
+        }
+
+        public ContactType(int id, string name, string inputMask)
         {
             Id = id;
             Name = name;
+            InputMask = inputMask;
         }
-        
-        protected ContactType()
+
+        public bool Validate(string str)
         {
-            // empty constructor for EF
+            var match = Regex.Match(str, InputMask, RegexOptions.IgnoreCase);
+            return match.Success;
         }
     }
 }

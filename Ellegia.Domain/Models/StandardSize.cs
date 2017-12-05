@@ -14,7 +14,7 @@ namespace Ellegia.Domain.Models
 
         protected StandardSize()
         {
-            // required EF constructor
+            // empty constructor for EF
         }
 
         public StandardSize(float widthInCm, float lengthInCm, int quantityInBag)
