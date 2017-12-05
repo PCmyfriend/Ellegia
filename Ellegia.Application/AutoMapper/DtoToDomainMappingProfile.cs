@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ellegia.Application.Dtos;
+using Ellegia.Application.Dtos.Order;
 using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.AutoMapper
@@ -15,13 +16,9 @@ namespace Ellegia.Application.AutoMapper
             CreateFilmTypeMap();
             CreateFilmTypeOptionsMap();
             CreateShiftMap();
-            CreateOrderStatusMap();
             CreateStandardSizeMap();
-        }
-
-        public void CreateOrderStatusMap()
-        {
-            CreateMap<OrderStatusDto, OrderStatus>();
+            CreateOrderSpecificationsMap();
+            CreateOrderMap();
         }
 
         public void CreateShiftMap()
@@ -62,6 +59,16 @@ namespace Ellegia.Application.AutoMapper
         private void CreateStandardSizeMap()
         {
             CreateMap<StandardSizeDto, StandardSize>();
+        }
+
+        private void CreateOrderSpecificationsMap()
+        {
+            CreateMap<OrderSpecificationsFormDto, OrderSpecifications>();
+        }
+
+        private void CreateOrderMap()
+        {
+            CreateMap<OrderFormDto, Order>();
         }
     }
 }

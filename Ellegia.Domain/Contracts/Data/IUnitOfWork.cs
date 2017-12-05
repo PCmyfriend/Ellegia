@@ -12,8 +12,8 @@ namespace Ellegia.Domain.Contracts.Data
         ICommonHandbookRepository<FilmType> FilmTypes { get; }
         ICommonHandbookRepository<FilmTypeOption> FilmTypeOptions { get; }
         ICommonHandbookRepository<Shift> Shifts { get; }
-        ICommonHandbookRepository<OrderStatus> OrderStatuses { get; }
         ICommonHandbookRepository<PlasticBagType> PlasticBagTypes { get; }
+        IOrderRepository Orders { get; }
         CommandResponse Complete();
 
         ICommonHandbookRepository<TEntity> CreateCommonHandbookRepository<TEntity>() where TEntity : class, ICommonHandbook;

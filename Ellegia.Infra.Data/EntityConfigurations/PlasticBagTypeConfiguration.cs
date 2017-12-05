@@ -14,7 +14,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
             base.Configure(builder);
 
             builder.HasMany(pbt => pbt.StandardSizes)
-                .WithOne()
+                .WithOne(ss => ss.PlasticBagType)
                 .HasForeignKey(ss => ss.PlasticBagTypeId);
         }
     }

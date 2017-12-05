@@ -7,27 +7,22 @@ using Ellegia.Domain.Contracts.Data.Repositories;
 namespace Ellegia.Application.Services
 {
     public class CommonHandbookAppService<TEntity, TEntityDto> 
-        : AppService<TEntity, TEntityDto>, 
-          ICommonHandbookAppService<TEntity, TEntityDto>
+        : AppService<TEntity, TEntityDto, TEntityDto>, 
+          ICommonHandbookAppService<TEntityDto>
         where TEntity : class, ICommonHandbook 
         where TEntityDto: class, ICommonHandbook
     {
         private readonly ICommonHandbookRepository<TEntity> _commonHandbookRepository;
 
         public CommonHandbookAppService(IMapper mapper, IUnitOfWork unitOfWork)
-            : base(mapper, unitOfWork)
+            : base(unitOfWork.CreateCommonHandbookRepository<TEntity>(), mapper, unitOfWork)
         {
-            _commonHandbookRepository = (ICommonHandbookRepository<TEntity>) _repository;
+            _commonHandbookRepository = (ICommonHandbookRepository<TEntity>) _baseRepository;
         }
         
         public TEntityDto GetByName(string name)
         {
             return _mapper.Map<TEntityDto>(_commonHandbookRepository.GetByName(name));
-        }
-
-        protected override IRepository<TEntity> CreateRepository()
-        {
-            return _unitOfWork.CreateCommonHandbookRepository<TEntity>();
         }
     }
 }

@@ -2,64 +2,62 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
 
 namespace Ellegia.Application.Services
 {
-    public class AppService<TEntity, TEntityDto> 
+    public class AppService<TEntity, TInputEntityDto, TOutputEntityDto> 
+        : IAppService<TInputEntityDto, TOutputEntityDto>
         where TEntity: class
-        where TEntityDto: class
+        where TOutputEntityDto: class
+        where TInputEntityDto: class
     {
+        protected readonly IRepository<TEntity> _baseRepository;
         protected readonly IMapper _mapper;
         protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IRepository<TEntity> _repository;
 
         public AppService(
+            IRepository<TEntity> repository, 
             IMapper mapper,
             IUnitOfWork unitOfWork)
         {
+            _baseRepository = repository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _repository = CreateRepository();
         }
 
-        public IEnumerable<TEntityDto> GetAll()
+        public IEnumerable<TOutputEntityDto> GetAll()
         {
-            return _repository.GetAll().ToImmutableList().Select(_mapper.Map<TEntityDto>);
+            return _baseRepository.GetAll().ToImmutableList().Select(_mapper.Map<TOutputEntityDto>);
         }
 
-        public TEntityDto GetById(int id)
+        public TOutputEntityDto GetById(int id)
         {
-            return _mapper.Map<TEntityDto>(_repository.GetById(id));
+            return _mapper.Map<TOutputEntityDto>(_baseRepository.GetById(id));
         }
 
-        public TEntityDto Add(TEntityDto entityDto)
+        public TOutputEntityDto Add(TInputEntityDto entityDto)
         {
             var entity = _mapper.Map<TEntity>(entityDto);
             
-            _repository.Add(entity);
+            _baseRepository.Add(entity);
             _unitOfWork.Complete();
 
-            return _mapper.Map<TEntityDto>(entity);
+            return _mapper.Map<TOutputEntityDto>(entity);
         }
 
-        public TEntityDto Update(TEntityDto entityDto)
+        public TOutputEntityDto Update(TInputEntityDto entityDto)
         {
             throw new NotSupportedException();
         }
 
         public void Remove(int id)
         {
-            _repository.Remove(id);
+            _baseRepository.Remove(id);
             _unitOfWork.Complete();
-        }
-        
-        protected virtual IRepository<TEntity> CreateRepository()
-        {
-            return _unitOfWork.CreateRepository<TEntity>();
         }
     }
 }
