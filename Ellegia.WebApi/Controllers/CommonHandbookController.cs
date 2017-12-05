@@ -23,9 +23,6 @@ namespace Ellegia.WebApi.Controllers
 
         public override IActionResult Add([FromBody] TEntityDto entityDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             if (_appService.GetByName(entityDto.Name) != null)
                 return BadRequest($"{entityDto.Name} has aready existed.");
             

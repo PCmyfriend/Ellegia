@@ -31,9 +31,6 @@ namespace Ellegia.WebApi.Controllers
         [HttpPost]
         public virtual IActionResult Add([FromBody] TInputEntityDto entityDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
             var entity = _baseAppService.Add(entityDto);
 
             return StatusCode(StatusCodes.Status201Created, entity);

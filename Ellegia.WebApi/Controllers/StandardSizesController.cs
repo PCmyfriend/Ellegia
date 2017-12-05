@@ -35,10 +35,7 @@ namespace Ellegia.WebApi.Controllers
 
         [HttpPost]
         public IActionResult Add(int plasticBagTypeId, [FromBody] StandardSizeDto standardSizeDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            
+        {   
             var standardSize = _standardSizeAppService.Add(plasticBagTypeId, standardSizeDto);
 
             if (standardSize == null)
