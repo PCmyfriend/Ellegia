@@ -6,6 +6,9 @@ namespace Ellegia.Domain.Models
 {
     public class Contact : Entity, ICommonHandbook
     {
+        public int CustomerId { get; private set; }
+        public int ContactTypeId { get; private set; }
+
         public string Name { get; private set; }
 
         public ContactType ContactType { get; private set; }
@@ -23,7 +26,6 @@ namespace Ellegia.Domain.Models
             Name = name;
             ContactType = contactType;
         }
-
-       
+     
     }
 }

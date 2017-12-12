@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
@@ -24,6 +25,17 @@ namespace Ellegia.Domain.Models
         public void AddContact(Contact contact)
         {
             Contacts.Add(contact);
+        }
+
+        public Contact FindContact(int id)
+        {
+            return Contacts.SingleOrDefault(ss => ss.Id == id);
+        }
+            
+        public bool RemoveContact(int id)   
+        {
+            var contact = FindContact(id);
+            return contact != null && Contacts.Remove(contact);
         }
     }
 }

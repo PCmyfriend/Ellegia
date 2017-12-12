@@ -9,6 +9,7 @@ using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
 using Ellegia.WebApi.Configurations;
 using Ellegia.WebApi.Constants;
+using Ellegia.WebApi.MvcFilters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ namespace Ellegia.WebApi
 
             if (env.IsDevelopment())
             {
-                //builder.AddUserSecrets<Startup>();
+                builder.AddUserSecrets<Startup>();
             }
 
             builder.AddEnvironmentVariables();
@@ -77,7 +78,10 @@ namespace Ellegia.WebApi
                 options.DisableHttpsRequirement();
             });
 
-            services.AddWebApi();
+            services.AddWebApi(options =>
+            {
+                options.Filters.Add(new ModelStateValidationFilter());
+            });
 
             services.AddAutoMapper();
 

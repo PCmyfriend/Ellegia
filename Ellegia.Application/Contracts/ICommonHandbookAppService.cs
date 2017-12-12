@@ -2,8 +2,7 @@
 
 namespace Ellegia.Application.Contracts
 {
-    public interface ICommonHandbookAppService<TEntity, TEntityDto> : IAppService<TEntityDto> 
-        where TEntity : class, ICommonHandbook
+    public interface ICommonHandbookAppService<TEntityDto> : IAppService<TEntityDto, TEntityDto> 
         where TEntityDto : class, ICommonHandbook
     {
         TEntityDto GetByName(string name);

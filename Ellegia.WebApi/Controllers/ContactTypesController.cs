@@ -11,7 +11,6 @@ namespace Ellegia.WebApi.Controllers
     {
         public ContactTypesController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
-
         }
     }
 }
