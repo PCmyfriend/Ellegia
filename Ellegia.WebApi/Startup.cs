@@ -95,6 +95,9 @@ namespace Ellegia.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors(c =>
             {
                 c.AllowAnyHeader();
