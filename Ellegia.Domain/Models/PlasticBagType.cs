@@ -10,7 +10,7 @@ namespace Ellegia.Domain.Models
     {
         public ICollection<StandardSize> StandardSizes { get; private set; }
         
-        public string Name { get; private set; }
+        public string Name { get; private set; }  
 
         public PlasticBagType(int id, string name)
         {

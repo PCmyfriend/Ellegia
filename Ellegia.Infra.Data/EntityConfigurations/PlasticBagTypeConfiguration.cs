@@ -7,6 +7,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public PlasticBagTypeConfiguration(int namePropertyMaxLength) : base(namePropertyMaxLength)
         {
+
         }
 
         public override void Configure(EntityTypeBuilder<PlasticBagType> builder)

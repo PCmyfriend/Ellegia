@@ -2,7 +2,10 @@
 {
     public class Roles
     {
-        private Roles() { }
+        private Roles()
+        {
+            
+        }
 
         public const string Secretary = "Secretary";
         public const string Technologist = "Technologist";

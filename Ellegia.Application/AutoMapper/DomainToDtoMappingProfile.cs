@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Dtos.Order;
 using Ellegia.Domain.Models;
 using Color = Ellegia.Domain.Models.Color;
 
@@ -18,10 +17,6 @@ namespace Ellegia.Application.AutoMapper
             CreateStandardSizeMap();
             CreateFilmTypeOptionMap();
             CreateShiftMap();
-            CreateOrderStandardSizeMap();
-            CreateOrderSpecificationsMap();
-            CreateOrderPaymentInfoMap();
-            CreateOrderMap();
             CreateCustomerMap();
             CreateContactMap();
         }
@@ -64,30 +59,6 @@ namespace Ellegia.Application.AutoMapper
         private void CreateShiftMap()
         {
             CreateMap<Shift, ShiftDto>();
-        }
-
-        private void CreateOrderStandardSizeMap()
-        {
-            CreateMap<StandardSize, OrderStandardSizeDto>();
-        }
-
-        private void CreateOrderSpecificationsMap()
-        {
-            CreateMap<OrderSpecifications, OrderSpecificationsDto>();
-        }
-
-        private void CreateOrderPaymentInfoMap()
-        {
-            CreateMap<OrderPaymentInfo, OrderPaymentInfoDto>()
-                .ForMember(src => src.Status,
-                           opts => opts.MapFrom(o => o.Status.ToString()));
-        }
-
-        private void CreateOrderMap()
-        {
-            CreateMap<Order, OrderDto>()
-                .ForMember(src => src.Status,
-                           opts => opts.MapFrom(o => o.Status.ToString()));
         }
 
         private void CreateCustomerMap()

@@ -5,7 +5,7 @@ namespace Ellegia.Domain.Models
 {
     public class StandardSize : Entity
     {
-        // Possible EF include
+        
         public PlasticBagType PlasticBagType { get; private set; }
         
         public int PlasticBagTypeId { get; private set; }
