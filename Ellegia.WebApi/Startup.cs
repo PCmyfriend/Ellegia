@@ -109,6 +109,7 @@ namespace Ellegia.WebApi
             app.UseMvc();
 
             await EllegiaContext.CreateAdminAccount(serviceProvider, Configuration);
+            EllegiaContext.Seed(serviceProvider);
         }
 
         private static void RegisterServices(IServiceCollection services)
