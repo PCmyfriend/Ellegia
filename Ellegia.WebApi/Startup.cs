@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
-using Ellegia.Infra.CrossCutting.Identity.Models;
+using Ellegia.Domain.Models;
 using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
 using Ellegia.WebApi.Configurations;

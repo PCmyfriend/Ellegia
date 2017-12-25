@@ -3,13 +3,12 @@ using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OpenIdConnect.Server;
-using Ellegia.Infra.CrossCutting.Identity.Models;
+using Ellegia.Domain.Models;
 using Ellegia.WebApi.Constants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using OpenIddict.Core;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 

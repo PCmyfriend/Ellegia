@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using Ellegia.Domain.Models;
-using Ellegia.Infra.CrossCutting.Identity.Models;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -29,6 +28,8 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<StandardSize> StandardSizes { get; set; }
 
+        public DbSet<Warehouse> Warehouses { get; set; }
+
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
         {
@@ -42,7 +43,6 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOption>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Shift>(255));
-
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
 

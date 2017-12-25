@@ -7,9 +7,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ellegia.Domain\Ellegia.Domain.csproj">
-      <Project>{9C2AC53F-AEC6-4E66-BDA5-3D2B67D4ECA7}</Project>
-      <Name>Ellegia.Domain</Name>
-    </ProjectReference>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

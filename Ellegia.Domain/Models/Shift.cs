@@ -6,6 +6,8 @@ namespace Ellegia.Domain.Models
     public class Shift: Entity, ICommonHandbook
     {
         public string Name { get; private set; }
+            
+        public int Supervisor { get; private set; } 
 
         protected Shift()
         {
