@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using Ellegia.Domain.Models;
+using Ellegia.Infra.Data.Context.Extensions;
+using Ellegia.Infra.Data.Context.Seeding.Seeders;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -93,6 +95,16 @@ namespace Ellegia.Infra.Data.Context
                 if (result.Succeeded)
                     await userManager.AddToRoleAsync(user, role);
             }
+        }
+
+        public static void Seed(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetRequiredService<EllegiaContext>();
+            
+            context.EnsureSeeded(new[]
+            {
+                new ContactTypesSeeder()
+            });
         }
     }
 }
