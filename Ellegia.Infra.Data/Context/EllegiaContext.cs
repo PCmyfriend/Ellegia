@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context.Extensions;
+using Ellegia.Infra.Data.Context.Seeding;
 using Ellegia.Infra.Data.Context.Seeding.Seeders;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.AspNetCore.Identity;
@@ -45,9 +46,14 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOption>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Shift>(255));
-            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
-
+            modelBuilder.ApplyConfiguration(new ContactTypeConfiguration());            
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new EllegiaUserConfiguration());
+            modelBuilder.ApplyConfiguration(new FilmTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PlasticBagTypeConfiguration(255));
+            modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
+            modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -101,9 +107,10 @@ namespace Ellegia.Infra.Data.Context
         {
             var context = serviceProvider.GetRequiredService<EllegiaContext>();
             
-            context.EnsureSeeded(new[]
+            context.EnsureSeeded(new ISeeder[]
             {
-                new ContactTypesSeeder()
+                new ContactTypesSeeder(),
+                new WarehousesSeeder()
             });
         }
     }
