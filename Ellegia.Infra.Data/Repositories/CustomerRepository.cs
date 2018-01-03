@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ellegia.Infra.Data.Repositories
 {
-    public class CustomerRepository: CommonHandbookRepository<Customer>
+    public class CustomerRepository: Repository<Customer>
     {
         public CustomerRepository(EllegiaContext context) : base(context)
         {

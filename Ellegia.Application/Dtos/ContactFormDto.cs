@@ -2,14 +2,14 @@
 
 namespace Ellegia.Application.Dtos
 {
-    public class ContactTypeDto
-    {
-        public int Id { get; set; }
-        
+    public class ContactFormDto
+    {    
         [Required]
+        [MinLength(2)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]
-        public string InputMask { get; set; }
+        public int ContactTypeId { get; set; }
     }
 }

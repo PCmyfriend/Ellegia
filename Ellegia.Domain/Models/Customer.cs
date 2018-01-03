@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class Customer : Entity, ICommonHandbook
+    public class Customer : Entity
     {
         public ICollection<Contact> Contacts { get; private set; }
         public string Name { get; private set; }

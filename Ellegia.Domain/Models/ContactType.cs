@@ -1,10 +1,9 @@
 ﻿using System.Text.RegularExpressions;
-using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class ContactType : Entity, ICommonHandbook
+    public class ContactType : Entity
     {
         public string Name { get; private set; }
         public string InputMask { get; private set; }

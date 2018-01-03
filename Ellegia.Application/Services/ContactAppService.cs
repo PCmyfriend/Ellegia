@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
@@ -9,11 +8,11 @@ using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Services
 {
-    public class ContactAppService : IContactAppService
+    public class ContactAppService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICommonHandbookRepository<Customer> _customerRepository;
+        private readonly IRepository<Customer> _customerRepository;
 
         public ContactAppService(
             IMapper mapper,
@@ -39,11 +38,16 @@ namespace Ellegia.Application.Services
             return _mapper.Map<ContactDto>(customer?.FindContact(contactId));
         }
 
-        public ContactDto Add(int customerId, ContactDto contactDto)
+        public ContactDto Add(int customerId, ContactFormDto contactDto)
         {
             var customer = GetCustomerById(customerId);
                     
             if (customer == null) 
+                return null;
+
+            var contactType = _unitOfWork.ContactTypes.GetById(contactDto.ContactTypeId);
+
+            if (contactType == null || !contactType.Validate(contactDto.Name))
                 return null;
 
             var contact = _mapper.Map<Contact>(contactDto);

@@ -4,7 +4,6 @@ namespace Ellegia.Application.Dtos
 {
     public class ContactDto
     {
-
         [Required]
         [MinLength(2)]
         [MaxLength(100)]

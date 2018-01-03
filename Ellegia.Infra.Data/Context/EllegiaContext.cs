@@ -24,13 +24,11 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<ContactType> ContactTypes { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Customer> Customers { get; set; }
-
         public DbSet<MeasurementUnit> MeasurementUnits { get; set; }    
         public DbSet<FilmType> FilmTypes { get; set; }
         public DbSet<FilmTypeOption> FilmTypesOptions { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<StandardSize> StandardSizes { get; set; }
-
         public DbSet<Warehouse> Warehouses { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
@@ -41,7 +39,6 @@ namespace Ellegia.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
-            modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<ContactType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmTypeOption>(100));

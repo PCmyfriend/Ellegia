@@ -8,7 +8,7 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders
         protected override IEnumerable<ContactType> Seeds
             => new[]
             {
-                new ContactType(1, "Телефонный номер", "."),
+                new ContactType(1, "Телефонный номер", "^[0-9]*$"),
                 new ContactType(2, "Email", ".")
             };
     }

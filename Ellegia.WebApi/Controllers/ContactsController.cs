@@ -33,7 +33,7 @@ namespace Ellegia.WebApi.Controllers
             Ok(_contactAppService.GetAll(customerId));
 
         [HttpPost]
-        public IActionResult Add(int customerId, [FromBody] ContactDto contactDto)
+        public IActionResult Add(int customerId, [FromBody] ContactFormDto contactDto)
         {
             var contact = _contactAppService.Add(customerId, contactDto);
 

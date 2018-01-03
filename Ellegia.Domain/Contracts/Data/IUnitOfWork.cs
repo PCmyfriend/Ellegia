@@ -13,9 +13,8 @@ namespace Ellegia.Domain.Contracts.Data
         ICommonHandbookRepository<FilmTypeOption> FilmTypeOptions { get; }
         ICommonHandbookRepository<Shift> Shifts { get; }
         ICommonHandbookRepository<PlasticBagType> PlasticBagTypes { get; }
-        ICommonHandbookRepository<Customer> Customers { get; }
-        
-
+        IRepository<Customer> Customers { get; }     
+        IRepository<ContactType> ContactTypes { get; } 
         CommandResponse Complete();
 
         ICommonHandbookRepository<TEntity> CreateCommonHandbookRepository<TEntity>() where TEntity : class, ICommonHandbook;

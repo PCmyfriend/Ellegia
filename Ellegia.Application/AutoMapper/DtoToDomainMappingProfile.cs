@@ -68,6 +68,7 @@ namespace Ellegia.Application.AutoMapper
         private void CreateContactMap()
         {
             CreateMap<ContactDto, Contact>();
+            CreateMap<ContactFormDto, Contact>();
         }
     }
 }

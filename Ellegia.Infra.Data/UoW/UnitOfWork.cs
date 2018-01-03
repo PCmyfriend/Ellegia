@@ -18,7 +18,8 @@ namespace Ellegia.Infra.Data.UoW
         public ICommonHandbookRepository<FilmTypeOption> FilmTypeOptions { get; }
         public ICommonHandbookRepository<Shift> Shifts { get; }
         public ICommonHandbookRepository<PlasticBagType> PlasticBagTypes { get; }
-        public ICommonHandbookRepository<Customer> Customers { get; }
+        public IRepository<Customer> Customers { get; }
+        public IRepository<ContactType> ContactTypes { get; }
 
         public UnitOfWork(EllegiaContext context)
         {
@@ -29,6 +30,7 @@ namespace Ellegia.Infra.Data.UoW
             FilmTypeOptions = new CommonHandbookRepository<FilmTypeOption>(context);
             Shifts = new CommonHandbookRepository<Shift>(context);
             Customers = new CustomerRepository(context);
+            ContactTypes = new ContactTypeRepository(context);
         }
         
         public CommandResponse Complete()
