@@ -52,6 +52,7 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new PlasticBagTypeConfiguration(255));
             modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

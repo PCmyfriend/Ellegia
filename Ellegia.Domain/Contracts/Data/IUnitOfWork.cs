@@ -16,6 +16,7 @@ namespace Ellegia.Domain.Contracts.Data
         IRepository<Customer> Customers { get; }     
         IRepository<ContactType> ContactTypes { get; } 
         IRepository<ProductType> ProductTypes { get; } 
+        IRepository<Order> Orders { get; } 
 
         CommandResponse Complete();
 
