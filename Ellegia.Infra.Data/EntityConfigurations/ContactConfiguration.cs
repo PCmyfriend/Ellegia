@@ -8,11 +8,13 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {
-            builder.Property(c => c.Name)
+            builder
+                .Property(c => c.Name)
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.HasOne(c => c.ContactType)
+            builder
+                .HasOne(c => c.ContactType)
                 .WithMany()
                 .HasForeignKey(c => c.ContactTypeId);
         }

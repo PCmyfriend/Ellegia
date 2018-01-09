@@ -8,7 +8,6 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<StandardSize> builder)
         {
-
         }
     }
 }

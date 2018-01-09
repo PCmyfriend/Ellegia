@@ -15,11 +15,13 @@ namespace Ellegia.Infra.Data.EntityConfigurations
 
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
-            builder.Property(c => c.Name)
+            builder
+                .Property(c => c.Name)
                 .HasMaxLength(_namePropertyMaxLength)
                 .IsRequired();
 
-            builder.HasIndex(c => c.Name)
+            builder
+                .HasIndex(c => c.Name)
                 .IsUnique();
         }
     }

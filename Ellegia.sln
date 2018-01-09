@@ -1,21 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.0.0
-MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Domain.Core", "Ellegia.Domain.Core/Ellegia.Domain.Core.csproj", "{7009F9F1-062F-43BD-8E58-27DFAE994801}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Domain.Core", "Ellegia.Domain.Core\Ellegia.Domain.Core.csproj", "{7009F9F1-062F-43BD-8E58-27DFAE994801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Domain", "Ellegia.Domain\Ellegia.Domain.csproj", "{9C2AC53F-AEC6-4E66-BDA5-3D2B67D4ECA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Domain", "Ellegia.Domain\Ellegia.Domain.csproj", "{9C2AC53F-AEC6-4E66-BDA5-3D2B67D4ECA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Infra.Data", "Ellegia.Infra.Data\Ellegia.Infra.Data.csproj", "{78B074C2-CEC9-4819-A1B4-AD00D517D38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Infra.Data", "Ellegia.Infra.Data\Ellegia.Infra.Data.csproj", "{78B074C2-CEC9-4819-A1B4-AD00D517D38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.WebApi", "Ellegia.WebApi\Ellegia.WebApi.csproj", "{10F6E5C6-A1CC-41C8-9CCD-484A45A981C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.WebApi", "Ellegia.WebApi\Ellegia.WebApi.csproj", "{10F6E5C6-A1CC-41C8-9CCD-484A45A981C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Application", "Ellegia.Application\Ellegia.Application.csproj", "{FB2AC14C-DDE3-47AB-8FC4-291F0A455EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Application", "Ellegia.Application\Ellegia.Application.csproj", "{FB2AC14C-DDE3-47AB-8FC4-291F0A455EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Infra.CrossCutting.IoC", "Ellegia.Infra.CrossCutting.IoC\Ellegia.Infra.CrossCutting.IoC.csproj", "{33ABED74-3FDD-40BE-AD3E-27FACCE3D5CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Infra.CrossCutting.IoC", "Ellegia.Infra.CrossCutting.IoC\Ellegia.Infra.CrossCutting.IoC.csproj", "{33ABED74-3FDD-40BE-AD3E-27FACCE3D5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellegia.Infra.CrossCutting.Identity", "Ellegia.Infra.CrossCutting.Identity\Ellegia.Infra.CrossCutting.Identity.csproj", "{2C2D413C-A7FA-48C4-A81B-68CE08D4ABB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ellegia.Infra.CrossCutting.Identity", "Ellegia.Infra.CrossCutting.Identity\Ellegia.Infra.CrossCutting.Identity.csproj", "{2C2D413C-A7FA-48C4-A81B-68CE08D4ABB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28478D69-ED54-4429-B348-2DAA281F3B6C}
 	EndGlobalSection
 EndGlobal

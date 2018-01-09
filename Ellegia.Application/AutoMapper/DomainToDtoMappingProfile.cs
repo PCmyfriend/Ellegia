@@ -19,6 +19,8 @@ namespace Ellegia.Application.AutoMapper
             CreateShiftMap();
             CreateCustomerMap();
             CreateContactMap();
+            CreateProductTypeMap();
+            CreateOrderMap();
         }
 
         private void CreateColorMap()
@@ -70,6 +72,17 @@ namespace Ellegia.Application.AutoMapper
         {
             CreateMap<Contact, ContactDto>();
             CreateMap<Contact, ContactFormDto>();
+        }
+
+        private void CreateProductTypeMap()
+        {
+            CreateMap<ProductType, ProductTypeDto>();
+            CreateMap<ProductType, ProductTypeFormDto>();
+        }
+
+        private void CreateOrderMap()
+        {   
+            CreateMap<Order, OrderDto>();
         }
     }
 }

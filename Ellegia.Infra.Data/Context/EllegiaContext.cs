@@ -30,6 +30,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<StandardSize> StandardSizes { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -51,6 +52,7 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new PlasticBagTypeConfiguration(255));
             modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
