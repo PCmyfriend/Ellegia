@@ -15,6 +15,7 @@ namespace Ellegia.Domain.Models
         {
             // empty constructor for EF
         }
+        
         public Customer(string name)
         {
             Name = name;
@@ -28,7 +29,7 @@ namespace Ellegia.Domain.Models
 
         public Contact FindContact(int id)
         {
-            return Contacts.SingleOrDefault(ss => ss.Id == id);
+            return Contacts.SingleOrDefault(c => c.Id == id);
         }
             
         public bool RemoveContact(int id)   

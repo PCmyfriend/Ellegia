@@ -6,6 +6,8 @@ namespace Ellegia.Application.Dtos
     {
         public int Id { get; set; }
 
+        public int CustomerId { get; set; }
+        
         [Required]
         [MinLength(2)]
         [MaxLength(100)]
