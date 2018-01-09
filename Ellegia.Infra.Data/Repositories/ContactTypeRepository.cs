@@ -7,7 +7,6 @@ namespace Ellegia.Infra.Data.Repositories
     {
         public ContactTypeRepository(EllegiaContext context) : base(context)
         {
-
         }
     }
 }

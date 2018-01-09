@@ -30,6 +30,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<StandardSize> StandardSizes { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)

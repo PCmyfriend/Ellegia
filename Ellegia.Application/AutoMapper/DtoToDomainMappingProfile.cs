@@ -18,6 +18,7 @@ namespace Ellegia.Application.AutoMapper
             CreateStandardSizeMap();
             CreateCustomerMap();
             CreateContactMap();
+            CreateProductTypeMap();
         }
 
         public void CreateShiftMap()
@@ -69,6 +70,11 @@ namespace Ellegia.Application.AutoMapper
         {
             CreateMap<ContactDto, Contact>();
             CreateMap<ContactFormDto, Contact>();
+        }
+
+        private void CreateProductTypeMap()
+        {
+            CreateMap<ProductTypeDto, ProductType>();
         }
     }
 }

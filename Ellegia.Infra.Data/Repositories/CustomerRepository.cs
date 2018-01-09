@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ellegia.Infra.Data.Repositories
 {
-    public class CustomerRepository: Repository<Customer>
+    public class CustomerRepository : Repository<Customer>
     {
         public CustomerRepository(EllegiaContext context) : base(context)
         {
-
         }
 
         public override Customer GetById(int id)

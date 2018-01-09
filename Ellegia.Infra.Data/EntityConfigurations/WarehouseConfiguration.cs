@@ -8,11 +8,13 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder.Property(w => w.Name)
+            builder
+                .Property(w => w.Name)
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.HasMany(w => w.Employees)
+            builder
+                .HasMany(w => w.Employees)
                 .WithOne()
                 .HasForeignKey(e => e.WarehouseId);
         }
