@@ -5,6 +5,8 @@ namespace Ellegia.Application.Dtos
     public class ContactDto
     {
         public int Id { get; set; }
+
+        public int CustomerId { get; set; }
         
         [Required]
         [MinLength(2)]
