@@ -7,7 +7,7 @@ namespace Ellegia.Domain.Models
 {
     public class FilmType : Entity, ICommonHandbook
     {
-        public ICollection<FilmType> Childs { get; private set; }
+        public ICollection<FilmType> Children { get; private set; }
         public FilmType Parent { get; private set; }
 
         public string Name { get; private set; }
@@ -16,7 +16,7 @@ namespace Ellegia.Domain.Models
 
         protected FilmType()
         {
-            Childs = new Collection<FilmType>();
+            Children = new Collection<FilmType>();
         }
 
         public FilmType(int id, string name)
@@ -24,7 +24,13 @@ namespace Ellegia.Domain.Models
         {   
             Id = id;
             Name = name;
-        }     
+        }
+
+        public FilmType(int id, string name, int parentId)
+            : this(id, name)
+        {
+            ParentId = parentId;
+        }
     }
 }
  

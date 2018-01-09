@@ -107,7 +107,8 @@ namespace Ellegia.Infra.Data.Context
             context.EnsureSeeded(new ISeeder[]
             {
                 new ContactTypesSeeder(),
-                new WarehousesSeeder()
+                new WarehousesSeeder(),
+                new FilmTypesSeeder()
             });
         }
     }

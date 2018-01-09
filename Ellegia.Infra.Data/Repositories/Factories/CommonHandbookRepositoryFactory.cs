@@ -21,6 +21,10 @@ namespace Ellegia.Infra.Data.Repositories.Factories
             {
                 return (ICommonHandbookRepository<T>) new PlasticBagTypeRepository(_context);
             }
+            if (typeof(FilmType) == typeof(T))
+            {
+                return (ICommonHandbookRepository<T>) new FilmTypeRepository(_context);
+            }
             return new CommonHandbookRepository<T>(_context);
         }
     }

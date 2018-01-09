@@ -26,7 +26,7 @@ namespace Ellegia.Infra.Data.UoW
             _context = context;        
             Colors = CreateCommonHandbookRepository<Color>();
             PlasticBagTypes = CreateCommonHandbookRepository<PlasticBagType>();
-            FilmTypes = new CommonHandbookRepository<FilmType>(context);
+            FilmTypes = new FilmTypeRepository(context);
             FilmTypeOptions = new CommonHandbookRepository<FilmTypeOption>(context);
             Shifts = new CommonHandbookRepository<Shift>(context);
             Customers = new CustomerRepository(context);
