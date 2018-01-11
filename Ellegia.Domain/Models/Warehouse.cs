@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
@@ -15,14 +14,12 @@ namespace Ellegia.Domain.Models
         {
             Employees = new Collection<EllegiaUser>();
         }
-        
+
         public Warehouse(int id, string name)
             : this()
         {
             Id = id;
             Name = name;
         }
-
-        
     }
 }

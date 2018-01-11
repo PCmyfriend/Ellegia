@@ -11,12 +11,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
             builder
                 .Property(w => w.Name)
                 .HasMaxLength(255)
-                .IsRequired();
-
-            builder
-                .HasMany(w => w.Employees)
-                .WithOne()
-                .HasForeignKey(e => e.WarehouseId);
+                .IsRequired();    
         }
     }
 }

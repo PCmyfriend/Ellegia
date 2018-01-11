@@ -82,6 +82,7 @@ namespace Ellegia.Application.AutoMapper
         private void CreateOrderMap()
         {
             CreateMap<OrderDto, Order>();
+            CreateMap<OrderFormDto, Order>();
         }
     }
 }

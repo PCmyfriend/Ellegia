@@ -22,6 +22,7 @@ namespace Ellegia.Infra.Data.UoW
         public IRepository<ContactType> ContactTypes { get; }
         public IRepository<ProductType> ProductTypes { get; }
         public IRepository<Order> Orders { get; }
+        public IRepository<OrderRoute> OrderRoutes { get; }
 
         public UnitOfWork(EllegiaContext context)
         {
@@ -34,6 +35,7 @@ namespace Ellegia.Infra.Data.UoW
             Customers = new CustomerRepository(context);
             ContactTypes = new ContactTypeRepository(context);
             ProductTypes = new ProductTypeRepository(context);
+            Orders = new OrderRepository(context);
         }
         
         public CommandResponse Complete()

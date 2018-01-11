@@ -17,7 +17,7 @@ namespace Ellegia.Domain.Contracts.Data
         IRepository<ContactType> ContactTypes { get; } 
         IRepository<ProductType> ProductTypes { get; } 
         IRepository<Order> Orders { get; } 
-
+        IRepository<OrderRoute> OrderRoutes { get; }
         CommandResponse Complete();
 
         ICommonHandbookRepository<TEntity> CreateCommonHandbookRepository<TEntity>() where TEntity : class, ICommonHandbook;

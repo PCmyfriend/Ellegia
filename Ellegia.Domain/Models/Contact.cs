@@ -6,16 +6,14 @@ namespace Ellegia.Domain.Models
 {
     public class Contact : Entity, ICommonHandbook
     {
+        public ContactType ContactType { get; private set; }
+        public string Name { get; private set; }
         public int CustomerId { get; private set; }
         public int ContactTypeId { get; private set; }
 
-        public string Name { get; private set; }
-
-        public ContactType ContactType { get; private set; }
-
         protected Contact()
         {
-            // empty constructor for EF
+            // required by EF
         }
 
         public Contact(string name, ContactType contactType)

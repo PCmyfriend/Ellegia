@@ -4,19 +4,17 @@ using Ellegia.Domain.Core.Models;
 namespace Ellegia.Domain.Models
 {
     public class StandardSize : Entity
-    {
-        
+    {      
         public PlasticBagType PlasticBagType { get; private set; }
         
-        public int PlasticBagTypeId { get; private set; }
-        
+        public int PlasticBagTypeId { get; private set; }      
         public float WidthInCm { get; private set; }
         public float HeightInCm { get; private set; }
         public int QuantityInBag { get; private set; }
 
         protected StandardSize()
         {
-            // empty constructor for EF
+            // required by EF
         }
 
         public StandardSize(float widthInCm, float heightInCm, int quantityInBag)

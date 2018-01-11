@@ -11,7 +11,12 @@ namespace Ellegia.Infra.Data.EntityConfigurations
             builder
                 .HasMany(u => u.Shifts)
                 .WithOne()
-                .HasForeignKey(s => s.Supervisor);
+                .HasForeignKey(s => s.SupervisorId);
+
+            builder
+                .HasOne(u => u.Warehouse)
+                .WithMany()
+                .HasForeignKey(u=>u.WarehouseId);
         }
     }
 }
