@@ -12,7 +12,13 @@ namespace Ellegia.Domain.Models
 
         public string Name { get; private set; }
 
-        public int? ParentId { get; private set; }
+        public int? ParentId
+        {
+            get => _parentId;
+            private set => _parentId = value == 0 ? null : value;
+        }
+
+        private int? _parentId;
 
         protected FilmType()
         {
