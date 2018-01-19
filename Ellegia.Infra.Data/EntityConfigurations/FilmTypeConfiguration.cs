@@ -8,7 +8,8 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<FilmType> builder)
         {
-            builder.HasOne(ft => ft.Parent)
+            builder
+                .HasOne(ft => ft.Parent)
                 .WithMany(pft => pft.Children)
                 .HasForeignKey(ft => ft.ParentId);
         }

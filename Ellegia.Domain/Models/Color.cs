@@ -9,7 +9,7 @@ namespace Ellegia.Domain.Models
 
         protected Color()
         {
-            // empty constructor for EF
+            // required by EF
         }
 
         public Color(int id, string name)

@@ -8,16 +8,16 @@ namespace Ellegia.Domain.Models
         public string Name { get; private set; }
         public bool IsInteger { get; private set; }
 
+        protected MeasurementUnit()
+        {
+            // required by EF
+        }
+
         public MeasurementUnit(int id, string name, bool isInteger)
         {
             Id = id;
             Name = name;
             IsInteger = isInteger;
-        }
-        
-        protected MeasurementUnit()
-        {
-            // empty constructor for EF
         }
     }
 }

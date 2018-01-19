@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-    [Route("api/shifts")]
-    public class ShiftsController: CommonHandbookController<Shift, ShiftDto>
+    [Route("api/warehouses/{warehouseId}/enterpriseMemembers/{emId}/shifts")]
+    public class ShiftsController : CommonHandbookController<Shift, ShiftDto>
     {
         public ShiftsController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {

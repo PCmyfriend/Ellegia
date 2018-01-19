@@ -8,9 +8,9 @@ namespace Ellegia.Domain.Models
         public string Name { get; private set; }
         public string InputMask { get; private set; }
 
-         protected ContactType()
+        protected ContactType()
         {
-            // empty constructor for EF
+            // required by EF
         }
 
         public ContactType(int id, string name, string inputMask)

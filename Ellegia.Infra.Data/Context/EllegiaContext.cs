@@ -31,6 +31,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<StandardSize> StandardSizes { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -53,6 +54,7 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

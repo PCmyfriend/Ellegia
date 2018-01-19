@@ -27,8 +27,6 @@ namespace Ellegia.Infra.Data.EntityConfigurations
                 .HasOne(p => p.FilmType)
                 .WithMany()
                 .HasForeignKey(p => p.FilmTypeId);
-
-
         }
     }
 }

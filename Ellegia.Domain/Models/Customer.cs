@@ -9,13 +9,12 @@ namespace Ellegia.Domain.Models
     {
         public ICollection<Contact> Contacts { get; private set; }
         public string Name { get; private set; }
-      
 
         protected Customer()
         {
-            // empty constructor for EF
+            // required by EF
         }
-        
+
         public Customer(string name)
         {
             Name = name;

@@ -4,6 +4,5 @@ namespace Ellegia.Domain.Models
 {
     public class EllegiaRole : IdentityRole<int>
     {
-        
     }
 }

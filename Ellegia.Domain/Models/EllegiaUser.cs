@@ -8,11 +8,17 @@ namespace Ellegia.Domain.Models
     public class EllegiaUser : IdentityUser<int>, IUser
     {
         public ICollection<Shift> Shifts { get; private set; }
-        public int WarehouseId { get; set; }
+        public Warehouse Warehouse { get; private set; }
+        public int WarehouseId { get; private set; }
 
         public EllegiaUser()
         {
             Shifts = new Collection<Shift>();
+        }
+
+        public void AddShift(Shift shift)
+        {
+            Shifts.Add(shift);
         }
     }
 }

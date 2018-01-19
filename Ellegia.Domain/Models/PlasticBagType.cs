@@ -11,16 +11,16 @@ namespace Ellegia.Domain.Models
         public ICollection<StandardSize> StandardSizes { get; private set; }
         
         public string Name { get; private set; }  
-
-        public PlasticBagType(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-        
+   
         protected PlasticBagType()
         {
             StandardSizes = new Collection<StandardSize>();
+        }
+
+        public PlasticBagType(int id, string name) : this()
+        {
+            Id = id;
+            Name = name;
         }
 
         public void AddStandardSize(StandardSize standardSize)
