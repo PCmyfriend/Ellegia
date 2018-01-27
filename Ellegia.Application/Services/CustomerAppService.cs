@@ -10,6 +10,7 @@ namespace Ellegia.Application.Services
         public CustomerAppService(IMapper mapper, IUnitOfWork unitOfWork) 
             : base(unitOfWork.Customers, mapper, unitOfWork)
         {
+
         }
     }
 }

@@ -15,6 +15,4 @@ namespace Ellegia.WebApi.Controllers
 
         }
     }
-
-
 }

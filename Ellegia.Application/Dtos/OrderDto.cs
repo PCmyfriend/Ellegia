@@ -12,9 +12,8 @@ namespace Ellegia.Application.Dtos
         public decimal PricePerKg { get; set; }
         public decimal TotalSum { get; set; }
         public int ProductTypeId { get; set; }
-
-        public Customer Customer { get; set; }
-        public Warehouse Warehouse { get; set; }
-        public ProductType ProductType { get; set; }
+        public CustomerDto Customer { get; set; }
+        public WarehouseDto Warehouse { get; set; }
+        public ProductTypeDto ProductType { get; set; }
     }
 }

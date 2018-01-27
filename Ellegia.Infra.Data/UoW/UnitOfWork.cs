@@ -1,6 +1,7 @@
 ﻿using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
+using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Core.Commands;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context;
@@ -21,8 +22,9 @@ namespace Ellegia.Infra.Data.UoW
         public IRepository<Customer> Customers { get; }
         public IRepository<ContactType> ContactTypes { get; }
         public IRepository<ProductType> ProductTypes { get; }
-        public IRepository<Order> Orders { get; }
+        public IOrderRepository Orders { get; }
         public IRepository<OrderRoute> OrderRoutes { get; }
+        public IRepository<Warehouse> Warehouses { get; }
 
         public UnitOfWork(EllegiaContext context)
         {
@@ -36,6 +38,7 @@ namespace Ellegia.Infra.Data.UoW
             ContactTypes = new ContactTypeRepository(context);
             ProductTypes = new ProductTypeRepository(context);
             Orders = new OrderRepository(context);
+            Warehouses = new Repository<Warehouse>(context);
         }
         
         public CommandResponse Complete()

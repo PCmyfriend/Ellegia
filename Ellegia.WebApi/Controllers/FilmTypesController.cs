@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-
     [Route("api/filmTypes")]
     public class FilmTypesController : CommonHandbookController<FilmType, FilmTypeDto>
     {
