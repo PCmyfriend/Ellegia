@@ -8,10 +8,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder
-                .Property(w => w.Name)
-                .HasMaxLength(255)
-                .IsRequired();    
+            
         }
     }
 }

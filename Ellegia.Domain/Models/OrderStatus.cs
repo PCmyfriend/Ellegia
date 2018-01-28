@@ -2,8 +2,8 @@
 {
     public enum OrderStatus
     {
-        ACTIVE,
-        COMPLETED,
-        GIVENTOCUSTOMER
+        Active,
+        Completed,
+        Released        
     }
 }

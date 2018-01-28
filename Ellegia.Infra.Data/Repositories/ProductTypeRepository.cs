@@ -9,6 +9,7 @@ namespace Ellegia.Infra.Data.Repositories
     {
         public ProductTypeRepository(EllegiaContext context) : base(context)
         {
+
         }
 
         public override IQueryable<ProductType> GetAll()

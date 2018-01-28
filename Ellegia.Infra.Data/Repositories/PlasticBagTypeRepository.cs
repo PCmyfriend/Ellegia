@@ -13,7 +13,8 @@ namespace Ellegia.Infra.Data.Repositories
 
         public override PlasticBagType GetById(int id)
         {
-            return GetAll().SingleOrDefault(pbt => pbt.Id == id);
+            return GetAll()
+                .SingleOrDefault(pbt => pbt.Id == id);
         }
 
         public override IQueryable<PlasticBagType> GetAll()

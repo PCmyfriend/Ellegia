@@ -22,6 +22,7 @@ namespace Ellegia.Domain.Models
         protected Order()
         {
             OrderRoutes = new Collection<OrderRoute>();
+            OrderStatus = OrderStatus.Active;
         }
 
         public Order(int customerId, int warehouseId, OrderStatus orderStatus, int quantityInKg, 

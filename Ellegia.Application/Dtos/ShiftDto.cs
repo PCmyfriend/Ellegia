@@ -7,6 +7,8 @@ namespace Ellegia.Application.Dtos
     {
         public int Id { get; set; }
 
+        public int SupervisorId { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(255)]

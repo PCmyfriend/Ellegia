@@ -10,6 +10,7 @@ namespace Ellegia.Application.Services
         public ContactTypeAppService(IMapper mapper, IUnitOfWork unitOfWork) 
             : base(unitOfWork.ContactTypes, mapper, unitOfWork)
         {
+
         }
     }
 }

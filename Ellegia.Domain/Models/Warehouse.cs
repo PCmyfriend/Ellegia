@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
@@ -20,6 +21,11 @@ namespace Ellegia.Domain.Models
         {
             Id = id;
             Name = name;
+        }
+
+        public EllegiaUser FindEmployee(int id)
+        {
+            return Employees.SingleOrDefault(e => e.Id == id);
         }
     }
 }

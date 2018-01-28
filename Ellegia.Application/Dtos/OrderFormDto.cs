@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ellegia.Domain.Models;
+﻿using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Dtos
 {
