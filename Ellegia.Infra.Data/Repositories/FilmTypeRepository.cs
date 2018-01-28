@@ -15,6 +15,8 @@ namespace Ellegia.Infra.Data.Repositories
         {
             return base.GetAll()
                 .Include(ft => ft.Children)
+                .ThenInclude(ft => ft.Children)
+                .ThenInclude(ft => ft.Children)
                 .Where(ft => ft.ParentId == null);
         }
     }
