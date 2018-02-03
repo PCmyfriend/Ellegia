@@ -11,13 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ellegia.WebApi.Controllers
 {
     [Route("api/orders")]
-    public class OrderController : Controller
+    public class OrdersController : Controller
     {
         private readonly OrderAppService _orderAppService;
         private readonly UserManager<EllegiaUser> _userManager;
 
-
-        public OrderController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager)
+        public OrdersController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager)
         {
             _orderAppService = new OrderAppService(mapper, unitOfWork);
             _userManager = userManager;

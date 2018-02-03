@@ -35,9 +35,9 @@ namespace Ellegia.Domain.Models
             PricePerKg = pricePerKg;
             TotalSum = totalSum;
             ProductTypeId = productTypeId;
-        }
+        }   
 
-        public void TransferOrder(OrderRoute orderRoute)
+        public void Sent(OrderRoute orderRoute)
         {
             OrderRoutes.Add(orderRoute);
         }
