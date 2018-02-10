@@ -22,6 +22,7 @@ namespace Ellegia.Application.AutoMapper
             CreateOrderMap();
             CreateWarehouseMap();
             CreateEllegiaUserMap();
+            CreateOrderRouteMap();
         }
 
         public void CreateShiftMap()
@@ -95,6 +96,11 @@ namespace Ellegia.Application.AutoMapper
         private void CreateEllegiaUserMap()
         {
             CreateMap<EllegiaUserDto, EllegiaUser>();
+        }
+
+        private void CreateOrderRouteMap()
+        {
+            CreateMap<OrderRouteDto, OrderRoute>();
         }
     }
 }

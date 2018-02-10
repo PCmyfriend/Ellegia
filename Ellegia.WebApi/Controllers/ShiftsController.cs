@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-    [Route("api/warehouses/{warehouseId}/enterpriseMemembers/{emId}/shifts")]
+    [Route("api/warehouses/{warehouseId}/enterpriseMemembers/{employeeId}/shifts")]
     public class ShiftsController : Controller
     {
         private readonly ShiftAppService _shiftAppService;
@@ -15,7 +15,7 @@ namespace Ellegia.WebApi.Controllers
             _shiftAppService = new ShiftAppService(mapper, unitOfWork);
         }
      
-        public IActionResult GetAll(int warehouseId, int emId) =>
-            Ok(_shiftAppService.GetAll(warehouseId, emId));
+        public IActionResult GetAll(int warehouseId, int employeeId) =>
+            Ok(_shiftAppService.GetAll(warehouseId, employeeId));
     }
 }
