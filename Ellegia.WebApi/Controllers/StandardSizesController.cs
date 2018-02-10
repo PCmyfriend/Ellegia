@@ -33,7 +33,7 @@ namespace Ellegia.WebApi.Controllers
         public IActionResult GetAll(int plasticBagTypeId) => 
             Ok(_standardSizeAppService.GetAll(plasticBagTypeId));
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult Add(int plasticBagTypeId, [FromBody] StandardSizeDto standardSizeDto)
         {   
             var standardSize = _standardSizeAppService.Add(plasticBagTypeId, standardSizeDto);

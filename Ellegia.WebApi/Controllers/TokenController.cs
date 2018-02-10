@@ -19,7 +19,6 @@ namespace Ellegia.WebApi.Controllers
     {
         private readonly SignInManager<EllegiaUser> _signInManager;
         private readonly UserManager<EllegiaUser> _userManager;
-        //private readonly IConfigurationRoot _configuration;
 
         public TokenController(
             SignInManager<EllegiaUser> signInManager,

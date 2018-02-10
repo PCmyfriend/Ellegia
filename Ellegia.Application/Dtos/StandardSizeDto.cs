@@ -5,6 +5,8 @@ namespace Ellegia.Application.Dtos
     public class StandardSizeDto
     {
         public int Id { get; set; }
+
+        public int PlasticBagTypeId { get; set; }
         
         [Required]
         [Range(1, float.MaxValue)]
