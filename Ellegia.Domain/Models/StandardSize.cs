@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.Contracts;
+using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class StandardSize : Entity
+    public class StandardSize : Entity, ICommonHandbook
     {      
         public PlasticBagType PlasticBagType { get; private set; }
         
@@ -11,6 +12,8 @@ namespace Ellegia.Domain.Models
         public float WidthInCm { get; private set; }
         public float HeightInCm { get; private set; }
         public int QuantityInBag { get; private set; }
+
+        public string Name => $"{WidthInCm}x{HeightInCm} cm";
 
         protected StandardSize()
         {

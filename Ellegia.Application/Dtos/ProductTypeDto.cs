@@ -3,7 +3,7 @@
     public class ProductTypeDto
     {
         public int Id { get; set; }
-        public string ProductTypeName { get; set; }
+        public string Name { get; set; }
         public int StandardSizeId { get; set; }
         public int FilmTypeOptionId { get; set; }
         public int ColorId { get; set; }

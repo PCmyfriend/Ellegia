@@ -7,7 +7,7 @@ namespace Ellegia.Application.Dtos
         [Required]
         [MinLength(2)]
         [MaxLength(100)]
-        public string ProductTypeName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public int StandardSizeId { get; set; }

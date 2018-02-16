@@ -24,16 +24,12 @@ namespace Ellegia.WebApi.Controllers
             _userManager = userManager;
         }
 
-
         [HttpPost]      
         public IActionResult AddOrderRoute(int orderId, OrderRouteDto orderRouteDto)
         {
-            var userId = _userManager.GetUserId(User);
+            var userId = int.Parse(_userManager.GetUserId(User));
 
-            if (!int.TryParse(userId, out int parsedUserId))
-                return BadRequest();
-
-           orderRouteDto = _orderAppService.AddOrderRoute(orderId, parsedUserId, orderRouteDto);
+           orderRouteDto = _orderAppService.AddOrderRoute(orderId, userId, orderRouteDto);
 
             if (orderRouteDto == null)
                 return BadRequest();

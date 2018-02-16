@@ -9,7 +9,7 @@ namespace Ellegia.Domain.Models
         public FilmTypeOption FilmTypeOption { get; private set; }
         public Color Color { get; private set; }
 
-        public string ProductTypeName { get; private set; }
+        public string Name { get; private set; }
         public int FilmTypeId { get; private set; }
         public int StandardSizeId { get; private set; }
         public int FilmTypeOptionId { get; private set; }
@@ -26,11 +26,20 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public ProductType(string productTypeName, int filmTypeId, int standardSizeId, int filmTypeOptionId, bool hasCorona, 
-            int thicknessInMicron, int thicknessInMicronError, int heightInMmError, int widthInMmError, 
-            int lengthInMmError, int colorId)
+        public ProductType(
+            string name, 
+            int filmTypeId, 
+            int standardSizeId, 
+            int filmTypeOptionId, 
+            bool hasCorona, 
+            int thicknessInMicron, 
+            int thicknessInMicronError, 
+            int heightInMmError, 
+            int widthInMmError, 
+            int lengthInMmError, 
+            int colorId)
         {
-            ProductTypeName = productTypeName;
+            Name = name;
             FilmTypeId = filmTypeId;
             StandardSizeId = standardSizeId;
             FilmTypeOptionId = filmTypeOptionId;

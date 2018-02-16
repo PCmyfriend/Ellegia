@@ -19,5 +19,7 @@ namespace Ellegia.Application.Dtos
         [Required]
         [Range(1, int.MaxValue)]
         public int? QuantityInBag { get; set; }
+
+        public string Name { get; set; }
     }
 }
