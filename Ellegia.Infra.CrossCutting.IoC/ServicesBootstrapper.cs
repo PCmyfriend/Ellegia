@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Ellegia.Application.AutoMapper;
 using Ellegia.Domain.Contracts.Data;
+using Ellegia.Domain.Core.Services;
 using Ellegia.Infra.Data.UoW;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ellegia.Infra.CrossCutting.IoC
@@ -21,6 +23,10 @@ namespace Ellegia.Infra.CrossCutting.IoC
             
             // Infra - Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Core
+            services.AddTransient<ITextFileReader>(sp =>
+                new TextFileReader(sp.GetService<IHostingEnvironment>().WebRootPath));
         }
     }
 }

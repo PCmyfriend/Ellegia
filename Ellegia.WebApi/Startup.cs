@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace Ellegia.WebApi
 {
@@ -97,6 +98,13 @@ namespace Ellegia.WebApi
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "TmpPdfFiles")),
+                RequestPath = "/StaticFiles"
+            });
 
             app.UseCors(c =>
             {

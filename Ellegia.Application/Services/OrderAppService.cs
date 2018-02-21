@@ -4,6 +4,7 @@ using AutoMapper;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
+using Ellegia.Domain.Core.Services;
 using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Services
@@ -13,14 +14,16 @@ namespace Ellegia.Application.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
+        private readonly ITextFileReader _textFileReader;
 
         public OrderAppService(
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork, ITextFileReader textFileReader)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _orderRepository = unitOfWork.Orders;
+            _textFileReader = textFileReader;
         }
 
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus)
@@ -39,6 +42,14 @@ namespace Ellegia.Application.Services
             order = _orderRepository.GetById(order.Id);
 
             return _mapper.Map<OrderDto>(order);
+        }
+
+        public void GetOrderPrintingVersion(int orderId)
+        {
+            //var order = _orderRepository.GetById(orderId);
+
+            var docxFileStr = _textFileReader.ReadFile();
+
         }
     }
 }
