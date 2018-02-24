@@ -25,19 +25,23 @@ namespace Ellegia.Domain.Models
             OrderStatus = OrderStatus.Active;
         }
 
-        public Order(int customerId, int warehouseId, OrderStatus orderStatus, int quantityInKg, 
-            decimal pricePerKg, decimal totalSum, int productTypeId) : this()
+        public Order(
+            int customerId, 
+            int warehouseId,
+            int quantityInKg, 
+            decimal pricePerKg,
+            int productTypeId) 
+            : this()
         {
             CustomerId = customerId;
-            WarehouseId = warehouseId;
-            OrderStatus = orderStatus;  
+            WarehouseId = warehouseId; 
             QuantityInKg = quantityInKg;
             PricePerKg = pricePerKg;
-            TotalSum = totalSum;
+            TotalSum = pricePerKg * quantityInKg;
             ProductTypeId = productTypeId;
         }   
 
-        public void Sent(OrderRoute orderRoute)
+        public void Send(OrderRoute orderRoute)
         {
             OrderRoutes.Add(orderRoute);
         }

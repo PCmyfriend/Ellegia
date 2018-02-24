@@ -1,15 +1,22 @@
-﻿using Ellegia.Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Ellegia.Application.Dtos
 {
     public class OrderFormDto
     {
-        public int CustomerId { get; set; }
-        public int WarehouseId { get; set; }
-        public OrderStatus OrderStatus { get; set; }
-        public int QuantityInKg { get; set; }
-        public decimal PricePerKg { get; set; }
-        public decimal TotalSum { get; set; }
-        public int ProductTypeId { get; set; }
+        [Required]
+        public int? CustomerId { get; set; }
+        
+        [Required]
+        public int? WarehouseId { get; set; }
+        
+        [Required]
+        public int? QuantityInKg { get; set; }
+        
+        [Required]
+        public decimal? PricePerKg { get; set; }
+        
+        [Required]
+        public int? ProductTypeId { get; set; }
     }
 }

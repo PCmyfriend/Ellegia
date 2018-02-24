@@ -6,13 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-    [Route("api/productType")]
+    [Route("api/productTypes")]
     public class ProductTypesController : BaseController<ProductTypeFormDto, ProductTypeDto>
     {
         public ProductTypesController(IMapper mapper, IUnitOfWork unitOfWork) 
             : base(new ProductTypeAppService(mapper, unitOfWork))
         {
-
         }
     }
 }

@@ -9,12 +9,15 @@ namespace Ellegia.Application.Dtos
         public int PlasticBagTypeId { get; set; }
         
         [Required]
-        [Range(1, float.MaxValue)]
-        public float? WidthInCm { get; set; }
+        [Range(1, int.MaxValue)]
+        public int? WidthInMm { get; set; }
         
         [Required]
-        [Range(1, float.MaxValue)]
-        public float? HeightInCm { get; set; }
+        [Range(1, int.MaxValue)]
+        public int? LengthInMm { get; set; }
+        
+        [Range(1, int.MaxValue)]
+        public int? HeightInMm { get; set; }
         
         [Required]
         [Range(1, int.MaxValue)]

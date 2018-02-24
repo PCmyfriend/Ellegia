@@ -38,7 +38,7 @@ namespace Ellegia.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrder(OrderFormDto orderFormDto)
+        public IActionResult AddOrder([FromBody] OrderFormDto orderFormDto)
         { 
             var orderDto = _orderAppService.Add(orderFormDto);
             return StatusCode(StatusCodes.Status201Created, orderDto);

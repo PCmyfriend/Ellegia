@@ -10,30 +10,29 @@ namespace Ellegia.Application.Dtos
         public string Name { get; set; }
 
         [Required]
-        public int StandardSizeId { get; set; }
+        public int? StandardSizeId { get; set; }
 
         [Required]
-        public int FilmTypeOptionId { get; set; }
+        public int? FilmTypeOptionId { get; set; }
 
         [Required]
-        public int ColorId { get; set; }
+        public int? ColorId { get; set; }
 
         [Required]
-        public bool HasCorona { get; set; }
+        public bool? HasCorona { get; set; }
 
         [Required]
-        public int ThicknessInMicron { get; set; }
+        public int? ThicknessInMicron { get; set; }
 
         [Required]
-        public int ThicknessInMicronError { get; set; }
+        public int? ThicknessInMicronError { get; set; }
 
         [Required]
-        public int HeightInMmError { get; set; }
+        public int? WidthInMmError { get; set; }
 
         [Required]
-        public int WidthInMmError { get; set; }
-
-        [Required]
-        public int LengthInMmError { get; set; }
+        public int? LengthInMmError { get; set; }
+        
+        public int? HeightInMmError { get; set; }
     }
 }
