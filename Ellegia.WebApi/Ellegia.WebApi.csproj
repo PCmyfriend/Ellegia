@@ -24,6 +24,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TmpPdfFiles\" />
-    <Folder Include="wwwroot\TmpPdfFiles\" />
   </ItemGroup>
 </Project>
