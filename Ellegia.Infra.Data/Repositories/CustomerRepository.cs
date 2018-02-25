@@ -21,8 +21,7 @@ namespace Ellegia.Infra.Data.Repositories
         public override IQueryable<Customer> GetAll()
         {
             return base.GetAll()
-                .Include(c => c.Contacts)
-                .ThenInclude(c => c.ContactType);
+                .Include(c => c.Contacts).ThenInclude(c => c.ContactType);
         }
     }
 }

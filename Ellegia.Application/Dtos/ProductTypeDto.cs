@@ -13,10 +13,11 @@
         public int HeightInMmError { get; set; }
         public int WidthInMmError { get; set; }
         public int LengthInMmError { get; set; }
+        public int FilmTypeId { get; set; }
 
-        public StandardSizeDto StandardSizes { get; set; }
-        public FilmTypeDto FilmTypes { get; set; }
-        public FilmTypeOptionDto FilmTypeOptions { get; set; }
-        public ColorDto ColorDto { get; set; }
+        public StandardSizeDto StandardSize { get; set; }
+        public FilmTypeDto FilmType { get; set; }
+        public FilmTypeOptionDto FilmTypeOption { get; set; }
+        public ColorDto Color { get; set; }
     }
 }

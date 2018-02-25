@@ -17,7 +17,7 @@ namespace Ellegia.Domain.Models
         public OrderStatus OrderStatus { get; private set; }
         public int QuantityInKg { get; private set; }
         public decimal PricePerKg { get; private set; }
-        public decimal TotalSum { get; private set; }
+        public decimal TotalPrice { get; private set; }
 
         protected Order()
         {
@@ -37,7 +37,7 @@ namespace Ellegia.Domain.Models
             WarehouseId = warehouseId; 
             QuantityInKg = quantityInKg;
             PricePerKg = pricePerKg;
-            TotalSum = pricePerKg * quantityInKg;
+            TotalPrice = pricePerKg * quantityInKg;
             ProductTypeId = productTypeId;
         }   
 

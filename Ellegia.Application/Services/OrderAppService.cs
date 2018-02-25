@@ -18,7 +18,8 @@ namespace Ellegia.Application.Services
 
         public OrderAppService(
             IMapper mapper,
-            IUnitOfWork unitOfWork, ITextFileReader textFileReader)
+            IUnitOfWork unitOfWork, 
+            ITextFileReader textFileReader)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -29,7 +30,7 @@ namespace Ellegia.Application.Services
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus)
         {
             var orders = _orderRepository.GetByType(orderStatus);
-            return orders?.Select(_mapper.Map<OrderDto>) ?? Enumerable.Empty<OrderDto>();          
+            return orders.Select(_mapper.Map<OrderDto>);          
         }
 
         public OrderDto Add(OrderFormDto orderFormDto)  

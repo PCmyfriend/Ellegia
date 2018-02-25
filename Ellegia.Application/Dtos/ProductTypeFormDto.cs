@@ -10,6 +10,9 @@ namespace Ellegia.Application.Dtos
         public string Name { get; set; }
 
         [Required]
+        public int? FilmTypeId { get; set; }
+
+        [Required]
         public int? StandardSizeId { get; set; }
 
         [Required]

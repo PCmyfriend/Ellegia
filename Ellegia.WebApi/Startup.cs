@@ -99,13 +99,6 @@ namespace Ellegia.WebApi
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "TmpPdfFiles")),
-                RequestPath = "/StaticFiles"
-            });
-
             app.UseCors(c =>
             {
                 c.AllowAnyHeader();

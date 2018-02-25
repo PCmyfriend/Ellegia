@@ -15,38 +15,38 @@ namespace Ellegia.Application.Services
         where TOutputEntityDto: class
         where TInputEntityDto: class
     {
-        protected readonly IRepository<TEntity> _baseRepository;
-        protected readonly IMapper _mapper;
-        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IRepository<TEntity> BaseRepository;
+        protected readonly IMapper Mapper;
+        protected readonly IUnitOfWork UnitOfWork;
 
         public AppService(
             IRepository<TEntity> repository, 
             IMapper mapper,
             IUnitOfWork unitOfWork)
         {
-            _baseRepository = repository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            BaseRepository = repository;
+            Mapper = mapper;
+            UnitOfWork = unitOfWork;
         }
 
         public IEnumerable<TOutputEntityDto> GetAll()
         {
-            return _baseRepository.GetAll().ToImmutableList().Select(_mapper.Map<TOutputEntityDto>);
+            return BaseRepository.GetAll().ToImmutableList().Select(Mapper.Map<TOutputEntityDto>);
         }
 
         public TOutputEntityDto GetById(int id)
         {
-            return _mapper.Map<TOutputEntityDto>(_baseRepository.GetById(id));
+            return Mapper.Map<TOutputEntityDto>(BaseRepository.GetById(id));
         }
 
         public TOutputEntityDto Add(TInputEntityDto entityDto)
         {
-            var entity = _mapper.Map<TEntity>(entityDto);
+            var entity = Mapper.Map<TEntity>(entityDto);
             
-            _baseRepository.Add(entity);
-            _unitOfWork.Complete();
+            BaseRepository.Add(entity);
+            UnitOfWork.Complete();
 
-            return _mapper.Map<TOutputEntityDto>(entity);
+            return Mapper.Map<TOutputEntityDto>(entity);
         }
 
         public TOutputEntityDto Update(TInputEntityDto entityDto)
@@ -56,8 +56,8 @@ namespace Ellegia.Application.Services
 
         public void Remove(int id)
         {
-            _baseRepository.Remove(id);
-            _unitOfWork.Complete();
+            BaseRepository.Remove(id);
+            UnitOfWork.Complete();
         }
     }
 }

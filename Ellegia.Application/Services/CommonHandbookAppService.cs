@@ -17,12 +17,12 @@ namespace Ellegia.Application.Services
         public CommonHandbookAppService(IMapper mapper, IUnitOfWork unitOfWork)
             : base(unitOfWork.CreateCommonHandbookRepository<TEntity>(), mapper, unitOfWork)
         {
-            _commonHandbookRepository = (ICommonHandbookRepository<TEntity>) _baseRepository;
+            _commonHandbookRepository = (ICommonHandbookRepository<TEntity>) BaseRepository;
         }
         
         public TEntityDto GetByName(string name)
         {
-            return _mapper.Map<TEntityDto>(_commonHandbookRepository.GetByName(name));
+            return Mapper.Map<TEntityDto>(_commonHandbookRepository.GetByName(name));
         }
     }
 }

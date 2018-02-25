@@ -38,6 +38,7 @@ namespace Ellegia.Infra.Data.UoW
             ContactTypes = new ContactTypeRepository(context);
             ProductTypes = new ProductTypeRepository(context);
             Orders = new OrderRepository(context);
+            OrderRoutes = new Repository<OrderRoute>(context);
             Warehouses = new Repository<Warehouse>(context);
         }
         
