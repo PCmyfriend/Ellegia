@@ -22,7 +22,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TmpPdfFiles\" />
-  </ItemGroup>
 </Project>
