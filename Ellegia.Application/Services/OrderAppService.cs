@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using AutoMapper;
 using Ellegia.Application.Dtos;
@@ -32,10 +31,32 @@ namespace Ellegia.Application.Services
             _pdfFileWriter = pdfFileWriter;
         }
 
-        public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus)
+        public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus, int userId)
         {
             var orders = _orderRepository.GetByType(orderStatus);
-            return orders.Select(_mapper.Map<OrderDto>);
+            var orderDtos = new List<OrderDto>();
+
+            var holderOrders = orders.Where(o => o.HolderId == userId).Select(o => new OrderDto()
+            {
+                Customer = _mapper.Map<CustomerDto>(o.Customer),
+                Warehouse = _mapper.Map<WarehouseDto>(o.Warehouse),
+                ProductType = _mapper.Map<ProductTypeDto>(o.ProductType),
+                Id = o.Id,
+                CustomerId = o.CustomerId,
+                WarehouseId = o.WarehouseId,
+                QuantityInKg = o.QuantityInKg,
+                PricePerKg = o.PricePerKg,
+                TotalPrice = o.TotalPrice,
+                ProductTypeId = o.ProductTypeId,
+                IsMine = true
+            });
+                
+            var userOrders = orders.Where(o => o.OrderRoutes.Any(orderRoute => orderRoute.RecepientId == userId)).Select(_mapper.Map<OrderDto>);
+
+            orderDtos.AddRange(holderOrders);
+            orderDtos.AddRange(userOrders);
+
+            return orderDtos;
         }
 
         public OrderDto Add(OrderFormDto orderFormDto)
@@ -52,9 +73,9 @@ namespace Ellegia.Application.Services
 
         public byte[] GetOrderPrintingVersion(int orderId)
         {
-            var order = _orderRepository.GetById(orderId);
-            //if (order == null)    
-            //return null;
+            var order = _orderRepository.GetById(orderId);      
+            if (order == null)    
+            return null;
 
             var pdfReader = _pdfFileReader.ReadFile();
             return _pdfFileWriter.FillPfdTemplate(pdfReader, order);

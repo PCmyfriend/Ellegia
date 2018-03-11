@@ -85,11 +85,7 @@ namespace Ellegia.Application.AutoMapper
 
         private void CreateOrderMap()
         {
-            CreateMap<Order, OrderDto>()
-                .ForMember(
-                    src => src.OrderStatus,
-                    options => options.MapFrom(o => o.OrderStatus.ToString())
-                );
+            CreateMap<Order, OrderDto>();
             CreateMap<Order, OrderFormDto>();
         }
 

@@ -2,6 +2,7 @@
 {
     public enum FieldKeyTypeEnum
     {
-        PhoneNumber
+        PhoneNumber,
+        Email   
     }
 }   

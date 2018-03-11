@@ -16,10 +16,12 @@ namespace Ellegia.WebApi.Controllers
     public class OrdersController : Controller
     {
         private readonly OrderAppService _orderAppService;
+        private readonly UserManager<EllegiaUser> _userManager;
 
         public OrdersController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IPdfFileReader pdfFileReader, IPdfFileWriter pdfFileWriter)
         {
             _orderAppService = new OrderAppService(mapper, unitOfWork, pdfFileReader, pdfFileWriter);
+            _userManager = userManager;
         }
 
         [HttpGet("{orderStatus}")]
@@ -28,7 +30,9 @@ namespace Ellegia.WebApi.Controllers
             if (!Enum.TryParse(orderStatus, true, out OrderStatus outOrderStatus))
                 return BadRequest();
 
-            return Ok(_orderAppService.GetByType(outOrderStatus));
+            var userId = int.Parse(_userManager.GetUserId(User));
+
+            return Ok(_orderAppService.GetByType(outOrderStatus, userId));
         }
 
         [HttpPost]
@@ -38,13 +42,14 @@ namespace Ellegia.WebApi.Controllers
             return StatusCode(StatusCodes.Status201Created, orderDto);
         }   
 
-        [Route("/api/orders/{orderId}/printingVersion")]
+        [HttpGet]
+        [Route("{orderId}/printingVersion")]
         public IActionResult GetOrderPrintingVersion(int orderId)
         {
             var bytes = _orderAppService.GetOrderPrintingVersion(orderId);
 
             if (bytes == null)
-                return BadRequest();
+                return BadRequest();        
 
             return File(bytes, "application/pdf");
         }

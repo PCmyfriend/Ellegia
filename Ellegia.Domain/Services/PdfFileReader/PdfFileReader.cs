@@ -20,18 +20,16 @@ namespace Ellegia.Domain.Services.PdfFileReader
             {
                 using (var stream = new FileStream(_filePath, FileMode.Open))
                 {
-                    _pdfReader = new PdfReader(stream);               
-                    return _pdfReader;
+                    _pdfReader = new PdfReader(stream);      
                 }
             }
             catch (Exception)
             {
                 return null;
             }
-            finally
-            {
-                _pdfReader.Close();
-            }
+
+            _pdfReader.Close();
+            return _pdfReader;
         }
     }
 }

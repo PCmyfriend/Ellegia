@@ -1,17 +1,24 @@
-﻿namespace Ellegia.Domain.Core.Models
+﻿using System;
+
+namespace Ellegia.Domain.Core.Models
 {
-    public abstract class Entity
+    public abstract class Entity : IEquatable<Entity>
     {
         public int Id { get; protected set; }
 
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entity;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Entity) obj);
+        }
 
-            if (ReferenceEquals(this, compareTo)) return true;
-            if (ReferenceEquals(null, compareTo)) return false;
-
-            return Id.Equals(compareTo.Id);
+        public bool Equals(Entity other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
         }
 
         public static bool operator ==(Entity a, Entity b)
@@ -32,7 +39,7 @@
 
         public override int GetHashCode()
         {
-            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+            return Id;
         }
 
         public override string ToString()
