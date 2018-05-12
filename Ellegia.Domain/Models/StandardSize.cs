@@ -40,6 +40,12 @@ namespace Ellegia.Domain.Models
             QuantityInBag = quantityInBag;
         }
 
+        public StandardSize(int plasticBagTypeId, int widthInMm, int lengthInMm, int? heightInMm, int quantityInBag)
+            : this(widthInMm, lengthInMm, heightInMm, quantityInBag)
+        {
+            PlasticBagTypeId = plasticBagTypeId;
+        }
+
         private static string ToCmString(int value)
         {
             var valueInMm = value / 10.0;

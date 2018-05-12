@@ -5,6 +5,7 @@ using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context.Extensions;
 using Ellegia.Infra.Data.Context.Seeding;
 using Ellegia.Infra.Data.Context.Seeding.Seeders;
+using Ellegia.Infra.Data.Context.Seeding.Seeders.Fake;
 using Ellegia.Infra.Data.EntityConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -111,7 +112,14 @@ namespace Ellegia.Infra.Data.Context
             context.EnsureSeeded(new ISeeder[]
             {
                 new ContactTypesSeeder(),
-                new WarehousesSeeder()
+                new WarehousesSeeder(),
+                new FakeCustomersSeeder(), 
+                new FakeContactsSeeder(), 
+                new FakeFilmTypesSeeder(), 
+                new FakeFilmTypeOptionsSeeder(), 
+                new FakeColorsSeeder(),
+                new FakePlasticBagTypesSeeder(), 
+                new FakeStandardSizesSeeder()
             });
         }
     }

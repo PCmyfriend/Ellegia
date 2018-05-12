@@ -24,6 +24,13 @@ namespace Ellegia.Domain.Models
             Name = name;
             ContactType = contactType;
         }
+
+        public Contact(string name, int contactTypeId, int customerId)
+        {
+            Name = name;
+            ContactTypeId = contactTypeId;
+            CustomerId = customerId;
+        }
      
     }
 }
