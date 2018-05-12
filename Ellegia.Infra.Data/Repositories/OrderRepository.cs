@@ -30,7 +30,7 @@ namespace Ellegia.Infra.Data.Repositories
         public override IQueryable<Order> GetAll()
         {
             return base.GetAll()
-                .Include(o => o.Customer)    
+                .Include(o => o.Customer).ThenInclude(c => c.Contacts).ThenInclude(c => c.ContactType)
                 .Include(o => o.ProductType).ThenInclude(pt => pt.FilmType)
                 .Include(o => o.ProductType).ThenInclude(pt => pt.StandardSize).ThenInclude(ss => ss.PlasticBagType)
                 .Include(o => o.ProductType).ThenInclude(pt => pt.FilmTypeOption)

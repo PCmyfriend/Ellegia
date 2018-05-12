@@ -11,7 +11,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
             builder
                 .HasOne(o => o.Customer)
                 .WithMany()
-                .HasForeignKey(o=>o.CustomerId);
+                .HasForeignKey(o => o.CustomerId);
             
             builder
                 .HasOne(o => o.Warehouse)

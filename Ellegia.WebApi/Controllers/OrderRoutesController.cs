@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;

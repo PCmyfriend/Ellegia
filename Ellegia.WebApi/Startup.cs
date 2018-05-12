@@ -5,6 +5,8 @@ using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Ellegia.Domain.Models;
+using Ellegia.Domain.Services.PdfFileReader;
+using Ellegia.Domain.Services.PdfFileWriter;
 using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
 using Ellegia.WebApi.Configurations;
@@ -15,7 +17,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 
 namespace Ellegia.WebApi
 {
@@ -113,9 +114,9 @@ namespace Ellegia.WebApi
             EllegiaContext.Seed(serviceProvider);
         }
 
-        private static void RegisterServices(IServiceCollection services)
+        private void RegisterServices(IServiceCollection services)
         {
-            ServicesBootstrapper.RegisterServices(services);
+            ServicesBootstrapper.RegisterServices(services, Configuration);
         }
     }
 }

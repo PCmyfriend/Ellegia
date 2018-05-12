@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using Ellegia.Application.AutoMapper;
 using Ellegia.Domain.Contracts.Data;
-using Ellegia.Domain.Core.Services;
+using Ellegia.Domain.Services.PdfFileReader;
+using Ellegia.Domain.Services.PdfFileWriter;
 using Ellegia.Infra.Data.UoW;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ellegia.Infra.CrossCutting.IoC
@@ -15,7 +18,7 @@ namespace Ellegia.Infra.CrossCutting.IoC
             // intentionally left empty
         }
 
-        public static void RegisterServices(IServiceCollection services)
+        public static void RegisterServices(IServiceCollection services, IConfigurationRoot configuration)
         {
             // Application
             services.AddSingleton(Mapper.Configuration);
@@ -24,9 +27,10 @@ namespace Ellegia.Infra.CrossCutting.IoC
             // Infra - Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // Core
-            services.AddTransient<ITextFileReader>(sp =>
-                new TextFileReader(sp.GetService<IHostingEnvironment>().WebRootPath));
+            // Domain
+            services.AddTransient<IPdfFileReader>(sp =>
+                new PdfFileReader(Path.Combine(sp.GetService<IHostingEnvironment>().WebRootPath, configuration["PdfTemplate:FileName"])));
+            services.AddTransient<IPdfFileWriter>(sp => new PdfFileWriter());
         }
     }
 }

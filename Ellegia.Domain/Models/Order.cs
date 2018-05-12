@@ -17,7 +17,8 @@ namespace Ellegia.Domain.Models
         public OrderStatus OrderStatus { get; private set; }
         public int QuantityInKg { get; private set; }
         public decimal PricePerKg { get; private set; }
-        public decimal TotalPrice { get; private set; }
+        public decimal TotalPrice { get; private set; } 
+        public int HolderId { get; private set; } 
 
         protected Order()
         {
@@ -34,7 +35,7 @@ namespace Ellegia.Domain.Models
             : this()
         {
             CustomerId = customerId;
-            WarehouseId = warehouseId; 
+            WarehouseId = warehouseId;  
             QuantityInKg = quantityInKg;
             PricePerKg = pricePerKg;
             TotalPrice = pricePerKg * quantityInKg;
@@ -42,8 +43,9 @@ namespace Ellegia.Domain.Models
         }   
 
         public void Send(OrderRoute orderRoute)
-        {
+        {   
             OrderRoutes.Add(orderRoute);
+            HolderId = orderRoute.RecepientId;
         }
     }
 }
