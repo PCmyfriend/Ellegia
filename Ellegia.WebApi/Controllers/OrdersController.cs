@@ -40,8 +40,16 @@ namespace Ellegia.WebApi.Controllers
         { 
             var orderDto = _orderAppService.Add(orderFormDto);
             return StatusCode(StatusCodes.Status201Created, orderDto);
-        }   
+        }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+           return _orderAppService.Remove(id)
+                ? (IActionResult)NoContent()
+                : NotFound();
+        }
+           
         [HttpGet]
         [Route("{orderId}/printingVersion")]
         public IActionResult GetOrderPrintingVersion(int orderId)

@@ -64,6 +64,18 @@ namespace Ellegia.Application.Services
             return _mapper.Map<OrderDto>(order);
         }
 
+        public bool Remove(int orderId)
+        {
+            var order = _orderRepository.GetById(orderId);
+
+            if (order == null) return false;
+
+            _orderRepository.Remove(orderId);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
         public byte[] GetOrderPrintingVersion(int orderId)
         {
             var order = _orderRepository.GetById(orderId);      
