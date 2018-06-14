@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using iTextSharp.text.pdf;
@@ -9,19 +10,22 @@ namespace Ellegia.Domain.Services.PdfFileWriter
     public class PdfFileWriter : IPdfFileWriter
     {
         private PdfStamper _pdfStamper;
-        private readonly ContactPrintingVersion _contactPrintingVersion;
-        private readonly Dictionary<string, FieldKeyTypeEnum> _formFieldsDictionary;
+        private readonly OrderPrintingVersion _orderPrintingVersion;
 
         public PdfFileWriter()
         {
-            _contactPrintingVersion = new ContactPrintingVersion();
-            _formFieldsDictionary = new Dictionary<string, FieldKeyTypeEnum> {
-                { "PhoneNumber", FieldKeyTypeEnum.PhoneNumber }
-            };
-        }
+            _orderPrintingVersion = new OrderPrintingVersion();
+        }   
 
         public byte[] FillPfdTemplate(PdfReader pdfReader, Order order)
-        {
+        {           
+            var contactsPrintingVersion = _orderPrintingVersion.GetContactsPrintingVersion(order.Customer);
+            var standartSizePrintingVersion =
+                _orderPrintingVersion.GetStandardSizePrintingVersion(order.ProductType.StandardSize);
+            var productTypePrintingVersion = _orderPrintingVersion.GetProductTypePrintingVersion(order.ProductType);
+            var quantityInKg = _orderPrintingVersion.GetGeneralInfoPrintingVersion(order);
+
+
             using (var memoryStream = new MemoryStream())
             {
                 _pdfStamper = new PdfStamper(pdfReader, memoryStream);
@@ -29,19 +33,34 @@ namespace Ellegia.Domain.Services.PdfFileWriter
                 var form = _pdfStamper.AcroFields;
                 var fieldKeys = form.Fields.Keys;   
 
-                var contactsByContactTypeDictionary = _contactPrintingVersion.GetContactsPrintingVersion(order.Customer);
-
                 foreach (string fieldKey in fieldKeys)
                 {
                     try
-                    {
-                        switch (_formFieldsDictionary[fieldKey])
+                    {   
+                        switch (fieldKey)
                         {
-                            case FieldKeyTypeEnum.PhoneNumber:
-                                var phoneNumberPrintingVersion =
-                                    _contactPrintingVersion.GetContactPrintingVersionByContactType(
-                                        contactsByContactTypeDictionary, FieldKeyTypeEnum.PhoneNumber);
-                                form.SetField(fieldKey, phoneNumberPrintingVersion);
+                            case "CustomerName":
+                                form.SetField(fieldKey, order.Customer.Name);
+                                break;
+                            case "PhoneNumber":
+                                form.SetField(fieldKey, contactsPrintingVersion.phoneNumber);
+                                break;
+                            case "WidthInMm":
+                                form.SetField(fieldKey, standartSizePrintingVersion.widthInMm);
+                                break;
+                            case "LengthInMm":
+                                form.SetField(fieldKey, standartSizePrintingVersion.lengthInMm);
+                                break;
+                            case "ThicknessInMicron":
+                                form.SetField(fieldKey, productTypePrintingVersion.thicknessInMicron);
+                                break;
+                            case "HasCorona":
+                                form.SetField(fieldKey, productTypePrintingVersion.hasCorona);
+                                break;
+                            case "QuantityInKg":
+                                form.SetField(fieldKey, quantityInKg);
+                                break;
+                            default:
                                 break;
                         }
                     }
@@ -53,5 +72,5 @@ namespace Ellegia.Domain.Services.PdfFileWriter
                 return memoryStream.ToArray();
             }
         }
-    }    
+    }
 }

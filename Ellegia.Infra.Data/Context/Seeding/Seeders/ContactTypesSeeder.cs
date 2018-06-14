@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 
 namespace Ellegia.Infra.Data.Context.Seeding.Seeders
@@ -8,8 +9,8 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders
         protected override IEnumerable<ContactType> Seeds
             => new[]
             {
-                new ContactType(1, "Телефонный номер", "^[0-9]*$"),
-                new ContactType(2, "Email", ".")
+                new ContactType(1, "Телефонный номер", "^[0-9]*$", ContactTypeEnum.PhoneNumber),
+                new ContactType(2, "Email", ".", ContactTypeEnum.Email)
             };
     }
 }

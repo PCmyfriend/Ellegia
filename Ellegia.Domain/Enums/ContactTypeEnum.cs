@@ -1,8 +1,8 @@
 ﻿namespace Ellegia.Domain.Enums
 {
-    public enum FieldKeyTypeEnum
+    public enum ContactTypeEnum
     {
         PhoneNumber,
-        Email   
+        Email
     }
-}   
+}
