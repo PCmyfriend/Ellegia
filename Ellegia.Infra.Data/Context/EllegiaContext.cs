@@ -18,7 +18,10 @@ using PlasticBagType = Ellegia.Domain.Models.PlasticBagType;
 
 namespace Ellegia.Infra.Data.Context
 {
-    public class EllegiaContext : IdentityDbContext<EllegiaUser, EllegiaRole, int>
+    public class EllegiaContext 
+        : IdentityDbContext<EllegiaUser, EllegiaRole, int, IdentityUserClaim<int>,
+            EllegiaUserRole, IdentityUserLogin<int>, 
+            IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DbSet<Color> Colors { get; set; }
         public DbSet<PlasticBagType> PlasticBagTypes { get; set; }
@@ -41,6 +44,8 @@ namespace Ellegia.Infra.Data.Context
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
+            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<Color>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<MeasurementUnit>(100));
             modelBuilder.ApplyConfiguration(new CommonHandbookConfiguration<FilmType>(100));
@@ -50,14 +55,13 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ContactTypeConfiguration());            
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new EllegiaUserConfiguration());
+            modelBuilder.ApplyConfiguration(new EllegiaUserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new FilmTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PlasticBagTypeConfiguration(255));
             modelBuilder.ApplyConfiguration(new StandardSizeConfiguration());
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
-
-            base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

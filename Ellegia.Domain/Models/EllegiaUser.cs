@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Ellegia.Domain.Contracts;
 using Microsoft.AspNetCore.Identity;
 
@@ -7,6 +10,7 @@ namespace Ellegia.Domain.Models
 {
     public class EllegiaUser : IdentityUser<int>, IUser
     {
+        public ICollection<EllegiaUserRole> UserRoles { get; private set; }
         public ICollection<Shift> Shifts { get; private set; }
         public Warehouse Warehouse { get; private set; }
 
@@ -14,6 +18,7 @@ namespace Ellegia.Domain.Models
 
         public EllegiaUser()
         {
+            UserRoles = new Collection<EllegiaUserRole>();
             Shifts = new Collection<Shift>();
         }
 
@@ -21,5 +26,9 @@ namespace Ellegia.Domain.Models
         {
             Shifts.Add(shift);
         }
+
+        [NotMapped]
+        public ICollection<EllegiaRole> Roles
+            => UserRoles.Select(ur => ur.Role).ToImmutableList();
     }
 }
