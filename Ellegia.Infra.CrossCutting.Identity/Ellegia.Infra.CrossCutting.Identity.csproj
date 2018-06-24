@@ -6,7 +6,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>

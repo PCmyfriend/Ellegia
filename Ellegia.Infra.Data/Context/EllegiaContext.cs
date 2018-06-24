@@ -115,6 +115,7 @@ namespace Ellegia.Infra.Data.Context
             
             context.EnsureSeeded(new ISeeder[]
             {
+                new EllegiaRolesSeeder(),
                 new ContactTypesSeeder(),
                 new WarehousesSeeder(),
                 new FakeCustomersSeeder(), 
