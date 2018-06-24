@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ellegia.Infra.Data.Repositories
 {
-    public class EllegiaUserRepository : Repository<EllegiaUser>
+    public class UserRepository : Repository<EllegiaUser>
     {
-        public EllegiaUserRepository(EllegiaContext context) : base(context)
+        public UserRepository(EllegiaContext context) : base(context)
         {
 
         }

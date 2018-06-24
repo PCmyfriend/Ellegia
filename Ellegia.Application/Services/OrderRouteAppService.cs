@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Immutable;
+using AutoMapper;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
@@ -13,6 +14,7 @@ namespace Ellegia.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IRepository<OrderRoute> _orderRouteRepository;
+        private readonly IRepository<EllegiaUser> _ellegiaUserRepository;
 
         public OrderRouteAppService(
             IMapper mapper,
@@ -22,7 +24,15 @@ namespace Ellegia.Application.Services
             _unitOfWork = unitOfWork;
             _orderRepository = unitOfWork.Orders;
             _orderRouteRepository = unitOfWork.OrderRoutes;
+            _ellegiaUserRepository = unitOfWork.Users;
         }
+                
+        public PermittedOrderRouteDto GetPermittedRoutes(int userId)
+        {
+            var temp = _ellegiaUserRepository.GetAll().ToImmutableList();
+
+            return null;
+        }   
 
         public OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteDto orderRouteDto)
         {

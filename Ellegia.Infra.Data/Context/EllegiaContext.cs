@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.IO;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context.Extensions;
@@ -97,7 +96,10 @@ namespace Ellegia.Infra.Data.Context
 
             context.EnsureSeeded(serviceProvider, new (string userName, string userRole, string email, string password)[]
             {
-                (configuration["Users:AdminUser:Name"], configuration["Users:AdminUser:Role"], configuration["Users:AdminUser:Email"], configuration["Users:AdminUser:Password"])
+                (configuration["Users:Admin:Name"], configuration["Users:Admin:Role"], configuration["Users:Admin:Email"], configuration["Users:Admin:Password"]),
+                (configuration["Users:Secretary:Name"], configuration["Users:Secretary:Role"], configuration["Users:Secretary:Email"], configuration["Users:Secretary:Password"]),
+                (configuration["Users:Technologist:Name"], configuration["Users:Technologist:Role"], configuration["Users:Technologist:Email"], configuration["Users:Technologist:Password"]),
+                (configuration["Users:Stockkeeper:Name"], configuration["Users:Stockkeeper:Role"], configuration["Users:Stockkeeper:Email"], configuration["Users:Stockkeeper:Password"])
             });
         }
     }

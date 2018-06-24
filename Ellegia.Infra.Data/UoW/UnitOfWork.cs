@@ -25,10 +25,10 @@ namespace Ellegia.Infra.Data.UoW
         public IOrderRepository Orders { get; }
         public IRepository<OrderRoute> OrderRoutes { get; }
         public IRepository<Warehouse> Warehouses { get; }
-        public IRepository<EllegiaUser> EllegiaUsers { get; } 
+        public IRepository<EllegiaUser> Users { get; } 
 
         public UnitOfWork(EllegiaContext context)
-        {
+        {   
             _context = context;        
             Colors = CreateCommonHandbookRepository<Color>();
             PlasticBagTypes = CreateCommonHandbookRepository<PlasticBagType>();
@@ -41,7 +41,7 @@ namespace Ellegia.Infra.Data.UoW
             Orders = new OrderRepository(context);
             OrderRoutes = new Repository<OrderRoute>(context);
             Warehouses = new Repository<Warehouse>(context);
-            EllegiaUsers = new Repository<EllegiaUser>(context);
+            Users = new UserRepository(context);
         }
         
         public CommandResponse Complete()

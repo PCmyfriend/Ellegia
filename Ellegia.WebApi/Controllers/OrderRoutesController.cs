@@ -13,7 +13,7 @@ namespace Ellegia.WebApi.Controllers
     [Authorize]
     [Route("api/orders/{orderId}/routes")]
     public class OrderRoutesController : Controller
-    {
+    {   
         private readonly OrderRouteAppService _orderAppService;
         private readonly UserManager<EllegiaUser> _userManager;
 
@@ -23,18 +23,24 @@ namespace Ellegia.WebApi.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost]      
+        [HttpGet("permittedRoutes")]
+        public IActionResult GetPermittedRoute()
+        {
+            var userId = int.Parse(_userManager.GetUserId(User));
+            return Ok(_orderAppService.GetPermittedRoutes(userId));
+        }
+
+        [HttpPost]
         public IActionResult AddOrderRoute(int orderId, OrderRouteDto orderRouteDto)
         {
             var userId = int.Parse(_userManager.GetUserId(User));
 
-           orderRouteDto = _orderAppService.AddOrderRoute(orderId, userId, orderRouteDto);
+            orderRouteDto = _orderAppService.AddOrderRoute(orderId, userId, orderRouteDto);
 
             if (orderRouteDto == null)
                 return BadRequest();
 
-           return StatusCode(StatusCodes.Status201Created, orderRouteDto);      
+            return StatusCode(StatusCodes.Status201Created, orderRouteDto);
         }
-
     }
 }
