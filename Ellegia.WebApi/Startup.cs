@@ -5,8 +5,6 @@ using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
 using Ellegia.Domain.Models;
-using Ellegia.Domain.Services.PdfFileReader;
-using Ellegia.Domain.Services.PdfFileWriter;
 using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
 using Ellegia.WebApi.Configurations;

@@ -20,6 +20,7 @@ namespace Ellegia.Domain.Contracts.Data
         IOrderRepository Orders { get; } 
         IRepository<OrderRoute> OrderRoutes { get; }
         IRepository<Warehouse> Warehouses { get; }
+        IRepository<EllegiaUser> Users { get; }
 
         CommandResponse Complete();
 
