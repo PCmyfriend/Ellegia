@@ -88,7 +88,7 @@ namespace Ellegia.WebApi
             RegisterServices(services);
         }
 
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -108,8 +108,7 @@ namespace Ellegia.WebApi
             app.UseAuthentication();
             app.UseMvc();
 
-            await EllegiaContext.CreateAdminAccount(serviceProvider, Configuration);
-            EllegiaContext.Seed(serviceProvider);
+            EllegiaContext.Seed(serviceProvider, Configuration);
         }
 
         private void RegisterServices(IServiceCollection services)

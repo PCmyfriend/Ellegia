@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.IO;
-using System.Threading.Tasks;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context.Extensions;
 using Ellegia.Infra.Data.Context.Seeding;
@@ -77,39 +77,7 @@ namespace Ellegia.Infra.Data.Context
             optionsBuilder.UseOpenIddict<int>();
         }
         
-        public static async Task CreateAdminAccount(
-            IServiceProvider serviceProvider,
-            IConfigurationRoot configuration)
-        {
-            var userManager =
-                serviceProvider.GetRequiredService<UserManager<EllegiaUser>>();
-            var roleManager =
-                serviceProvider.GetRequiredService<RoleManager<EllegiaRole>>();
-
-            var userName = configuration["Users:AdminUser:Name"];
-            var email = configuration["Users:AdminUser:Email"];
-            var password = configuration["Users:AdminUser:Password"];
-            var role = configuration["Users:AdminUser:Role"];
-
-            if (await userManager.FindByNameAsync(userName) == null)
-            {
-                if (await roleManager.FindByNameAsync(role) == null)
-                    await roleManager.CreateAsync(new EllegiaRole { Name = role });
-
-                var user = new EllegiaUser
-                {
-                    UserName = userName,
-                    Email = email
-                };
-
-                var result = await userManager
-                    .CreateAsync(user, password);
-                if (result.Succeeded)
-                    await userManager.AddToRoleAsync(user, role);
-            }
-        }
-
-        public static void Seed(IServiceProvider serviceProvider)
+        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration)
         {
             var context = serviceProvider.GetRequiredService<EllegiaContext>();
             
@@ -125,6 +93,11 @@ namespace Ellegia.Infra.Data.Context
                 new FakeColorsSeeder(),
                 new FakePlasticBagTypesSeeder(), 
                 new FakeStandardSizesSeeder()
+            });
+
+            context.EnsureSeeded(serviceProvider, new (string userName, string userRole, string email, string password)[]
+            {
+                (configuration["Users:AdminUser:Name"], configuration["Users:AdminUser:Role"], configuration["Users:AdminUser:Email"], configuration["Users:AdminUser:Password"])
             });
         }
     }
