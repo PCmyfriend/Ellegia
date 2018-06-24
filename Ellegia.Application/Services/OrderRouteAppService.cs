@@ -12,7 +12,7 @@ namespace Ellegia.Application.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
-        private readonly IRepository<OrderRoute> _orderRouteRepository;       
+        private readonly IRepository<OrderRoute> _orderRouteRepository;
 
         public OrderRouteAppService(
             IMapper mapper,
