@@ -7,5 +7,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ellegia.Domain\Ellegia.Domain.csproj" />
+    <ProjectReference Include="..\Ellegia.Infra.CrossCutting.Identity\Ellegia.Infra.CrossCutting.Identity.csproj" />
   </ItemGroup>
 </Project>

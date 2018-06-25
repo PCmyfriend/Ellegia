@@ -1,10 +1,14 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using AutoMapper;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
+using Ellegia.Infra.CrossCutting.Identity.Constants;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Ellegia.Application.Services
 {
@@ -26,13 +30,22 @@ namespace Ellegia.Application.Services
             _orderRouteRepository = unitOfWork.OrderRoutes;
             _ellegiaUserRepository = unitOfWork.Users;
         }
-                
-        public PermittedOrderRouteDto GetPermittedRoutes(int userId)
-        {
-            var temp = _ellegiaUserRepository.GetAll().ToImmutableList();
 
-            return null;
-        }   
+        public IEnumerable<PermittedOrderRouteDto> GetPermittedRoutes(int userId)
+        {
+            var ellegiaUsers = _ellegiaUserRepository.GetAll().ToList();
+
+            var permittedOrderRoutesDto = ellegiaUsers
+                .Where(u => u.Id != userId || u.Roles.Any(r => r.Name != Roles.Admin))
+                .Select(u =>
+                    new PermittedOrderRouteDto
+                    {
+                        UserId = u.Id,
+                        RoleName = string.Join(", ",u.Roles.Select(r => r.Name))
+                    });
+
+            return permittedOrderRoutesDto;
+        }
 
         public OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteDto orderRouteDto)
         {

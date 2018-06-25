@@ -9,7 +9,6 @@ namespace Ellegia.Domain.Models
 {   
     public class EllegiaUser : IdentityUser<int>
     {
-
         public ICollection<EllegiaUserRole> UserRoles { get; private set; }
         public ICollection<Shift> Shifts { get; private set; }
         public Warehouse Warehouse { get; private set; }

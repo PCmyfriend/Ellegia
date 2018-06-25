@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using FilmType = Ellegia.Domain.Models.FilmType;
 using PlasticBagType = Ellegia.Domain.Models.PlasticBagType;
 
-
 namespace Ellegia.Infra.Data.Context
 {
     public class EllegiaContext 
