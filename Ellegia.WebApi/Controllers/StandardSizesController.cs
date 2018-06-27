@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +10,11 @@ namespace Ellegia.WebApi.Controllers
     [Route("api/plasticBagTypes/{plasticBagTypeId}/standardSizes")]
     public class StandardSizesController : Controller
     {
-
-        private readonly StandardSizeAppService _standardSizeAppService;
+        private readonly IStandardSizeAppService _standardSizeAppService;
         
-        public StandardSizesController(IMapper mapper, IUnitOfWork unitOfWork)
+        public StandardSizesController(IMapper mapper, IUnitOfWork unitOfWork, IStandardSizeAppService standardSizeAppService)
         {
-            _standardSizeAppService = new StandardSizeAppService(mapper, unitOfWork);
+            _standardSizeAppService = standardSizeAppService;
         }
 
         [HttpGet("{id}")]

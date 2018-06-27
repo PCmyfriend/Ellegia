@@ -12,6 +12,7 @@ namespace Ellegia.WebApi.Controllers
         public ProductTypesController(IMapper mapper, IUnitOfWork unitOfWork) 
             : base(new ProductTypeAppService(mapper, unitOfWork))
         {
+
         }
     }
 }

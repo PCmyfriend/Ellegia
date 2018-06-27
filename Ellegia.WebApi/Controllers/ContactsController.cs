@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +10,12 @@ namespace Ellegia.WebApi.Controllers
     [Route("api/customers/{customerId}/contacts")]
     public class ContactsController : Controller 
     {
-        private readonly ContactAppService _contactAppService;
+        private readonly IContactAppService _contactAppService;
 
-        public ContactsController(IMapper mapper, IUnitOfWork unitOfWork)
+        public ContactsController(IMapper mapper, IUnitOfWork unitOfWork, IContactAppService contactAppService)
         {
-            _contactAppService = new ContactAppService(mapper, unitOfWork);
-        }
+            _contactAppService = contactAppService;
+        }   
 
         [HttpGet("{id}")]
         public IActionResult Get(int customerId, int id)    

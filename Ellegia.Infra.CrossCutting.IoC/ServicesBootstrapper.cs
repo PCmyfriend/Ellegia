@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using AutoMapper;
 using Ellegia.Application.AutoMapper;
+using Ellegia.Application.Contracts;
+using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Services.PdfFileReader;
 using Ellegia.Domain.Services.PdfFileWriter;
@@ -26,6 +28,13 @@ namespace Ellegia.Infra.CrossCutting.IoC
             
             // Infra - Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Application - Services
+            services.AddScoped<IContactAppService, ContactAppService>();
+            services.AddScoped<IOrderAppService, OrderAppService>();
+            services.AddScoped<IOrderRouteAppService, OrderRouteAppService>();
+            services.AddScoped<IShiftAppService, ShiftAppService>();
+            services.AddScoped<IStandardSizeAppService, StandardSizeAppService>();
 
             // Domain
             services.AddTransient<IPdfFileReader>(sp =>

@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.CrossCutting.Identity.Constants;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Ellegia.Application.Services
 {
-    public class OrderRouteAppService
+    public class OrderRouteAppService : IOrderRouteAppService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -33,16 +32,11 @@ namespace Ellegia.Application.Services
 
         public IEnumerable<PermittedOrderRouteDto> GetPermittedRoutes(int userId)
         {
-            var ellegiaUsers = _ellegiaUserRepository.GetAll().ToList();
+            var ellegiaUsers = _ellegiaUserRepository.GetAll();
 
             var permittedOrderRoutesDto = ellegiaUsers
                 .Where(u => u.Id != userId || u.Roles.Any(r => r.Name != Roles.Admin))
-                .Select(u =>
-                    new PermittedOrderRouteDto
-                    {
-                        UserId = u.Id,
-                        RoleName = string.Join(", ",u.Roles.Select(r => r.Name))
-                    });
+                .Select(_mapper.Map<PermittedOrderRouteDto>);
 
             return permittedOrderRoutesDto;
         }
@@ -54,7 +48,7 @@ namespace Ellegia.Application.Services
             if (order == null)
                 return null;
 
-            var orderRoute = new OrderRoute(orderRouteDto.RecepientId, senderId, orderId, orderRouteDto.Comment);
+            var orderRoute = new OrderRoute(orderRouteDto.RecepientId.Value, senderId, orderId, orderRouteDto.Comment);
             _orderRouteRepository.Add(orderRoute);
          
             _unitOfWork.Complete();

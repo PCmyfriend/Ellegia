@@ -24,6 +24,7 @@ namespace Ellegia.Application.AutoMapper
             CreateWarehouseMap();
             CreateEllegiaUserMap();
             CreateOrderRouteMap();
+            CreatePermittedOrderRouteMap();
         }
 
         private void CreateColorMap()
@@ -102,6 +103,13 @@ namespace Ellegia.Application.AutoMapper
         private void CreateOrderRouteMap()
         {
             CreateMap<OrderRoute, OrderRouteDto>();
+        }
+
+        private void CreatePermittedOrderRouteMap()
+        {
+            CreateMap<EllegiaUser, PermittedOrderRouteDto>()
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.RoleName, opts => opts.MapFrom(src => string.Join(", ", src.Roles)));
         }
     }
 }

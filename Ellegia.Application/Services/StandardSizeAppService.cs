@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
@@ -8,7 +9,7 @@ using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Services
 {
-    public class StandardSizeAppService
+    public class StandardSizeAppService : IStandardSizeAppService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;

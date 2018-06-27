@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
@@ -11,7 +12,7 @@ using Ellegia.Domain.Services.PdfFileWriter;
 
 namespace Ellegia.Application.Services
 {
-    public class OrderAppService
+    public class OrderAppService : IOrderAppService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Models;
+using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,28 +15,27 @@ namespace Ellegia.WebApi.Controllers
     [Route("api/orders/{orderId}/routes")]
     public class OrderRoutesController : Controller
     {   
-        private readonly OrderRouteAppService _orderAppService;
+        private readonly IOrderRouteAppService _orderRouteAppService;
         private readonly UserManager<EllegiaUser> _userManager;
-
-        public OrderRoutesController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager)
+            
+        public OrderRoutesController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IOrderRouteAppService orderRouteAppService)
         {
-            _orderAppService = new OrderRouteAppService(mapper, unitOfWork);
+            _orderRouteAppService = orderRouteAppService;   
             _userManager = userManager;
         }
 
         [HttpGet("permittedRoutes")]
         public IActionResult GetPermittedRoute()
         {
-            var userId = int.Parse(_userManager.GetUserId(User));
-            return Ok(_orderAppService.GetPermittedRoutes(userId));
+            var userId = _userManager.GetParsedToIntUserId(User);   
+            return Ok(_orderRouteAppService.GetPermittedRoutes(userId));
         }
 
         [HttpPost]
         public IActionResult AddOrderRoute(int orderId, OrderRouteDto orderRouteDto)
         {
-            var userId = int.Parse(_userManager.GetUserId(User));
-
-            orderRouteDto = _orderAppService.AddOrderRoute(orderId, userId, orderRouteDto);
+            var userId = _userManager.GetParsedToIntUserId(User);
+            orderRouteDto = _orderRouteAppService.AddOrderRoute(orderId, userId, orderRouteDto);
 
             if (orderRouteDto == null)
                 return BadRequest();

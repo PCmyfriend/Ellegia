@@ -1,11 +1,10 @@
 ﻿using System;
 using AutoMapper;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Services;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Models;
-using Ellegia.Domain.Services.PdfFileReader;
-using Ellegia.Domain.Services.PdfFileWriter;
+using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +14,12 @@ namespace Ellegia.WebApi.Controllers
     [Route("api/orders")]
     public class OrdersController : Controller
     {
-        private readonly OrderAppService _orderAppService;
+        private readonly IOrderAppService _orderAppService;
         private readonly UserManager<EllegiaUser> _userManager;
 
-        public OrdersController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IPdfFileReader pdfFileReader, IPdfFileWriter pdfFileWriter)
+        public OrdersController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IOrderAppService orderAppService)
         {
-            _orderAppService = new OrderAppService(mapper, unitOfWork, pdfFileReader, pdfFileWriter);
+            _orderAppService = orderAppService;
             _userManager = userManager;
         }
 
@@ -30,8 +29,7 @@ namespace Ellegia.WebApi.Controllers
             if (!Enum.TryParse(orderStatus, true, out OrderStatus outOrderStatus))
                 return BadRequest();
 
-            var userId = int.Parse(_userManager.GetUserId(User));
-
+            var userId = _userManager.GetParsedToIntUserId(User);
             return Ok(_orderAppService.GetByType(outOrderStatus, userId));
         }
 
