@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using AutoMapper;
 using Ellegia.Application.Contracts;
@@ -35,6 +36,7 @@ namespace Ellegia.Application.Services
             var ellegiaUsers = _ellegiaUserRepository.GetAll();
 
             var permittedOrderRoutesDto = ellegiaUsers
+                    .AsEnumerable()
                 .Where(u => u.Id != userId || u.Roles.Any(r => r.Name != Roles.Admin))
                 .Select(_mapper.Map<PermittedOrderRouteDto>);
 

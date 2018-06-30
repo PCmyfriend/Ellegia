@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Ellegia.Application.Contracts;
-using Ellegia.Domain.Contracts.Data;
+﻿using Ellegia.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
@@ -9,8 +7,8 @@ namespace Ellegia.WebApi.Controllers
     public class ShiftsController : Controller
     {
         private readonly IShiftAppService _shiftAppService;
-
-        public ShiftsController(IMapper mapper, IUnitOfWork unitOfWork, IShiftAppService shiftAppService)
+            
+        public ShiftsController(IShiftAppService shiftAppService)
         {
             _shiftAppService = shiftAppService;
         }

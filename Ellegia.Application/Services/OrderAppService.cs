@@ -35,7 +35,7 @@ namespace Ellegia.Application.Services
 
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus, int userId)
         {
-            var orders = _orderRepository.GetByType(orderStatus);
+            var orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
 
             var userOrders = orders
                 .Where(o => o.HolderId == userId)

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Ellegia.Application.Contracts;
+﻿using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +16,7 @@ namespace Ellegia.WebApi.Controllers
         private readonly IOrderRouteAppService _orderRouteAppService;
         private readonly UserManager<EllegiaUser> _userManager;
             
-        public OrderRoutesController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IOrderRouteAppService orderRouteAppService)
+        public OrderRoutesController(UserManager<EllegiaUser> userManager, IOrderRouteAppService orderRouteAppService)
         {
             _orderRouteAppService = orderRouteAppService;   
             _userManager = userManager;

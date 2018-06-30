@@ -1,8 +1,6 @@
 ﻿using System;
-using AutoMapper;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +15,7 @@ namespace Ellegia.WebApi.Controllers
         private readonly IOrderAppService _orderAppService;
         private readonly UserManager<EllegiaUser> _userManager;
 
-        public OrdersController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<EllegiaUser> userManager, IOrderAppService orderAppService)
+        public OrdersController(UserManager<EllegiaUser> userManager, IOrderAppService orderAppService)
         {
             _orderAppService = orderAppService;
             _userManager = userManager;

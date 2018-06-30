@@ -31,8 +31,11 @@ namespace Ellegia.Infra.CrossCutting.IoC
 
             // Application - Services
             services.AddScoped<IContactAppService, ContactAppService>();
+            services.AddScoped<IContactTypeAppService, ContactTypeAppService>();
+            services.AddScoped<ICustomerAppService, CustomerAppService>();
             services.AddScoped<IOrderAppService, OrderAppService>();
             services.AddScoped<IOrderRouteAppService, OrderRouteAppService>();
+            services.AddScoped<IProductTypeAppService, ProductTypeAppService>();
             services.AddScoped<IShiftAppService, ShiftAppService>();
             services.AddScoped<IStandardSizeAppService, StandardSizeAppService>();
 
