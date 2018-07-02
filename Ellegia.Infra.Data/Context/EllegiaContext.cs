@@ -1,11 +1,11 @@
 ﻿using System;
-using System.IO;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context.Extensions;
 using Ellegia.Infra.Data.Context.Seeding;
 using Ellegia.Infra.Data.Context.Seeding.Seeders;
 using Ellegia.Infra.Data.Context.Seeding.Seeders.Fake;
 using Ellegia.Infra.Data.EntityConfigurations;
+using Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -64,18 +64,13 @@ namespace Ellegia.Infra.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
             optionsBuilder.UseInMemoryDatabase("EllegiaDb");
             //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 
             optionsBuilder.UseOpenIddict<int>();
-        }
+        }   
         
-        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration)
+        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration, IConfigurationReader configurationReader)
         {
             var context = serviceProvider.GetRequiredService<EllegiaContext>();
             
@@ -93,13 +88,8 @@ namespace Ellegia.Infra.Data.Context
                 new FakeStandardSizesSeeder()
             });
 
-            context.EnsureSeeded(serviceProvider, new (string userName, string userRole, string email, string password)[]
-            {
-                (configuration["Users:Admin:Name"], configuration["Users:Admin:Role"], configuration["Users:Admin:Email"], configuration["Users:Admin:Password"]),
-                (configuration["Users:Secretary:Name"], configuration["Users:Secretary:Role"], configuration["Users:Secretary:Email"], configuration["Users:Secretary:Password"]),
-                (configuration["Users:Technologist:Name"], configuration["Users:Technologist:Role"], configuration["Users:Technologist:Email"], configuration["Users:Technologist:Password"]),
-                (configuration["Users:Stockkeeper:Name"], configuration["Users:Stockkeeper:Role"], configuration["Users:Stockkeeper:Email"], configuration["Users:Stockkeeper:Password"])
-            });
+            var usersInfo = configurationReader.Read();
+            context.EnsureSeeded(serviceProvider, usersInfo);
         }
     }
 }

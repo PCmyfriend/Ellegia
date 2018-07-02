@@ -7,6 +7,8 @@ using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Services.PdfFileReader;
 using Ellegia.Domain.Services.PdfFileWriter;
 using Ellegia.Infra.Data.UoW;
+using Ellegia.Infra.Data.Utilities.ConfigurationReader;
+using Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,8 +38,10 @@ namespace Ellegia.Infra.CrossCutting.IoC
             services.AddScoped<IOrderAppService, OrderAppService>();
             services.AddScoped<IOrderRouteAppService, OrderRouteAppService>();
             services.AddScoped<IProductTypeAppService, ProductTypeAppService>();
-            services.AddScoped<IShiftAppService, ShiftAppService>();
+            services.AddScoped<IShiftAppService, ShiftAppService>();        
             services.AddScoped<IStandardSizeAppService, StandardSizeAppService>();
+
+            services.AddScoped<IConfigurationReader, EllegiaConfigurationReader>(ecr => new EllegiaConfigurationReader(configuration));
 
             // Domain
             services.AddTransient<IPdfFileReader>(sp =>

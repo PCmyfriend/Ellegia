@@ -7,6 +7,7 @@ using AutoMapper;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.CrossCutting.IoC;
 using Ellegia.Infra.Data.Context;
+using Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts;
 using Ellegia.WebApi.Configurations;
 using Ellegia.WebApi.Constants;
 using Ellegia.WebApi.MvcFilters;
@@ -88,7 +89,7 @@ namespace Ellegia.WebApi
             RegisterServices(services);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, IConfigurationReader configurationReader)
         {
             if (env.IsDevelopment())
             {
@@ -108,7 +109,7 @@ namespace Ellegia.WebApi
             app.UseAuthentication();
             app.UseMvc();
 
-            EllegiaContext.Seed(serviceProvider, Configuration);
+            //EllegiaContext.Seed(serviceProvider, Configuration, configurationReader);
         }
 
         private void RegisterServices(IServiceCollection services)
