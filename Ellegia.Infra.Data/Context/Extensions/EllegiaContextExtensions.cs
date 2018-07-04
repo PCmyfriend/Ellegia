@@ -36,11 +36,12 @@ namespace Ellegia.Infra.Data.Context.Extensions
                 var user = new EllegiaUser
                 {
                     UserName = userInfo.Name,
-                    Email = userInfo.Email
+                    Email = userInfo.Email,
+                    FullName = userInfo.FullName
                 };
 
                 var result = await userManager
-                    .CreateAsync(user, userInfo.Email);
+                    .CreateAsync(user, userInfo.Password);
                 if (result.Succeeded)
                     await userManager.AddToRoleAsync(user, userInfo.Role);
             }          

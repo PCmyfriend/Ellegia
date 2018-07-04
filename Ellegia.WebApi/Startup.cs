@@ -109,7 +109,7 @@ namespace Ellegia.WebApi
             app.UseAuthentication();
             app.UseMvc();
 
-            //EllegiaContext.Seed(serviceProvider, Configuration, configurationReader);
+            EllegiaContext.Seed(serviceProvider, Configuration, configurationReader);
         }
 
         private void RegisterServices(IServiceCollection services)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,8 +13,9 @@ namespace Ellegia.Domain.Models
         public ICollection<EllegiaUserRole> UserRoles { get; private set; }
         public ICollection<Shift> Shifts { get; private set; }
         public Warehouse Warehouse { get; private set; }
-
         public int WarehouseId { get; private set; }
+
+        public string FullName { get; set; }
 
         public EllegiaUser()
         {
