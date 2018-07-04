@@ -30,7 +30,7 @@ namespace Ellegia.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrderRoute(int orderId, OrderRouteDto orderRouteDto)
+        public IActionResult AddOrderRoute(int orderId, [FromBody] OrderRouteDto orderRouteDto)
         {
             var userId = _userManager.GetParsedToIntUserId(User);
             orderRouteDto = _orderRouteAppService.AddOrderRoute(orderId, userId, orderRouteDto);
