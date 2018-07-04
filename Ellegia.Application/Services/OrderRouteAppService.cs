@@ -35,9 +35,8 @@ namespace Ellegia.Application.Services
         {
             var ellegiaUsers = _ellegiaUserRepository.GetAll();
 
-            var permittedOrderRoutesDto = ellegiaUsers
-                    .AsEnumerable()
-                .Where(u => u.Id != userId || u.Roles.Any(r => r.Name != Roles.Admin))
+            var permittedOrderRoutesDto = ellegiaUsers.AsEnumerable()
+                .Where(u => u.Id != userId && u.Roles.Any(r => r.Name != Roles.Admin))
                 .Select(_mapper.Map<PermittedOrderRouteDto>);
 
             return permittedOrderRoutesDto;
