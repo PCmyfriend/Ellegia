@@ -49,8 +49,8 @@ namespace Ellegia.Application.Services
             if (order == null)
                 return null;
 
-            var orderRoute = new OrderRoute(orderRouteDto.RecepientId.Value, senderId, orderId, orderRouteDto.Comment);
-            _orderRouteRepository.Add(orderRoute);
+            var orderRoute = new OrderRoute(orderRouteDto.RecipientId.Value, senderId, orderId, orderRouteDto.Comment);
+            order.Send(orderRoute);
          
             _unitOfWork.Complete();
 

@@ -5,7 +5,7 @@ namespace Ellegia.Domain.Models
 {
     public class OrderRoute : Entity
     {
-        public int RecepientId { get; private set; }
+        public int RecipientId { get; private set; }
         public int SenderId { get; private set; }
         public int OrderId { get; private set; }
         public DateTime DateTimeSent { get; private set; }
@@ -16,10 +16,10 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public OrderRoute(int recepientId, int senderId, int orderId, string сomment) 
+        public OrderRoute(int recipientId, int senderId, int orderId, string сomment) 
             : this()
         {
-            RecepientId = recepientId;
+            RecipientId = recipientId;
             SenderId = senderId;
             OrderId = orderId;
             DateTimeSent = DateTime.UtcNow;

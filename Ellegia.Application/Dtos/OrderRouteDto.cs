@@ -5,7 +5,7 @@ namespace Ellegia.Application.Dtos
     public class OrderRouteDto
     {
         [Required]
-        public int? RecepientId { get; set; }
+        public int? RecipientId { get; set; }
         public string Comment { get; set; }
     }
 }

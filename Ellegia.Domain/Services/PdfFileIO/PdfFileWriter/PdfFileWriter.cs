@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using iTextSharp.text.pdf;
 
-namespace Ellegia.Domain.Services.PdfFileWriter
+namespace Ellegia.Domain.Services.PdfFileIO.PdfFileWriter
 {
     public class PdfFileWriter : IPdfFileWriter
     {

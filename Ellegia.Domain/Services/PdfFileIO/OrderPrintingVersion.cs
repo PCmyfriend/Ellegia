@@ -3,7 +3,7 @@ using System.Linq;
 using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 
-namespace Ellegia.Domain.Services   
+namespace Ellegia.Domain.Services.PdfFileIO   
 {   
     public class OrderPrintingVersion
     {             
@@ -19,6 +19,7 @@ namespace Ellegia.Domain.Services
             var hasCorona = productType.HasCorona ? "Имеется" : "Отсутствует";
             return (thicknessInMicron, hasCorona);
         }
+        
         public (string widthInMm, string lengthInMm) GetStandardSizePrintingVersion(StandardSize standardSize)
         {
             var widthInMm = $"{standardSize.WidthInMm} мм.";

@@ -27,14 +27,15 @@ namespace Ellegia.WebApi.Controllers
             if (!Enum.TryParse(orderStatus, true, out OrderStatus outOrderStatus))
                 return BadRequest();
 
-            var userId = _userManager.GetParsedToIntUserId(User);
+            var userId = _userManager.GetUserIdAsInt(User);
             return Ok(_orderAppService.GetByType(outOrderStatus, userId));
         }
 
         [HttpPost]
         public IActionResult AddOrder([FromBody] OrderFormDto orderFormDto)
-        { 
-            var orderDto = _orderAppService.Add(orderFormDto);
+        {
+            var userId = _userManager.GetUserIdAsInt(User);
+            var orderDto = _orderAppService.Add(userId, orderFormDto);
             return StatusCode(StatusCodes.Status201Created, orderDto);
         }
 

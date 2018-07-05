@@ -1,8 +1,8 @@
-﻿using iTextSharp.text.pdf;
-using System;
+﻿using System;
 using System.IO;
+using iTextSharp.text.pdf;
 
-namespace Ellegia.Domain.Services.PdfFileReader
+namespace Ellegia.Domain.Services.PdfFileIO.PdfFileReader
 {
     public class PdfFileReader : IPdfFileReader
     {

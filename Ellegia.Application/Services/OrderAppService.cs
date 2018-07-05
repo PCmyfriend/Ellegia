@@ -7,8 +7,9 @@ using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
-using Ellegia.Domain.Services.PdfFileReader;
-using Ellegia.Domain.Services.PdfFileWriter;
+using Ellegia.Domain.Services.PdfFileIO.PdfFileReader;
+using Ellegia.Domain.Services.PdfFileIO.PdfFileWriter;
+using Ellegia.Infra.CrossCutting.Identity.Constants;
 
 namespace Ellegia.Application.Services
 {
@@ -37,12 +38,19 @@ namespace Ellegia.Application.Services
         {
             var orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
 
+            var permittedOrderRecipients = _unitOfWork.Users.GetAll()
+                .AsEnumerable()
+                .Where(u => u.Id != userId && u.Roles.All(r => r.NormalizedName != Roles.AdminNormalizedName))
+                .Select(_mapper.Map<PermittedOrderRouteDto>)
+                .ToImmutableList();
+
             var userOrders = orders
                 .Where(o => o.HolderId == userId)
                 .Select(_mapper.Map<OrderDto>)
                 .Select(o =>
                 {
                     o.IsMine = true;
+                    o.PermittedRoutes = permittedOrderRecipients;
                     return o;
                 });
                 
@@ -53,9 +61,11 @@ namespace Ellegia.Application.Services
             return userOrders.Union(otherOrders);
         }
 
-        public OrderDto Add(OrderFormDto orderFormDto)
+        public OrderDto Add(int userId, OrderFormDto orderFormDto)
         {
             var order = _mapper.Map<Order>(orderFormDto);
+
+            order.Send(new OrderRoute(userId, userId, order.Id, string.Empty));
 
             _orderRepository.Add(order);
             _unitOfWork.Complete();

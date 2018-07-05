@@ -1,7 +1,7 @@
 ﻿using Ellegia.Domain.Models;
 using iTextSharp.text.pdf;
 
-namespace Ellegia.Domain.Services.PdfFileWriter
+namespace Ellegia.Domain.Services.PdfFileIO.PdfFileWriter
 {
     public interface IPdfFileWriter 
     {

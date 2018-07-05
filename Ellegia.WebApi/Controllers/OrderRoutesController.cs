@@ -25,14 +25,14 @@ namespace Ellegia.WebApi.Controllers
         [HttpGet("permittedRoutes")]
         public IActionResult GetPermittedRoute()
         {
-            var userId = _userManager.GetParsedToIntUserId(User);   
+            var userId = _userManager.GetUserIdAsInt(User);   
             return Ok(_orderRouteAppService.GetPermittedRoutes(userId));
         }
 
         [HttpPost]
         public IActionResult AddOrderRoute(int orderId, [FromBody] OrderRouteDto orderRouteDto)
         {
-            var userId = _userManager.GetParsedToIntUserId(User);
+            var userId = _userManager.GetUserIdAsInt(User);
             orderRouteDto = _orderRouteAppService.AddOrderRoute(orderId, userId, orderRouteDto);
 
             if (orderRouteDto == null)

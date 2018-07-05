@@ -45,7 +45,7 @@ namespace Ellegia.Domain.Models
         public void Send(OrderRoute orderRoute)
         {   
             OrderRoutes.Add(orderRoute);
-            HolderId = orderRoute.RecepientId;
+            HolderId = orderRoute.RecipientId;
         }
     }
 }
