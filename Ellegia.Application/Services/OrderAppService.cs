@@ -37,28 +37,33 @@ namespace Ellegia.Application.Services
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus, int userId)
         {
             var orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
+            var ellegiaUser = _unitOfWork.Users.GetById(userId);
 
-            var permittedOrderRecipients = _unitOfWork.Users.GetAll()
-                .AsEnumerable()
+            var permittedOrderRecipients = _unitOfWork.Users.GetAll().AsEnumerable()
                 .Where(u => u.Id != userId && u.Roles.All(r => r.NormalizedName != Roles.AdminNormalizedName))
                 .Select(_mapper.Map<PermittedOrderRouteDto>)
                 .ToImmutableList();
+    
+            var orderDtos = orders.Select(o =>
+            {
+                var orderDto = Mapper.Map<OrderDto>(o);
 
-            var userOrders = orders
-                .Where(o => o.HolderId == userId)
-                .Select(_mapper.Map<OrderDto>)
-                .Select(o =>
+                if (o.HolderId == userId)
                 {
-                    o.IsMine = true;
-                    o.PermittedRoutes = permittedOrderRecipients;
-                    return o;
-                });
-                
-            var otherOrders = orders
-                .Where(o => o.HolderId != userId)
-                .Select(_mapper.Map<OrderDto>);
+                    orderDto.IsMine = true;
+                    orderDto.PermittedRoutes = permittedOrderRecipients;
+                }
 
-            return userOrders.Union(otherOrders);
+                if (o.IsUserCreator(userId))
+                    orderDto.IsDeletionPermitted = true;
+
+                if (ellegiaUser.HasRole(Roles.StockkeeperNormalizedName))
+                    orderDto.IsCompletionPermitted = true;        
+                    
+                return orderDto;
+            });
+
+            return orderDtos;
         }
 
         public OrderDto Add(int userId, OrderFormDto orderFormDto)

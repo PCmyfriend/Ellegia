@@ -25,11 +25,18 @@ namespace Ellegia.Domain.Models
 
         public void AddShift(Shift shift)
         {
-            Shifts.Add(shift);
+            Shifts.Add(shift);  
+        }
+                
+        public bool HasRole(string normalizedName)
+        {
+            return Roles.Any(r => r.NormalizedName == normalizedName);
         }
 
         [NotMapped]
         public ICollection<EllegiaRole> Roles
             => UserRoles.Select(ur => ur.Role).ToImmutableList();
+
+
     }
 }

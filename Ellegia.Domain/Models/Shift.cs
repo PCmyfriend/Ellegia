@@ -3,7 +3,7 @@ using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class Shift: Entity, ICommonHandbook
+    public class Shift : Entity, ICommonHandbook
     {
         public string Name { get; private set; }    
             

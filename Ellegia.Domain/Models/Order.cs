@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
@@ -18,7 +19,7 @@ namespace Ellegia.Domain.Models
         public int QuantityInKg { get; private set; }
         public decimal PricePerKg { get; private set; }
         public decimal TotalPrice { get; private set; } 
-        public int HolderId { get; private set; } 
+        public int HolderId { get; private set; }
 
         protected Order()
         {
@@ -44,8 +45,18 @@ namespace Ellegia.Domain.Models
 
         public void Send(OrderRoute orderRoute)
         {   
-            OrderRoutes.Add(orderRoute);
+            OrderRoutes.Add(orderRoute);    
             HolderId = orderRoute.RecipientId;
+        }
+
+        public bool IsUserCreator(int userId)
+        {
+            var orderRoute = OrderRoutes.FirstOrDefault();
+
+            if (orderRoute == null)
+                return false;
+
+            return orderRoute.SenderId == userId;
         }
     }
 }
