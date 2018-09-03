@@ -31,9 +31,10 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<FilmTypeOption> FilmTypesOptions { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<StandardSize> StandardSizes { get; set; }
-        public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<WarehouseInOutHistory> WarehouseInOutHistories { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)
@@ -60,6 +61,8 @@ namespace Ellegia.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
+            modelBuilder.ApplyConfiguration(new WarehouseInOutHistoryConfiguration());   
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -78,14 +81,15 @@ namespace Ellegia.Infra.Data.Context
             {
                 new EllegiaRolesSeeder(),
                 new ContactTypesSeeder(),
-                new WarehousesSeeder(),
+                new FakeWarehousesSeeder(),
                 new FakeCustomersSeeder(), 
                 new FakeContactsSeeder(), 
                 new FakeFilmTypesSeeder(), 
                 new FakeFilmTypeOptionsSeeder(), 
                 new FakeColorsSeeder(),
                 new FakePlasticBagTypesSeeder(), 
-                new FakeStandardSizesSeeder()
+                new FakeStandardSizesSeeder(),
+                new FakeMeasurementUnitsSeeder() 
             });
 
             var usersInfo = configurationReader.Read();
