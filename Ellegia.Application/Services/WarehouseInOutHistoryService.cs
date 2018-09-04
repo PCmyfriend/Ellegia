@@ -25,16 +25,17 @@ namespace Ellegia.Application.Services
         public bool Add(int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
-                
+
             if (warehouse == null)
                 return false;
 
-            var validateResult = warehouse.ValidateWarehouseInOutHistory(_mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto));
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto);
 
+            var validateResult = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!validateResult)
                 return false;
 
-            warehouse.Accept(_mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto));
+            warehouse.Accept(warehouseInOutHistory);
 
             _unitOfWork.Complete();
 
@@ -48,19 +49,17 @@ namespace Ellegia.Application.Services
             if (warehouse == null)
                 return false;
 
-            var validateResult = warehouse.ValidateWarehouseInOutHistory(_mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto));
-
-            if (!validateResult)
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto);
+                    
+            var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
+            if (!resultOfValidate)    
                 return false;
 
-            var isReleaseAllowed =
-                warehouse.IsRealeaseAllowed(_mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto));
-
+            var isReleaseAllowed = warehouse.IsWarehouseTakeAllowed(warehouseInOutHistory);
             if (!isReleaseAllowed)
                 return false;
 
-
-            warehouse.Accept(_mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto));
+            warehouse.Accept(warehouseInOutHistory);
 
             _unitOfWork.Complete();
 

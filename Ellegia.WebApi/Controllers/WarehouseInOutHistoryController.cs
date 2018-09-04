@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Ellegia.Application.Contracts;
+﻿using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

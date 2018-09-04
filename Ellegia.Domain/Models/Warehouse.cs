@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Ellegia.Domain.Core.Models;
+using Ellegia.Domain.Services.Strategy;
 
 namespace Ellegia.Domain.Models
 {
@@ -30,29 +31,18 @@ namespace Ellegia.Domain.Models
             WarehouseInOutHistories.Add(warehouseInOutHistory);
         }
             
-        public bool IsRealeaseAllowed(WarehouseInOutHistory warehouseInOutHistory)
+        public bool IsWarehouseTakeAllowed(WarehouseInOutHistory warehouseInOutHistory)
         {
-            if (warehouseInOutHistory.ProductTypeId == null)
+            if (warehouseInOutHistory.ProductTypeId != null)
             {
-                var warehouseInOutHistoriesAmountSum = this.WarehouseInOutHistories
-                    .Where(wh => wh.FilmTypeId == warehouseInOutHistory.FilmTypeId
-                                 && wh.ColorId == warehouseInOutHistory.ColorId)
-                    .Sum(wh => wh.Amount);
-
-                if (warehouseInOutHistoriesAmountSum + warehouseInOutHistory.Amount < 0)
-
-                    return false;
+                var warehouseTake = new WarehouseTake(new ProductTypeTakeStrategy());
+                return warehouseTake.Compute(warehouseInOutHistory, this.WarehouseInOutHistories.ToList());
             }
-            else
+
+            if (warehouseInOutHistory.FilmTypeId != null)
             {
-                var warehouseInOutHistoriesAmountSum = this.WarehouseInOutHistories
-                    .Where(wh => wh.ProductTypeId == warehouseInOutHistory.ProductTypeId
-                                 && wh.ColorId == warehouseInOutHistory.ColorId)
-                    .Sum(wh => wh.Amount);
-
-                if (warehouseInOutHistoriesAmountSum + warehouseInOutHistory.Amount < 0)
-
-                    return false;
+                var warehouseTake = new WarehouseTake(new FilmTypeTakeStrategy());
+                return warehouseTake.Compute(warehouseInOutHistory, this.WarehouseInOutHistories.ToList());
             }
 
             return true;
@@ -60,10 +50,10 @@ namespace Ellegia.Domain.Models
 
         public EllegiaUser FindEmployee(int id)
         {   
-            return Employees.SingleOrDefault(e => e.Id == id);  
+            return Employees.SingleOrDefault(e => e.Id == id);      
         }
 
-        public bool ValidateWarehouseInOutHistory(WarehouseInOutHistory warehouseInOutHistory)
+        public bool IsWarehouseInOutHistoryValid(WarehouseInOutHistory warehouseInOutHistory)
         {
             return warehouseInOutHistory.ProductTypeId == null || warehouseInOutHistory.FilmType == null;
         }
