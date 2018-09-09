@@ -107,7 +107,14 @@ namespace Ellegia.WebApi
             });
 
             app.UseAuthentication();
-            app.UseMvc();
+            
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "spa",
+                    template: "{operation:regex(^(?!api).*$)}",
+                    defaults: new { controller = "Spa", action = "Index" });
+            });
 
             EllegiaContext.Seed(serviceProvider, Configuration, configurationReader);
         }
