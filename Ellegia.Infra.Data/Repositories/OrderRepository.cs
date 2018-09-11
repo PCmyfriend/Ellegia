@@ -35,7 +35,8 @@ namespace Ellegia.Infra.Data.Repositories
                 .Include(o => o.ProductType).ThenInclude(pt => pt.StandardSize).ThenInclude(ss => ss.PlasticBagType)
                 .Include(o => o.ProductType).ThenInclude(pt => pt.FilmTypeOption)
                 .Include(o => o.ProductType).ThenInclude(pt => pt.Color)
-                .Include(o => o.Warehouse);
+                .Include(o => o.Warehouse)
+                .Include(o => o.OrderRoutes);            
         }
     }
 }

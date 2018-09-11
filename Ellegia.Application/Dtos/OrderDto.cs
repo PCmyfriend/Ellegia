@@ -18,6 +18,8 @@ namespace Ellegia.Application.Dtos
         public decimal TotalPrice { get; set; }
         public int ProductTypeId { get; set; }
         public bool IsMine { get; set; }
+        public bool IsDeletionPermitted { get; set; }
+        public bool IsCompletionPermitted { get; set; }
 
         public OrderDto()
         {

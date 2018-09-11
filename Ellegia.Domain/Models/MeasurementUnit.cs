@@ -6,18 +6,16 @@ namespace Ellegia.Domain.Models
     public class MeasurementUnit : Entity, ICommonHandbook
     {
         public string Name { get; private set; }
-        public bool IsInteger { get; private set; }
 
         protected MeasurementUnit()
         {
             // required by EF
         }
 
-        public MeasurementUnit(int id, string name, bool isInteger)
+        public MeasurementUnit(int id, string name)
         {
             Id = id;
             Name = name;
-            IsInteger = isInteger;
         }
     }
 }

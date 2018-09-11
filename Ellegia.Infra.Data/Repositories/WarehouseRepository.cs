@@ -12,11 +12,19 @@ namespace Ellegia.Infra.Data.Repositories
 
         }
 
+        public override Warehouse GetById(int id)
+        {
+            return GetAll() 
+                .SingleOrDefault(w => w.Id == id);
+        }
+
         public override IQueryable<Warehouse> GetAll()
         {
             return base.GetAll()
+                .Include(wh => wh.WarehouseInOutHistories)
                 .Include(w => w.Employees)
                 .ThenInclude(s => s.Shifts);
+
         }
     }
 }

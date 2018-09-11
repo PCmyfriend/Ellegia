@@ -40,6 +40,7 @@ namespace Ellegia.Infra.CrossCutting.IoC
             services.AddScoped<IProductTypeAppService, ProductTypeAppService>();
             services.AddScoped<IShiftAppService, ShiftAppService>();        
             services.AddScoped<IStandardSizeAppService, StandardSizeAppService>();
+            services.AddScoped<IWarehouseInOutHistoryService, WarehouseInOutHistoryService>();
 
             services.AddScoped<IConfigurationReader, EllegiaConfigurationReader>(ecr => new EllegiaConfigurationReader(configuration));
 

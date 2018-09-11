@@ -24,8 +24,9 @@ namespace Ellegia.Infra.Data.UoW
         public IRepository<ProductType> ProductTypes { get; }
         public IOrderRepository Orders { get; }
         public IRepository<OrderRoute> OrderRoutes { get; }
-        public IRepository<Warehouse> Warehouses { get; }
         public IRepository<EllegiaUser> Users { get; }
+        public IRepository<Warehouse> Warehouses { get; }
+        public IRepository<WarehouseInOutHistory> WarehouseInOutHistory { get; }
 
         public UnitOfWork(EllegiaContext context)
         {   
@@ -40,8 +41,9 @@ namespace Ellegia.Infra.Data.UoW
             ProductTypes = new ProductTypeRepository(context);
             Orders = new OrderRepository(context);
             OrderRoutes = new Repository<OrderRoute>(context);
-            Warehouses = new Repository<Warehouse>(context);
             Users = new UserRepository(context);
+            Warehouses = new WarehouseRepository(context);
+            WarehouseInOutHistory = new WarehouseInOutHistoryRepository(context);
         }
         
         public CommandResponse Complete()
