@@ -1,6 +1,9 @@
 ﻿using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
+using Ellegia.Domain.Models;
+using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
@@ -9,17 +12,23 @@ namespace Ellegia.WebApi.Controllers
     public class WarehouseInOutHistoryController : Controller
     {
         private readonly IWarehouseInOutHistoryService _warehouseInOutHistoryService;
+        private readonly UserManager<EllegiaUser> _userManager;
 
-        public WarehouseInOutHistoryController(IWarehouseInOutHistoryService warehouseInOutHistoryService)
+        public WarehouseInOutHistoryController(
+            IWarehouseInOutHistoryService warehouseInOutHistoryService,
+            UserManager<EllegiaUser> userManager)
         {
             _warehouseInOutHistoryService = warehouseInOutHistoryService;
+            _userManager = userManager;
         }
 
         [HttpPost]
         public IActionResult AddInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
+            var userId = _userManager.GetUserIdAsInt(User);
+
             var addWarehouseInOutHistoryResult =
-                _warehouseInOutHistoryService.Add(warehouseId, warehouseInOutHistoryFormDto);
+                _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryFormDto);
 
             return StatusCode(addWarehouseInOutHistoryResult ? StatusCodes.Status201Created : StatusCodes.Status400BadRequest);
         }

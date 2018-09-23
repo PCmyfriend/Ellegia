@@ -22,7 +22,7 @@ namespace Ellegia.Application.Services
             _warehouseRepository = unitOfWork.Warehouses;
         }
 
-        public bool Add(int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        public bool Add(int userId, int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
 
@@ -30,6 +30,7 @@ namespace Ellegia.Application.Services
                 return false;
 
             var warehouseInOutHistory = _mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto);
+            warehouseInOutHistory.CreatedById = userId;
 
             var validateResult = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!validateResult)
