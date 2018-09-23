@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context;

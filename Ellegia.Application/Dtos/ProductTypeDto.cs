@@ -15,7 +15,7 @@
         public int LengthInMmError { get; set; }
         public int FilmTypeId { get; set; }
 
-        public StandardSizeDto StandardSize { get; set; }
+        public ParentStandardSizeDto StandardSize { get; set; }
         public FilmTypeDto FilmType { get; set; }
         public FilmTypeOptionDto FilmTypeOption { get; set; }
         public ColorDto Color { get; set; }

@@ -45,11 +45,13 @@ namespace Ellegia.Application.AutoMapper
         private void CreatePlasticBagTypeMap()
         {
             CreateMap<PlasticBagType, PlasticBagTypeDto>();
+            CreateMap<PlasticBagType, CommonHandbookDto>();
         }
 
         private void CreateStandardSizeMap()
         {
             CreateMap<StandardSize, StandardSizeDto>();
+            CreateMap<StandardSize, ParentStandardSizeDto>();
         }
 
         private void CreateFilmTypeMap()
