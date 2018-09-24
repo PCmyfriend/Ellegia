@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-    [Route("api/warehouses/{warehouseId}/inOutHistory")]
+    [Route("api/warehouses/{warehouseId}")]
     public class WarehouseInOutHistoryController : Controller
     {
         private readonly IWarehouseInOutHistoryService _warehouseInOutHistoryService;
@@ -22,7 +22,7 @@ namespace Ellegia.WebApi.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost]
+        [HttpPost("addInOutHistory")]
         public IActionResult AddInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var userId = _userManager.GetUserIdAsInt(User);
@@ -34,7 +34,7 @@ namespace Ellegia.WebApi.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpPost("deleteInOutHistory")]
         public IActionResult DeleteInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var deleteWarehouseInOutHistoryResult =
