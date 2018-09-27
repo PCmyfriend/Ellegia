@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using AutoMapper;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
@@ -21,6 +23,24 @@ namespace Ellegia.Application.Services
             _unitOfWork = unitOfWork;   
             _warehouseRepository = unitOfWork.Warehouses;
         }
+
+        public WarehouseDto GetInOutHistories(int warehouseId)
+        {
+            var warehouse = _warehouseRepository.GetById(warehouseId);    
+
+            if (warehouse == null)
+                return null;
+
+            var warehouseDto = _mapper.Map<WarehouseDto>(warehouse);
+
+            //WarehouseInOutHistories
+            //    .GroupBy(x => new { x.ColorId, x.FilmTypeId, x.ProductTypeId, x.MeasurementUnitId }, r => r.Amount)
+            //    .Select(r => new { ColorId = r.Key.ColorId, FilmTypeId = r.Key.FilmTypeId, ProductTypeId = r.Key.ProductTypeId, Amount = r.Sum() })
+            //    .ToImmutableList();
+
+            return warehouseDto;
+        }
+
 
         public bool Add(int userId, int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {

@@ -9,7 +9,6 @@ namespace Ellegia.Infra.Data.Repositories
             : base(context)
         {
 
-
         }
     }
 }

@@ -2,12 +2,14 @@
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
+    //[Authorize]
     [Route("api/warehouses/{warehouseId}")]
     public class WarehouseInOutHistoryController : Controller
     {
@@ -21,6 +23,13 @@ namespace Ellegia.WebApi.Controllers
             _warehouseInOutHistoryService = warehouseInOutHistoryService;
             _userManager = userManager;
         }
+            
+        [HttpGet("inOutHistory")]
+        public IActionResult GetInOutHistories(int warehouseId)
+        {
+            return Ok(_warehouseInOutHistoryService.GetInOutHistories(warehouseId));
+        }
+        
 
         [HttpPost("addInOutHistory")]
         public IActionResult AddInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
