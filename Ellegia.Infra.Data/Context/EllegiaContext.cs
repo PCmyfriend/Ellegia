@@ -34,7 +34,7 @@ namespace Ellegia.Infra.Data.Context
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<WarehouseInOutHistory> WarehouseInOutHistories { get; set; }
+        public DbSet<WarehouseInOutItem> WarehouseInOutHistories { get; set; }
 
         public EllegiaContext(DbContextOptions<EllegiaContext> options)
             : base(options)

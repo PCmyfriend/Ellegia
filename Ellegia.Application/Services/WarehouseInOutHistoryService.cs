@@ -49,14 +49,14 @@ namespace Ellegia.Application.Services
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseInOutHistoryFormDto);
             warehouseInOutHistory.CreatedById = userId;
 
             var validateResult = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!validateResult)
                 return false;
 
-            warehouse.Accept(warehouseInOutHistory);
+            warehouse.Add(warehouseInOutHistory);
 
             _unitOfWork.Complete();
 
@@ -70,7 +70,7 @@ namespace Ellegia.Application.Services
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutHistory>(warehouseInOutHistoryFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseInOutHistoryFormDto);
                     
             var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!resultOfValidate)    
@@ -80,7 +80,7 @@ namespace Ellegia.Application.Services
             if (!isReleaseAllowed)
                 return false;
 
-            warehouse.Accept(warehouseInOutHistory);
+            warehouse.Add(warehouseInOutHistory);
 
             _unitOfWork.Complete();
 

@@ -3,7 +3,7 @@ using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class WarehouseInOutHistory : Entity
+    public class WarehouseInOutItem : Entity
     {
         public MeasurementUnit MeasurementUnit { get; private set; }
         public Color Color { get; private set; }
@@ -25,7 +25,7 @@ namespace Ellegia.Domain.Models
         public int? FilmTypeId { get; private set; }
         public int? CustomerId { get; private set; }
 
-        public WarehouseInOutHistory()
+        public WarehouseInOutItem()
         {
             OperationDateTime = DateTime.UtcNow;
         }

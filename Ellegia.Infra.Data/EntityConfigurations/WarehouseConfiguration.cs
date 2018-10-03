@@ -9,7 +9,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
             builder
-                .HasMany(wh => wh.WarehouseInOutHistories)
+                .HasMany(wh => wh.WarehouseInOutItems)
                 .WithOne()
                 .HasForeignKey(w => w.WarehouseId);
         }

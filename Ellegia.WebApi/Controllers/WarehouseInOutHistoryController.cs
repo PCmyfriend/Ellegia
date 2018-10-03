@@ -24,32 +24,40 @@ namespace Ellegia.WebApi.Controllers
             _userManager = userManager;
         }
             
-        [HttpGet("inOutHistory")]
-        public IActionResult GetInOutHistories(int warehouseId)
+        [HttpGet("fullHistory")]
+        public IActionResult GetWarehouseInOutHistory(int warehouseId)
         {
             return Ok(_warehouseInOutHistoryService.GetInOutHistories(warehouseId));
         }
         
 
-        [HttpPost("addInOutHistory")]
-        public IActionResult AddInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        [HttpPost("in")]
+        public IActionResult AddItemsToWarehouse(
+            int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var userId = _userManager.GetUserIdAsInt(User);
 
             var addWarehouseInOutHistoryResult =
                 _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryFormDto);
 
-            return StatusCode(addWarehouseInOutHistoryResult ? StatusCodes.Status201Created : StatusCodes.Status400BadRequest);
+            return StatusCode(addWarehouseInOutHistoryResult
+                ? StatusCodes.Status201Created
+                : StatusCodes.Status400BadRequest
+            );
         }
 
 
-        [HttpPost("deleteInOutHistory")]
-        public IActionResult DeleteInOutHistory(int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        [HttpPost("out")]
+        public IActionResult TakeItemsFromWarehouse(
+            int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
         {
             var deleteWarehouseInOutHistoryResult =
                 _warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryFormDto);
 
-            return StatusCode(deleteWarehouseInOutHistoryResult ? StatusCodes.Status204NoContent : StatusCodes.Status400BadRequest);
+            return StatusCode(deleteWarehouseInOutHistoryResult
+                ? StatusCodes.Status204NoContent
+                : StatusCodes.Status400BadRequest
+            );
         }
     }
 }

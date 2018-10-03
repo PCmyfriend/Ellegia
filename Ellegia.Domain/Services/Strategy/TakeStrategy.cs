@@ -6,37 +6,37 @@ namespace Ellegia.Domain.Services.Strategy
 {
     public abstract class TakeStrategy
     {
-        public abstract bool Compute(WarehouseInOutHistory warehouseInOutHistoryToTake,
-            List<WarehouseInOutHistory> warehouseInOutHistories);
+        public abstract bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
+            List<WarehouseInOutItem> warehouseInOutHistories);
     }
             
     public class ProductTypeTakeStrategy : TakeStrategy
     {   
-        public override bool Compute(WarehouseInOutHistory warehouseInOutHistoryToTake,
-            List<WarehouseInOutHistory> warehouseInOutHistories)    
+        public override bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
+            List<WarehouseInOutItem> warehouseInOutHistories)    
         {
             var totalAmount = warehouseInOutHistories
-                    .Where(wh => wh.ProductTypeId == warehouseInOutHistoryToTake.ProductTypeId
-                                 && wh.ColorId == warehouseInOutHistoryToTake.ColorId)
+                    .Where(wh => wh.ProductTypeId == warehouseInOutItemToTake.ProductTypeId
+                                 && wh.ColorId == warehouseInOutItemToTake.ColorId)
                     .Sum(wh => wh.Amount);
 
 
 
-            return totalAmount + warehouseInOutHistoryToTake.Amount > 0;
+            return totalAmount + warehouseInOutItemToTake.Amount > 0;
         }
     }
         
     public class FilmTypeTakeStrategy : TakeStrategy
     {
-        public override bool Compute(WarehouseInOutHistory warehouseInOutHistoryToTake,
-            List<WarehouseInOutHistory> warehouseInOutHistories)
+        public override bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
+            List<WarehouseInOutItem> warehouseInOutHistories)
         {
             var totalAmount = warehouseInOutHistories
-                .Where(wh => wh.FilmTypeId == warehouseInOutHistoryToTake.FilmTypeId
-                             && wh.ColorId == warehouseInOutHistoryToTake.ColorId)
+                .Where(wh => wh.FilmTypeId == warehouseInOutItemToTake.FilmTypeId
+                             && wh.ColorId == warehouseInOutItemToTake.ColorId)
                 .Sum(wh => wh.Amount);
 
-            return totalAmount + warehouseInOutHistoryToTake.Amount > 0;
+            return totalAmount + warehouseInOutItemToTake.Amount > 0;
         }
     }
 
@@ -49,9 +49,9 @@ namespace Ellegia.Domain.Services.Strategy
             _takeStrategy = takeStrategy;
         }
 
-        public bool Compute(WarehouseInOutHistory warehouseInOutHistoryToTake, List<WarehouseInOutHistory> warehouseInOutHistories)
+        public bool Compute(WarehouseInOutItem warehouseInOutItemToTake, List<WarehouseInOutItem> warehouseInOutHistories)
         {
-            return _takeStrategy.Compute(warehouseInOutHistoryToTake, warehouseInOutHistories);
+            return _takeStrategy.Compute(warehouseInOutItemToTake, warehouseInOutHistories);
         }
     }
 }   

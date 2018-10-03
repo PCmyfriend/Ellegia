@@ -10,14 +10,14 @@ namespace Ellegia.Domain.Models
     public class Warehouse : Entity
     {
         public ICollection<EllegiaUser> Employees { get; private set; }
-        public ICollection<WarehouseInOutHistory> WarehouseInOutHistories { get; private set; }
+        public ICollection<WarehouseInOutItem> WarehouseInOutItems { get; private set; }
 
         public string Name { get; private set; }
 
         protected Warehouse()
         {
             Employees = new Collection<EllegiaUser>();
-            WarehouseInOutHistories = new Collection<WarehouseInOutHistory>();
+            WarehouseInOutItems = new Collection<WarehouseInOutItem>();
         }
             
         public Warehouse(int id, string name)
@@ -27,23 +27,23 @@ namespace Ellegia.Domain.Models
             Name = name;    
         }   
             
-        public void Accept(WarehouseInOutHistory warehouseInOutHistory)
+        public void Add(WarehouseInOutItem warehouseItem)
         {
-            WarehouseInOutHistories.Add(warehouseInOutHistory);
+            WarehouseInOutItems.Add(warehouseItem);
         }
             
-        public bool IsWarehouseTakeAllowed(WarehouseInOutHistory warehouseInOutHistory)
+        public bool IsWarehouseTakeAllowed(WarehouseInOutItem warehouseInOutItem)
         {
-            if (warehouseInOutHistory.ProductTypeId != null)
+            if (warehouseInOutItem.ProductTypeId != null)
             {
                 var warehouseTake = new WarehouseTake(new ProductTypeTakeStrategy());
-                return warehouseTake.Compute(warehouseInOutHistory, this.WarehouseInOutHistories.ToList());
+                return warehouseTake.Compute(warehouseInOutItem, this.WarehouseInOutItems.ToList());
             }
 
-            if (warehouseInOutHistory.FilmTypeId != null)
+            if (warehouseInOutItem.FilmTypeId != null)
             {
                 var warehouseTake = new WarehouseTake(new FilmTypeTakeStrategy());
-                return warehouseTake.Compute(warehouseInOutHistory, this.WarehouseInOutHistories.ToList());
+                return warehouseTake.Compute(warehouseInOutItem, this.WarehouseInOutItems.ToList());
             }
 
             return true;
@@ -54,9 +54,9 @@ namespace Ellegia.Domain.Models
             return Employees.SingleOrDefault(e => e.Id == id);      
         }
 
-        public bool IsWarehouseInOutHistoryValid(WarehouseInOutHistory warehouseInOutHistory)
+        public bool IsWarehouseInOutHistoryValid(WarehouseInOutItem warehouseInOutItem)
         {
-            return warehouseInOutHistory.ProductTypeId == null || warehouseInOutHistory.FilmType == null;
+            return warehouseInOutItem.ProductTypeId == null || warehouseInOutItem.FilmType == null;
         }
     }
 }

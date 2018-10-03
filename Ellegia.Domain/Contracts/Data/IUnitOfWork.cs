@@ -21,7 +21,7 @@ namespace Ellegia.Domain.Contracts.Data
         IRepository<OrderRoute> OrderRoutes { get; }
         IRepository<EllegiaUser> Users { get; }
         IRepository<Warehouse> Warehouses { get; }
-        IRepository<WarehouseInOutHistory> WarehouseInOutHistory { get; }
+        IRepository<WarehouseInOutItem> WarehouseInOutHistory { get; }
 
 
         CommandResponse Complete();

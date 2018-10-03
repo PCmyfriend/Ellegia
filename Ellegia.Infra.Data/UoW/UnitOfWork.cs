@@ -26,7 +26,7 @@ namespace Ellegia.Infra.Data.UoW
         public IRepository<OrderRoute> OrderRoutes { get; }
         public IRepository<EllegiaUser> Users { get; }
         public IRepository<Warehouse> Warehouses { get; }
-        public IRepository<WarehouseInOutHistory> WarehouseInOutHistory { get; }
+        public IRepository<WarehouseInOutItem> WarehouseInOutHistory { get; }
 
         public UnitOfWork(EllegiaContext context)
         {   
