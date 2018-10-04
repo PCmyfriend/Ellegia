@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
@@ -24,7 +22,7 @@ namespace Ellegia.Application.Services
             _warehouseRepository = unitOfWork.Warehouses;
         }
 
-        public WarehouseDto GetInOutHistories(int warehouseId)
+        public WarehouseDto GetFullInOutHistory(int warehouseId)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);    
 

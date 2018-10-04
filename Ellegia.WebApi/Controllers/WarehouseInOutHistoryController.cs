@@ -2,7 +2,6 @@
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +26,8 @@ namespace Ellegia.WebApi.Controllers
         [HttpGet("fullHistory")]
         public IActionResult GetWarehouseInOutHistory(int warehouseId)
         {
-            return Ok(_warehouseInOutHistoryService.GetInOutHistories(warehouseId));
+            return Ok(_warehouseInOutHistoryService.GetFullInOutHistory(warehouseId));
         }
-        
 
         [HttpPost("in")]
         public IActionResult AddItemsToWarehouse(
@@ -37,10 +35,10 @@ namespace Ellegia.WebApi.Controllers
         {
             var userId = _userManager.GetUserIdAsInt(User);
 
-            var addWarehouseInOutHistoryResult =
+            var resultOfAddWarehouseInOutHistory =
                 _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryFormDto);
 
-            return StatusCode(addWarehouseInOutHistoryResult
+            return StatusCode(resultOfAddWarehouseInOutHistory
                 ? StatusCodes.Status201Created
                 : StatusCodes.Status400BadRequest
             );
@@ -50,11 +48,11 @@ namespace Ellegia.WebApi.Controllers
         [HttpPost("out")]
         public IActionResult TakeItemsFromWarehouse(
             int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
-        {
-            var deleteWarehouseInOutHistoryResult =
+        {   
+            var resultOfDeleteWarehouseInOutHistory =
                 _warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryFormDto);
 
-            return StatusCode(deleteWarehouseInOutHistoryResult
+            return StatusCode(resultOfDeleteWarehouseInOutHistory
                 ? StatusCodes.Status204NoContent
                 : StatusCodes.Status400BadRequest
             );
