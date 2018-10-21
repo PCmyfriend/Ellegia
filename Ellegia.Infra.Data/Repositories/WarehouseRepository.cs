@@ -21,7 +21,7 @@ namespace Ellegia.Infra.Data.Repositories
         public override IQueryable<Warehouse> GetAll()
         {
             return base.GetAll()
-                .Include(wh => wh.WarehouseInOutItems)
+                .Include(wh => wh.InOutHistory)
                 .Include(w => w.Employees)
                 .ThenInclude(s => s.Shifts);
 

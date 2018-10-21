@@ -100,7 +100,7 @@ namespace Ellegia.Application.AutoMapper
 
         private void CreateWarehouseInOutHistoryMap()
         {
-            CreateMap<WarehouseInOutItem, WarehouseInOutHistoryDto>();
+            CreateMap<WarehouseInOutItem, WarehouseInOutHistoryItemDto>();
         }
 
         private void CreateEllegiaUserMap()

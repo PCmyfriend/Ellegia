@@ -2,14 +2,15 @@
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
-    //[Authorize]
-    [Route("api/warehouses/{warehouseId}")]
+    [Authorize]
+    [Route("api/warehouses/{warehouseId}/history")]
     public class WarehouseInOutHistoryController : Controller
     {
         private readonly IWarehouseInOutHistoryService _warehouseInOutHistoryService;
@@ -23,37 +24,23 @@ namespace Ellegia.WebApi.Controllers
             _userManager = userManager;
         }
             
-        [HttpGet("fullHistory")]
-        public IActionResult GetWarehouseInOutHistory(int warehouseId)
+        [HttpGet]
+        public IActionResult GetInOutHistory(int warehouseId)
         {
             return Ok(_warehouseInOutHistoryService.GetFullInOutHistory(warehouseId));
         }
 
-        [HttpPost("in")]
-        public IActionResult AddItemsToWarehouse(
-            int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        [HttpPost]
+        public IActionResult AddHistoryRecord(int warehouseId, [FromBody] WarehouseHistoryRecordFormDto historyRecordFormDto)
         {
             var userId = _userManager.GetUserIdAsInt(User);
 
-            var resultOfAddWarehouseInOutHistory =
-                _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryFormDto);
+            var isOperationSuccessful = historyRecordFormDto.Amount > 0 
+                ? _warehouseInOutHistoryService.Add(userId, warehouseId, historyRecordFormDto) 
+                : _warehouseInOutHistoryService.Delete(warehouseId, historyRecordFormDto);
 
-            return StatusCode(resultOfAddWarehouseInOutHistory
+            return StatusCode(isOperationSuccessful
                 ? StatusCodes.Status201Created
-                : StatusCodes.Status400BadRequest
-            );
-        }
-
-
-        [HttpPost("out")]
-        public IActionResult TakeItemsFromWarehouse(
-            int warehouseId, [FromBody] WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
-        {   
-            var resultOfDeleteWarehouseInOutHistory =
-                _warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryFormDto);
-
-            return StatusCode(resultOfDeleteWarehouseInOutHistory
-                ? StatusCodes.Status204NoContent
                 : StatusCodes.Status400BadRequest
             );
         }

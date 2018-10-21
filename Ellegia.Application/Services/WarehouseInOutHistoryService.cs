@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
@@ -22,7 +23,7 @@ namespace Ellegia.Application.Services
             _warehouseRepository = unitOfWork.Warehouses;
         }
 
-        public WarehouseDto GetFullInOutHistory(int warehouseId)
+        public IEnumerable<WarehouseInOutHistoryItemDto> GetFullInOutHistory(int warehouseId)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);    
 
@@ -31,23 +32,23 @@ namespace Ellegia.Application.Services
 
             var warehouseDto = _mapper.Map<WarehouseDto>(warehouse);
 
-            //WarehouseInOutHistories
+            //InOutHistory
             //    .GroupBy(x => new { x.ColorId, x.FilmTypeId, x.ProductTypeId, x.MeasurementUnitId }, r => r.Amount)
             //    .Select(r => new { ColorId = r.Key.ColorId, FilmTypeId = r.Key.FilmTypeId, ProductTypeId = r.Key.ProductTypeId, Amount = r.Sum() })
             //    .ToImmutableList();
 
-            return warehouseDto;
+            return warehouseDto.InOutHistory;
         }
 
 
-        public bool Add(int userId, int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        public bool Add(int userId, int warehouseId, WarehouseHistoryRecordFormDto warehouseHistoryRecordFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
 
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseInOutHistoryFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseHistoryRecordFormDto);
             warehouseInOutHistory.CreatedById = userId;
 
             var validateResult = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
@@ -61,14 +62,14 @@ namespace Ellegia.Application.Services
             return true;
         }
 
-        public bool Delete(int warehouseId, WarehouseInOutHistoryFormDto warehouseInOutHistoryFormDto)
+        public bool Delete(int warehouseId, WarehouseHistoryRecordFormDto warehouseHistoryRecordFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
 
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseInOutHistoryFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseHistoryRecordFormDto);
                     
             var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!resultOfValidate)    

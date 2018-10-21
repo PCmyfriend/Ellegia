@@ -1,15 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ellegia.Application.Dtos
 {
-    public class WarehouseInOutHistoryDto
+    public class WarehouseInOutHistoryFormDto
     {
-        public int WarehouseId { get; set; }
-        public int CreatedById { get; set; }
-        public int MeasurementUnitId { get; set; }
-        public int ColorId { get; set; }
+        [Required]
+        public int? MeasurementUnitId { get; set; }
+
+        [Required]
+        public int? ColorId { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue)]
         public int Amount { get; set; }
-        public DateTime OperationDateTime { get; set; }
+
         public int? ShiftId { get; set; }
         public int? OrderId { get; set; }
         public int? ProductTypeId { get; set; }
