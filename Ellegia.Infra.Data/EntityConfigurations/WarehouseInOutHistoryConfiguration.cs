@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ellegia.Infra.Data.EntityConfigurations
 {
-    public class WarehouseInOutHistoryConfiguration : IEntityTypeConfiguration<WarehouseInOutItem>
+    public class WarehouseInOutHistoryConfiguration : IEntityTypeConfiguration<WarehouseHistoryRecord>
     {
-        public void Configure(EntityTypeBuilder<WarehouseInOutItem> builder)
+        public void Configure(EntityTypeBuilder<WarehouseHistoryRecord> builder)
         {
             builder
                 .HasOne(c => c.MeasurementUnit)

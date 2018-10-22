@@ -23,7 +23,7 @@ namespace Ellegia.Application.Services
             _warehouseRepository = unitOfWork.Warehouses;
         }
 
-        public IEnumerable<WarehouseInOutHistoryItemDto> GetFullInOutHistory(int warehouseId)
+        public IEnumerable<WarehouseHistoryRecordDto> GetFullInOutHistory(int warehouseId)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);    
 
@@ -48,7 +48,7 @@ namespace Ellegia.Application.Services
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseHistoryRecordFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseHistoryRecord>(warehouseHistoryRecordFormDto);
             warehouseInOutHistory.CreatedById = userId;
 
             var validateResult = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
@@ -69,7 +69,7 @@ namespace Ellegia.Application.Services
             if (warehouse == null)
                 return false;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseInOutItem>(warehouseHistoryRecordFormDto);
+            var warehouseInOutHistory = _mapper.Map<WarehouseHistoryRecord>(warehouseHistoryRecordFormDto);
                     
             var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
             if (!resultOfValidate)    

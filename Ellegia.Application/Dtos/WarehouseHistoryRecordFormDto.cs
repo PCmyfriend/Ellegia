@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ellegia.Application.Dtos
 {
-    public class WarehouseInOutHistoryFormDto
+    public class WarehouseHistoryRecordFormDto
     {
         [Required]
         public int? MeasurementUnitId { get; set; }

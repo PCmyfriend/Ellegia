@@ -9,14 +9,14 @@ namespace Ellegia.Domain.Models
     public class Warehouse : Entity
     {
         public ICollection<EllegiaUser> Employees { get; private set; }
-        public ICollection<WarehouseInOutItem> InOutHistory { get; private set; }
+        public ICollection<WarehouseHistoryRecord> InOutHistory { get; private set; }
 
         public string Name { get; private set; }
 
         protected Warehouse()
         {
             Employees = new Collection<EllegiaUser>();
-            InOutHistory = new Collection<WarehouseInOutItem>();
+            InOutHistory = new Collection<WarehouseHistoryRecord>();
         }
             
         public Warehouse(int id, string name)
@@ -26,12 +26,12 @@ namespace Ellegia.Domain.Models
             Name = name;    
         }   
             
-        public void Add(WarehouseInOutItem warehouseItem)
+        public void Add(WarehouseHistoryRecord warehouseItem)
         {
             InOutHistory.Add(warehouseItem);
         }
             
-        public bool IsWarehouseTakeAllowed(WarehouseInOutItem warehouseInOutItem)
+        public bool IsWarehouseTakeAllowed(WarehouseHistoryRecord warehouseInOutItem)
         {
             if (warehouseInOutItem.ProductTypeId != null)
             {
@@ -53,7 +53,7 @@ namespace Ellegia.Domain.Models
             return Employees.SingleOrDefault(e => e.Id == id);      
         }
 
-        public bool IsWarehouseInOutHistoryValid(WarehouseInOutItem warehouseInOutItem)
+        public bool IsWarehouseInOutHistoryValid(WarehouseHistoryRecord warehouseInOutItem)
         {
             return warehouseInOutItem.ProductTypeId == null || warehouseInOutItem.FilmType == null;
         }

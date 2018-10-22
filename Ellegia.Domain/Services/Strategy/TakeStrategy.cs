@@ -6,14 +6,14 @@ namespace Ellegia.Domain.Services.Strategy
 {
     public abstract class TakeStrategy
     {
-        public abstract bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
-            List<WarehouseInOutItem> warehouseInOutHistories);
+        public abstract bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
+            List<WarehouseHistoryRecord> warehouseInOutHistories);
     }
             
     public class ProductTypeTakeStrategy : TakeStrategy
     {   
-        public override bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
-            List<WarehouseInOutItem> warehouseInOutHistories)    
+        public override bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
+            List<WarehouseHistoryRecord> warehouseInOutHistories)    
         {
             var totalAmount = warehouseInOutHistories
                     .Where(wh => wh.ProductTypeId == warehouseInOutItemToTake.ProductTypeId
@@ -28,8 +28,8 @@ namespace Ellegia.Domain.Services.Strategy
         
     public class FilmTypeTakeStrategy : TakeStrategy
     {
-        public override bool Compute(WarehouseInOutItem warehouseInOutItemToTake,
-            List<WarehouseInOutItem> warehouseInOutHistories)
+        public override bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
+            List<WarehouseHistoryRecord> warehouseInOutHistories)
         {
             var totalAmount = warehouseInOutHistories
                 .Where(wh => wh.FilmTypeId == warehouseInOutItemToTake.FilmTypeId
@@ -49,7 +49,7 @@ namespace Ellegia.Domain.Services.Strategy
             _takeStrategy = takeStrategy;
         }
 
-        public bool Compute(WarehouseInOutItem warehouseInOutItemToTake, List<WarehouseInOutItem> warehouseInOutHistories)
+        public bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake, List<WarehouseHistoryRecord> warehouseInOutHistories)
         {
             return _takeStrategy.Compute(warehouseInOutItemToTake, warehouseInOutHistories);
         }

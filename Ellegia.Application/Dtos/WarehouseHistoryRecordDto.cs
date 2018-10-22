@@ -2,7 +2,7 @@
 
 namespace Ellegia.Application.Dtos
 {
-    public class WarehouseInOutHistoryItemDto
+    public class WarehouseHistoryRecordDto
     {
         public int WarehouseId { get; set; }
         public int CreatedById { get; set; }
