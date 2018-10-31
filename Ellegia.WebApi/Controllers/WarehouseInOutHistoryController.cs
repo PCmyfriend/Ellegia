@@ -38,18 +38,18 @@ namespace Ellegia.WebApi.Controllers
 
             if (warehouseInOutHistoryRecordFormDto.Amount > 0)
             {
-                var addedToWarehouseInOutHistoryRecordDto = _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryRecordFormDto);
+                var addedToWarehouseInOutHistoryRecordDto = 
+                    _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryRecordFormDto);
 
                 return addedToWarehouseInOutHistoryRecordDto == null
                     ? (IActionResult) StatusCode(StatusCodes.Status400BadRequest)
                     : StatusCode(StatusCodes.Status201Created, addedToWarehouseInOutHistoryRecordDto);
             }
 
-            //var isOperationSuccessful = inOutHistoryRecordFormDto.Amount > 0 
-            //    ? 
-            //    : _warehouseInOutHistoryService.Delete(warehouseId, inOutHistoryRecordFormDto);
+            if(_warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryRecordFormDto))
+                return StatusCode(StatusCodes.Status204NoContent);
 
-            return StatusCode(StatusCodes.Status201Created);
+            return StatusCode(StatusCodes.Status400BadRequest);
         }
     }
 }
