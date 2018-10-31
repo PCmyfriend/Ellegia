@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Ellegia.Domain.Core.Models;
 using Ellegia.Domain.Services.Strategy;
 
@@ -18,13 +19,24 @@ namespace Ellegia.Domain.Models
             Employees = new Collection<EllegiaUser>();
             InOutHistory = new Collection<WarehouseHistoryRecord>();
         }
-            
+        
         public Warehouse(int id, string name)
             : this()
         {
-            Id = id;
+            Id = id;    
             Name = name;    
-        }   
+        }
+            
+        public void OrderByOperationDateTimeInOutHistory(bool desc = false)
+        {
+            if (desc)
+            {
+                InOutHistory = InOutHistory.OrderByDescending(whr => whr.OperationDateTime).ToList();
+                return;
+            }
+
+            InOutHistory = InOutHistory.OrderBy(whr => whr.OperationDateTime).ToList();
+        }
             
         public void Add(WarehouseHistoryRecord warehouseItem)
         {

@@ -27,22 +27,30 @@ namespace Ellegia.WebApi.Controllers
         [HttpGet]
         public IActionResult GetInOutHistory(int warehouseId)
         {
-            return Ok(_warehouseInOutHistoryService.GetFullInOutHistory(warehouseId));
+            var warehouseInOutHistoryDto = _warehouseInOutHistoryService.GetInOutHistory(warehouseId);
+            return Ok(warehouseInOutHistoryDto);
         }
 
-        [HttpPost]
-        public IActionResult AddHistoryRecord(int warehouseId, [FromBody] WarehouseHistoryRecordFormDto historyRecordFormDto)
+        [HttpPost]  
+        public IActionResult AddHistoryRecord(int warehouseId, [FromBody] WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto)
         {
             var userId = _userManager.GetUserIdAsInt(User);
 
-            var isOperationSuccessful = historyRecordFormDto.Amount > 0 
-                ? _warehouseInOutHistoryService.Add(userId, warehouseId, historyRecordFormDto) 
-                : _warehouseInOutHistoryService.Delete(warehouseId, historyRecordFormDto);
+            if (warehouseInOutHistoryRecordFormDto.Amount > 0)
+            {
+                var addedToWarehouseInOutHistoryRecordDto = _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryRecordFormDto);
 
-            return StatusCode(isOperationSuccessful
-                ? StatusCodes.Status201Created
-                : StatusCodes.Status400BadRequest
-            );
+                return addedToWarehouseInOutHistoryRecordDto == null
+                    ? (IActionResult) StatusCode(StatusCodes.Status400BadRequest)
+                    : StatusCode(StatusCodes.Status201Created, addedToWarehouseInOutHistoryRecordDto);
+            }
+
+            //var isOperationSuccessful = inOutHistoryRecordFormDto.Amount > 0 
+            //    ? 
+            //    : _warehouseInOutHistoryService.Delete(warehouseId, inOutHistoryRecordFormDto);
+
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }
+    

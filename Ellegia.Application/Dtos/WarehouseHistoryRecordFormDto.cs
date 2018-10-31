@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Ellegia.Application.Dtos
 {
-    public class WarehouseHistoryRecordFormDto
+    public class WarehouseInOutHistoryRecordFormDto
     {
         [Required]
         public int? MeasurementUnitId { get; set; }
@@ -19,5 +18,6 @@ namespace Ellegia.Application.Dtos
         public int? OrderId { get; set; }
         public int? ProductTypeId { get; set; }
         public int? FilmTypeId { get; set; }
+        public int? CustomerId { get; set; }    
     }
 }

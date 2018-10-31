@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
 using Color = Ellegia.Domain.Models.Color;
@@ -22,7 +23,7 @@ namespace Ellegia.Application.AutoMapper
             CreateProductTypeMap();
             CreateOrderMap();
             CreateWarehouseMap();
-            CreateWarehouseInOutHistoryMap();
+            CreateWarehouseHistoryRecordMap();
             CreateEllegiaUserMap();
             CreateOrderRouteMap();
             CreatePermittedOrderRouteMap();
@@ -98,7 +99,7 @@ namespace Ellegia.Application.AutoMapper
             CreateMap<Warehouse, WarehouseDto>();
         }
 
-        private void CreateWarehouseInOutHistoryMap()
+        private void CreateWarehouseHistoryRecordMap()
         {
             CreateMap<WarehouseHistoryRecord, WarehouseHistoryRecordDto>();
         }

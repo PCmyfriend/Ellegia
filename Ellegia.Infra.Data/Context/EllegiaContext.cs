@@ -89,7 +89,10 @@ namespace Ellegia.Infra.Data.Context
                 new FakeColorsSeeder(),
                 new FakePlasticBagTypesSeeder(), 
                 new FakeStandardSizesSeeder(),
-                new FakeMeasurementUnitsSeeder() 
+                new FakeMeasurementUnitsSeeder(),
+                new FakeProductTypesSeeder(),
+                new FakeShiftsSeeder(),
+                new FakeOrdersSeeder()
             });
 
             var usersInfo = configurationReader.Read();

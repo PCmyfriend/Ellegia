@@ -1,9 +1,11 @@
 ﻿using System;
+using Ellegia.Domain.Constants;
+using Ellegia.Domain.Contracts.Common;
 using Ellegia.Domain.Core.Models;
 
 namespace Ellegia.Domain.Models
 {
-    public class WarehouseHistoryRecord : Entity
+    public class WarehouseHistoryRecord : Entity, ICommonHandbook
     {
         public MeasurementUnit MeasurementUnit { get; private set; }
         public Color Color { get; private set; }
@@ -28,6 +30,36 @@ namespace Ellegia.Domain.Models
         public WarehouseHistoryRecord()
         {
             OperationDateTime = DateTime.UtcNow;
+            
+        }
+        public string OperationDateTimeFormatted => OperationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
+
+        public string Name
+        {
+            get
+            {
+                if (ProductType != null)
+                    return ProductType.Name;
+
+                if (FilmType != null)
+                    return FilmType.Name;
+
+                return WarehouseHistoryRecordType.DefaultNameRecord;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                if (ProductType != null)
+                    return WarehouseHistoryRecordType.ProductTypeRecord;
+
+                if (FilmType != null)
+                    return WarehouseHistoryRecordType.FilmTypeRecord;
+
+                return WarehouseHistoryRecordType.DefaultTypeRecord;
+            }
         }
     }
 }

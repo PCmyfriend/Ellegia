@@ -9,39 +9,43 @@ namespace Ellegia.Infra.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<WarehouseHistoryRecord> builder)
         {
             builder
-                .HasOne(c => c.MeasurementUnit)
+                .HasOne(whr => whr.MeasurementUnit)
                 .WithMany()
-                .HasForeignKey(c => c.MeasurementUnitId);
+                .HasForeignKey(whr => whr.MeasurementUnitId);
 
             builder
-                .HasOne(c => c.Color)
+                .HasOne(whr => whr.Color)
                 .WithMany()
-                .HasForeignKey(c => c.ColorId);
+                .HasForeignKey(whr => whr.ColorId);
 
             builder
-                .HasOne(c => c.Shift)
+                .HasOne(whr => whr.Shift)
                 .WithMany()
-                .HasForeignKey(c => c.ShiftId);
+                .HasForeignKey(whr => whr.ShiftId);
 
             builder
-                .HasOne(c => c.Order)
+                .HasOne(whr => whr.Order)
                 .WithMany()
-                .HasForeignKey(c => c.OrderId);
+                .HasForeignKey(whr => whr.OrderId);
 
             builder
-                .HasOne(c => c.ProductType)
+                .HasOne(whr => whr.ProductType)
                 .WithMany()
-                .HasForeignKey(c => c.ProductTypeId);
+                .HasForeignKey(whr => whr.ProductTypeId);
 
             builder
-                .HasOne(c => c.FilmType)
+                .HasOne(whr => whr.FilmType)
                 .WithMany()
-                .HasForeignKey(c => c.FilmTypeId);
+                .HasForeignKey(whr => whr.FilmTypeId);
 
             builder
-                .HasOne(c => c.Customer)
+                .HasOne(whr => whr.Customer)
                 .WithMany()
-                .HasForeignKey(c => c.CustomerId);
+                .HasForeignKey(whr => whr.CustomerId);
+
+            builder.Ignore(whr => whr.OperationDateTimeFormatted);
+            builder.Ignore(whr => whr.Name);
+            builder.Ignore(whr => whr.Type);
         }
     }
 }

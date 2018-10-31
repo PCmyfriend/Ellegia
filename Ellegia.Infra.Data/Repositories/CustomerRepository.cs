@@ -13,7 +13,7 @@ namespace Ellegia.Infra.Data.Repositories
         }
 
         public override Customer GetById(int id)
-        {
+        {   
             return GetAll()
                 .SingleOrDefault(c => c.Id == id);
         }

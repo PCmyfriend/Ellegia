@@ -21,10 +21,23 @@ namespace Ellegia.Infra.Data.Repositories
         public override IQueryable<Warehouse> GetAll()
         {
             return base.GetAll()
-                .Include(wh => wh.InOutHistory)
-                .Include(w => w.Employees)
-                .ThenInclude(s => s.Shifts);
-
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.ProductType)
+                    .ThenInclude(whr => whr.FilmType)
+                    .ThenInclude(whr => whr.Children)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.FilmType)
+                    .ThenInclude(whr => whr.Children)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.Order)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.MeasurementUnit)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.Shift)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.Color)
+                .Include(w => w.InOutHistory)
+                    .ThenInclude(whr => whr.Customer);
         }
     }
 }

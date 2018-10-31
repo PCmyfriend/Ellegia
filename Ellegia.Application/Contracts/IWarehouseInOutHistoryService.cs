@@ -5,9 +5,9 @@ namespace Ellegia.Application.Contracts
 {
     public interface IWarehouseInOutHistoryService  
     {
-        IEnumerable<WarehouseHistoryRecordDto> GetFullInOutHistory(int warehouseId);
-        bool Add(int userId, int warehouseId, WarehouseHistoryRecordFormDto warehouseHistoryRecordFormDto);
-        bool Delete(int warehouseId, WarehouseHistoryRecordFormDto warehouseHistoryRecordFormDto);
+        IEnumerable<WarehouseHistoryRecordDto> GetInOutHistory(int warehouseId);
+        WarehouseHistoryRecordDto Add(int userId, int warehouseId, WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto);
+        bool Delete(int warehouseId, WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto);
     }
-}
+}   
     

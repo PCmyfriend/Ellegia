@@ -1,6 +1,5 @@
 ﻿using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
-using Ellegia.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
