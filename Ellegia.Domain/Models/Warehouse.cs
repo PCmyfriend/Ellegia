@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using Ellegia.Domain.Core.Models;
-using Ellegia.Domain.Services.Strategy;
+using Ellegia.Domain.Services.Strategies;
 
 namespace Ellegia.Domain.Models
 {
@@ -43,21 +43,18 @@ namespace Ellegia.Domain.Models
             InOutHistory.Add(warehouseItem);
         }
             
-        public bool IsWarehouseTakeAllowed(WarehouseHistoryRecord warehouseInOutItem)
+        public bool IsWarehouseReceptionAllowed(WarehouseHistoryRecord warehouseInOutItem)
         {
+            ReceptionStrategy receptionStrategy = null;
+
             if (warehouseInOutItem.ProductTypeId != null)
-            {
-                var warehouseTake = new WarehouseTake(new ProductTypeTakeStrategy());
-                return warehouseTake.Compute(warehouseInOutItem, this.InOutHistory.ToList());
-            }
+                receptionStrategy = new ProductTypeReceptionStrategy();     
+            
 
             if (warehouseInOutItem.FilmTypeId != null)
-            {
-                var warehouseTake = new WarehouseTake(new FilmTypeTakeStrategy());
-                return warehouseTake.Compute(warehouseInOutItem, this.InOutHistory.ToList());
-            }
+                receptionStrategy = new FilmTypeReceptionStrategy();
 
-            return true;
+            return receptionStrategy?.Compute(warehouseInOutItem, this.InOutHistory.ToList()) ?? true;
         }
 
         public EllegiaUser FindEmployee(int id)

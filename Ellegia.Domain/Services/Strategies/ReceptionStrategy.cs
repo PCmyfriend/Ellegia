@@ -2,17 +2,17 @@
 using System.Linq;
 using Ellegia.Domain.Models;
 
-namespace Ellegia.Domain.Services.Strategy
+namespace Ellegia.Domain.Services.Strategies
 {
-    public abstract class TakeStrategy
+    public abstract class ReceptionStrategy 
     {
         public abstract bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
             List<WarehouseHistoryRecord> warehouseInOutHistories);
     }
             
-    public class ProductTypeTakeStrategy : TakeStrategy
+    public class ProductTypeReceptionStrategy : ReceptionStrategy
     {   
-        public override bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
+        public override bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,   
             List<WarehouseHistoryRecord> warehouseInOutHistories)    
         {
             var totalAmount = warehouseInOutHistories
@@ -20,13 +20,11 @@ namespace Ellegia.Domain.Services.Strategy
                                  && wh.ColorId == warehouseInOutItemToTake.ColorId)
                     .Sum(wh => wh.Amount);
 
-
-
             return totalAmount + warehouseInOutItemToTake.Amount > 0;
         }
     }
         
-    public class FilmTypeTakeStrategy : TakeStrategy
+    public class FilmTypeReceptionStrategy : ReceptionStrategy
     {
         public override bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake,
             List<WarehouseHistoryRecord> warehouseInOutHistories)
@@ -37,21 +35,6 @@ namespace Ellegia.Domain.Services.Strategy
                 .Sum(wh => wh.Amount);
 
             return totalAmount + warehouseInOutItemToTake.Amount > 0;
-        }
-    }
-
-    public class WarehouseTake
-    {   
-        private readonly TakeStrategy _takeStrategy;
-        
-        public WarehouseTake(TakeStrategy takeStrategy)
-        {
-            _takeStrategy = takeStrategy;
-        }
-
-        public bool Compute(WarehouseHistoryRecord warehouseInOutItemToTake, List<WarehouseHistoryRecord> warehouseInOutHistories)
-        {
-            return _takeStrategy.Compute(warehouseInOutItemToTake, warehouseInOutHistories);
         }
     }
 }   
