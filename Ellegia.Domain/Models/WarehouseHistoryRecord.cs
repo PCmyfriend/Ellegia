@@ -19,7 +19,7 @@ namespace Ellegia.Domain.Models
         public int CreatedById { get; set; }
         public int MeasurementUnitId { get; private set; }
         public int ColorId { get; private set; }
-        public int Amount { get; private set; }
+        public double Amount { get; private set; }
         public DateTime OperationDateTime { get; private set; }
         public int? ShiftId { get; private set; }
         public int? OrderId { get; private set; }

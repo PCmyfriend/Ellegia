@@ -20,7 +20,7 @@ namespace Ellegia.Domain.Services.Strategies
                                  && wh.ColorId == warehouseInOutItemToTake.ColorId)
                     .Sum(wh => wh.Amount);
 
-            return totalAmount + warehouseInOutItemToTake.Amount > 0;
+            return totalAmount + warehouseInOutItemToTake.Amount >= 0;
         }
     }
         
@@ -34,7 +34,7 @@ namespace Ellegia.Domain.Services.Strategies
                              && wh.ColorId == warehouseInOutItemToTake.ColorId)
                 .Sum(wh => wh.Amount);
 
-            return totalAmount + warehouseInOutItemToTake.Amount > 0;
+            return totalAmount + warehouseInOutItemToTake.Amount >= 0;
         }
     }
 }   

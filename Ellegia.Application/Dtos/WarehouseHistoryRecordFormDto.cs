@@ -11,8 +11,7 @@ namespace Ellegia.Application.Dtos
         public int? ColorId { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]
-        public int Amount { get; set; }
+        public double Amount { get; set; }
 
         public int? ShiftId { get; set; }
         public int? OrderId { get; set; }

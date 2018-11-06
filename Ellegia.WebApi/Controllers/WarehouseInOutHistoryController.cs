@@ -43,11 +43,11 @@ namespace Ellegia.WebApi.Controllers
 
                 return addedToWarehouseInOutHistoryRecordDto == null
                     ? (IActionResult) StatusCode(StatusCodes.Status400BadRequest)
-                    : StatusCode(StatusCodes.Status201Created, addedToWarehouseInOutHistoryRecordDto);
+                    : StatusCode(StatusCodes.Status200OK, addedToWarehouseInOutHistoryRecordDto);
             }
 
             if(_warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryRecordFormDto))
-                return StatusCode(StatusCodes.Status204NoContent);
+                return StatusCode(StatusCodes.Status200OK);
 
             return StatusCode(StatusCodes.Status400BadRequest);
         }
