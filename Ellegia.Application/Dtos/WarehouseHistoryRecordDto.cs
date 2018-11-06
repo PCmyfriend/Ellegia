@@ -22,6 +22,6 @@
         public string Name { get; set; }
         public int CreatedById { get; set; }
         public double Amount { get; set; } 
-        public string OperationDateTimeFormatted { get; set; }
+        public string FormattedOperationDateTime { get; set; }
     }
 }
