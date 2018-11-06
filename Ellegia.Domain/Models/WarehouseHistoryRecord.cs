@@ -32,7 +32,7 @@ namespace Ellegia.Domain.Models
             OperationDateTime = DateTime.UtcNow;
             
         }
-        public string OperationDateTimeFormatted => OperationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
+        public string FormattedOperationDateTime => OperationDateTime.ToString("dd/MM/yyyy HH:mm:ss");
 
         public string Name
         {

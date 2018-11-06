@@ -43,7 +43,7 @@ namespace Ellegia.Infra.Data.EntityConfigurations
                 .WithMany()
                 .HasForeignKey(whr => whr.CustomerId);
 
-            builder.Ignore(whr => whr.OperationDateTimeFormatted);
+            builder.Ignore(whr => whr.FormattedOperationDateTime);
             builder.Ignore(whr => whr.Name);
             builder.Ignore(whr => whr.Type);
         }
