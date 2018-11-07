@@ -37,19 +37,21 @@ namespace Ellegia.WebApi.Controllers
             var userId = _userManager.GetUserIdAsInt(User);
 
             if (warehouseInOutHistoryRecordFormDto.Amount > 0)
-            {
-                var addedToWarehouseInOutHistoryRecordDto = 
+            {   
+                var addedWarehouseInOutHistoryRecordDto = 
                     _warehouseInOutHistoryService.Add(userId, warehouseId, warehouseInOutHistoryRecordFormDto);
 
-                return addedToWarehouseInOutHistoryRecordDto == null
+                return addedWarehouseInOutHistoryRecordDto == null
                     ? (IActionResult) StatusCode(StatusCodes.Status400BadRequest)
-                    : StatusCode(StatusCodes.Status200OK, addedToWarehouseInOutHistoryRecordDto);
+                    : StatusCode(StatusCodes.Status200OK, addedWarehouseInOutHistoryRecordDto);
             }
+    
+            var deletedWarehouseInOutHistoryRecordDto =
+                _warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryRecordFormDto);
 
-            if(_warehouseInOutHistoryService.Delete(warehouseId, warehouseInOutHistoryRecordFormDto))
-                return StatusCode(StatusCodes.Status200OK);
-
-            return StatusCode(StatusCodes.Status400BadRequest);
+            return deletedWarehouseInOutHistoryRecordDto == null
+                ? (IActionResult)StatusCode(StatusCodes.Status400BadRequest)
+                : StatusCode(StatusCodes.Status200OK, deletedWarehouseInOutHistoryRecordDto);
         }
     }
 }

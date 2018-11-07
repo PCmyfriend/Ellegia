@@ -61,28 +61,30 @@ namespace Ellegia.Application.Services
             return _mapper.Map<WarehouseHistoryRecordDto>(warehouseInOutHistoryRecord);
         }
 
-        public bool Delete(int warehouseId, WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto)
+        public WarehouseHistoryRecordDto Delete(int warehouseId, WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
 
             if (warehouse == null)
-                return false;
+                return null;
 
-            var warehouseInOutHistory = _mapper.Map<WarehouseHistoryRecord>(warehouseInOutHistoryRecordFormDto);
+            var warehouseInOutHistoryRecord = _mapper.Map<WarehouseHistoryRecord>(warehouseInOutHistoryRecordFormDto);
                     
-            var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistory);
+            var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistoryRecord);
             if (!resultOfValidate)    
-                return false;
+                return null;
 
-            var isReleaseAllowed = warehouse.IsWarehouseReceptionAllowed(warehouseInOutHistory);
+            var isReleaseAllowed = warehouse.IsWarehouseReceptionAllowed(warehouseInOutHistoryRecord);
             if (!isReleaseAllowed)
-                return false;
+                return null;
 
-            warehouse.Add(warehouseInOutHistory);
+            warehouse.Add(warehouseInOutHistoryRecord);
 
             _unitOfWork.Complete();
 
-            return true;
+            warehouseInOutHistoryRecord = _warehouseInOutHistoryRepository.GetById(warehouseInOutHistoryRecord.Id);
+
+            return _mapper.Map<WarehouseHistoryRecordDto>(warehouseInOutHistoryRecord);
         }
     }
 }
