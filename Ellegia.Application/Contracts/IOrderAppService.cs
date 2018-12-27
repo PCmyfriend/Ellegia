@@ -11,4 +11,4 @@ namespace Ellegia.Application.Contracts
         byte[] GetOrderPrintingVersion(int orderId);
         bool Remove(int orderId);
     }
-}
+}   

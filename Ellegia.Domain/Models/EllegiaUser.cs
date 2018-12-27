@@ -37,6 +37,5 @@ namespace Ellegia.Domain.Models
         public ICollection<EllegiaRole> Roles
             => UserRoles.Select(ur => ur.Role).ToImmutableList();
 
-
     }
 }

@@ -3,7 +3,8 @@
     public enum OrderStatus
     {
         Active,
-        Completed,
-        Released        
+        PartiallyReady,
+        PartiallyReleased,
+        Completed    
     }
 }

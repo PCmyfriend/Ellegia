@@ -17,7 +17,7 @@ namespace Ellegia.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IRepository<OrderRoute> _orderRouteRepository;
-        private readonly IRepository<EllegiaUser> _ellegiaUserRepository;
+        private readonly IUserRepository _ellegiaUserRepository;
 
         public OrderRouteAppService(
             IMapper mapper,

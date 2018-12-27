@@ -5,6 +5,7 @@ using AutoMapper;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
+using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
 using Ellegia.Domain.Services.PdfFileIO.PdfFileReader;
@@ -20,6 +21,7 @@ namespace Ellegia.Application.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IPdfFileReader _pdfFileReader;
         private readonly IPdfFileWriter _pdfFileWriter;
+        private readonly IUserRepository _ellegiaUserRepository;
 
         public OrderAppService(
             IMapper mapper,
@@ -32,19 +34,27 @@ namespace Ellegia.Application.Services
             _orderRepository = unitOfWork.Orders;
             _pdfFileReader = pdfFileReader;
             _pdfFileWriter = pdfFileWriter;
+            _ellegiaUserRepository = unitOfWork.Users;
         }
 
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus, int userId)
         {
             var orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
-            var ellegiaUser = _unitOfWork.Users.GetById(userId);
+            var ellegiaUser = _ellegiaUserRepository.GetById(userId);
 
-            var permittedOrderRecipients = _unitOfWork.Users.GetAll().AsEnumerable()
+            var permittedOrderRecipients = _ellegiaUserRepository.GetAll().AsEnumerable()
                 .Where(u => u.Id != userId && u.Roles.All(r => r.NormalizedName != Roles.AdminNormalizedName))
                 .Select(_mapper.Map<PermittedOrderRouteDto>)
                 .ToImmutableList();
-    
-            var orderDtos = orders.Select(o =>
+
+            var ellegiaUsersIds = _ellegiaUserRepository.GetUsersIdsInRoles(new[]
+            {
+                Roles.Admin,
+                Roles.Technologist,
+                Roles.Manager
+            });
+
+            var orderDtos = orders.Where(o => o.IsAviableForUser(ellegiaUser.Id)).Select(o =>
             {
                 var orderDto = Mapper.Map<OrderDto>(o);
 
@@ -54,13 +64,14 @@ namespace Ellegia.Application.Services
                     orderDto.PermittedRoutes = permittedOrderRecipients;
                 }
 
-                if (o.IsUserCreator(userId))
+                if (o.IsDeletionPermitted(ellegiaUsersIds))
                     orderDto.IsDeletionPermitted = true;
 
                 if (ellegiaUser.HasRole(Roles.StockkeeperNormalizedName))
-                    orderDto.IsCompletionPermitted = true;        
-                    
+                    orderDto.IsCompletionPermitted = true;
+
                 return orderDto;
+
             });
 
             return orderDtos;
@@ -86,7 +97,7 @@ namespace Ellegia.Application.Services
 
             if (order == null) return false;
 
-            _orderRepository.Remove(orderId);
+            _orderRepository.Remove(orderId);   
             _unitOfWork.Complete();
 
             return true;

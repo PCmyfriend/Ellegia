@@ -19,10 +19,9 @@ namespace Ellegia.Domain.Contracts.Data
         IRepository<ProductType> ProductTypes { get; } 
         IOrderRepository Orders { get; } 
         IRepository<OrderRoute> OrderRoutes { get; }
-        IRepository<EllegiaUser> Users { get; }
+        IUserRepository Users { get; }
         IRepository<Warehouse> Warehouses { get; }
         IRepository<WarehouseHistoryRecord> WarehouseInOutHistory { get; }
-
 
         CommandResponse Complete();
 

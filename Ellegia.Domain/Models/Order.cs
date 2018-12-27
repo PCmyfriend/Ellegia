@@ -58,5 +58,30 @@ namespace Ellegia.Domain.Models
 
             return orderRoute.SenderId == userId;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ellegiaUsersIds">
+        /// Набор пользователей при котором разрешенно удаление заказа.
+        /// В таблице OrderRoutes должны быть пользователи только из этой 
+        /// коллеции для того чтобы заказ было доступен для удаления.
+        /// </param>
+        /// <returns></returns>
+        public bool IsDeletionPermitted(IEnumerable<int> ellegiaUsersIds)
+        {
+            var recepientIds = OrderRoutes.GroupBy(orderRoutes => orderRoutes.RecipientId).Select(b => b.Key);
+            var diff = recepientIds.Except(ellegiaUsersIds);
+                    
+            if(diff.Any()) 
+                return false;
+
+            return true;
+        }
+
+        public bool IsAviableForUser(int userId)
+        {
+            return OrderRoutes.Any(orderRoutes => orderRoutes.RecipientId == userId);
+        }
     }
 }
