@@ -24,29 +24,18 @@ namespace Ellegia.Domain.Models
         protected Order()
         {
             OrderRoutes = new Collection<OrderRoute>();
-            OrderStatus = OrderStatus.Active;
+            OrderStatus = OrderStatus.OnEditing;
         }
-
-        public Order(
-            int customerId, 
-            int warehouseId,
-            int quantityInKg, 
-            decimal pricePerKg,
-            int productTypeId) 
-            : this()
-        {
-            CustomerId = customerId;
-            WarehouseId = warehouseId;  
-            QuantityInKg = quantityInKg;
-            PricePerKg = pricePerKg;
-            TotalPrice = pricePerKg * quantityInKg;
-            ProductTypeId = productTypeId;
-        }   
 
         public void Send(OrderRoute orderRoute)
         {   
             OrderRoutes.Add(orderRoute);    
-            HolderId = orderRoute.RecipientId;
+            HolderId = orderRoute.RecipientId; 
+        }
+
+        public void ChangeStatus(OrderStatus orderStatus)
+        {
+            OrderStatus = orderStatus;
         }
 
         public bool IsUserCreator(int userId)
@@ -62,16 +51,16 @@ namespace Ellegia.Domain.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="ellegiaUsersIds">
+        /// <param name="ellegiaUsers">
         /// Набор пользователей при котором разрешенно удаление заказа.
         /// В таблице OrderRoutes должны быть пользователи только из этой 
         /// коллеции для того чтобы заказ было доступен для удаления.
         /// </param>
         /// <returns></returns>
-        public bool IsDeletionPermitted(IEnumerable<int> ellegiaUsersIds)
+        public bool IsDeletionPermitted(IEnumerable<EllegiaUser> ellegiaUsers)
         {
             var recepientIds = OrderRoutes.GroupBy(orderRoutes => orderRoutes.RecipientId).Select(b => b.Key);
-            var diff = recepientIds.Except(ellegiaUsersIds);
+            var diff = recepientIds.Except(ellegiaUsers.Select(u => u.Id));
                     
             if(diff.Any()) 
                 return false;

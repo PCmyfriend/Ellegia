@@ -2,9 +2,11 @@
 {
     public enum OrderStatus
     {
+        OnEditing,
         Active,
-        PartiallyReady,
-        PartiallyReleased,
-        Completed    
+        ActivePartiallyReleased,
+        CompletedPartiallyReleased,
+        Released,
+        Closed  
     }
-}
+}   

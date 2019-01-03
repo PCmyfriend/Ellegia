@@ -11,7 +11,8 @@ namespace Ellegia.Application.Services
     public class WarehouseInOutHistoryService : IWarehouseInOutHistoryService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;   
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IOrderRepository _orderRepository;
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<WarehouseHistoryRecord> _warehouseInOutHistoryRepository;
 
@@ -20,7 +21,8 @@ namespace Ellegia.Application.Services
             IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;   
+            _unitOfWork = unitOfWork;
+            _orderRepository = unitOfWork.Orders;
             _warehouseRepository = unitOfWork.Warehouses;
             _warehouseInOutHistoryRepository = unitOfWork.WarehouseInOutHistory;
         }
@@ -61,7 +63,8 @@ namespace Ellegia.Application.Services
             return _mapper.Map<WarehouseHistoryRecordDto>(warehouseInOutHistoryRecord);
         }
 
-        public WarehouseHistoryRecordDto Delete(int warehouseId, WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto)
+        public WarehouseHistoryRecordDto Delete(int warehouseId,
+            WarehouseInOutHistoryRecordFormDto warehouseInOutHistoryRecordFormDto)
         {
             var warehouse = _warehouseRepository.GetById(warehouseId);
 
@@ -69,14 +72,25 @@ namespace Ellegia.Application.Services
                 return null;
 
             var warehouseInOutHistoryRecord = _mapper.Map<WarehouseHistoryRecord>(warehouseInOutHistoryRecordFormDto);
-                    
+
             var resultOfValidate = warehouse.IsWarehouseInOutHistoryValid(warehouseInOutHistoryRecord);
-            if (!resultOfValidate)    
+            if (!resultOfValidate)
                 return null;
 
             var isReleaseAllowed = warehouse.IsWarehouseReceptionAllowed(warehouseInOutHistoryRecord);
             if (!isReleaseAllowed)
                 return null;
+
+            if (warehouseInOutHistoryRecordFormDto.OrderId.HasValue)
+            {
+                var order = _orderRepository.GetById(warehouseInOutHistoryRecordFormDto.OrderId.Value);
+
+                if (order == null)
+                    return null;
+
+                if (order.OrderStatus == OrderStatus.Active)
+                    order.ChangeStatus(OrderStatus.ActivePartiallyReleased);
+            }
 
             warehouse.Add(warehouseInOutHistoryRecord);
 

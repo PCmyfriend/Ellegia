@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ellegia.Domain.Models;
 
-namespace Ellegia.Domain.Contracts.Data.Repositories.Factories
+namespace Ellegia.Domain.Contracts.Data.Repositories
 {
     public interface IOrderRepository : IRepository<Order>
     {

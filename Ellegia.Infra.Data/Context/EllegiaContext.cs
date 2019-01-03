@@ -91,8 +91,7 @@ namespace Ellegia.Infra.Data.Context
                 new FakeStandardSizesSeeder(),
                 new FakeMeasurementUnitsSeeder(),
                 new FakeProductTypesSeeder(),
-                new FakeShiftsSeeder(),
-                new FakeOrdersSeeder()
+                new FakeShiftsSeeder()
             });
 
             var usersInfo = configurationReader.Read();

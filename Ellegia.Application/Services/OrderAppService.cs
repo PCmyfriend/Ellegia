@@ -6,7 +6,6 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
-using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Models;
 using Ellegia.Domain.Services.PdfFileIO.PdfFileReader;
 using Ellegia.Domain.Services.PdfFileIO.PdfFileWriter;
@@ -39,20 +38,33 @@ namespace Ellegia.Application.Services
 
         public IEnumerable<OrderDto> GetByType(OrderStatus orderStatus, int userId)
         {
-            var orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
+            IEnumerable<Order> orders;
+
+            if (orderStatus == OrderStatus.Active || orderStatus == OrderStatus.ActivePartiallyReleased)
+            {
+                var activerOrders = _orderRepository.GetByType(OrderStatus.Active).ToImmutableList();
+                var activePartiallyReleasedOrders = _orderRepository.GetByType(OrderStatus.ActivePartiallyReleased).ToImmutableList();
+                orders = activerOrders.AddRange(activePartiallyReleasedOrders);
+            }     
+            else
+                orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
+
+            if (!orders.Any())
+                return Enumerable.Empty<OrderDto>();
+
             var ellegiaUser = _ellegiaUserRepository.GetById(userId);
 
+            //подозрительная конструкция
             var permittedOrderRecipients = _ellegiaUserRepository.GetAll().AsEnumerable()
-                .Where(u => u.Id != userId && u.Roles.All(r => r.NormalizedName != Roles.AdminNormalizedName))
-                .Select(_mapper.Map<PermittedOrderRouteDto>)
-                .ToImmutableList();
+                .Where(u => u.Id != userId && u.Roles.All(r => r.Name != Roles.Admin))
+                .Select(_mapper.Map<PermittedOrderRouteDto>).ToImmutableList();
 
-            var ellegiaUsersIds = _ellegiaUserRepository.GetUsersIdsInRoles(new[]
+            var ellegiaUsers = _ellegiaUserRepository.GetUsersInRoles(new[]
             {
                 Roles.Admin,
                 Roles.Technologist,
                 Roles.Manager
-            });
+            }).ToImmutableList();
 
             var orderDtos = orders.Where(o => o.IsAviableForUser(ellegiaUser.Id)).Select(o =>
             {
@@ -64,15 +76,14 @@ namespace Ellegia.Application.Services
                     orderDto.PermittedRoutes = permittedOrderRecipients;
                 }
 
-                if (o.IsDeletionPermitted(ellegiaUsersIds))
+                if (o.IsDeletionPermitted(ellegiaUsers))
                     orderDto.IsDeletionPermitted = true;
 
                 if (ellegiaUser.HasRole(Roles.StockkeeperNormalizedName))
                     orderDto.IsCompletionPermitted = true;
 
                 return orderDto;
-
-            });
+            }).ToImmutableList();
 
             return orderDtos;
         }
@@ -97,7 +108,7 @@ namespace Ellegia.Application.Services
 
             if (order == null) return false;
 
-            _orderRepository.Remove(orderId);   
+            _orderRepository.Remove(orderId);
             _unitOfWork.Complete();
 
             return true;

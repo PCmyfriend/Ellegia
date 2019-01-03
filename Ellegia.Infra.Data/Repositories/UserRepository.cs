@@ -22,12 +22,7 @@ namespace Ellegia.Infra.Data.Repositories
 
         public IEnumerable<EllegiaUser> GetUsersInRoles(string[] roleNames)
         {
-            return GetAll().Where(u => u.Roles.Any(r => roleNames.Any(roleName => roleName == r.Name)));
-        }
-
-        public IEnumerable<int> GetUsersIdsInRoles(string[] roleNames)
-        {
-            return GetAll().Where(u => u.Roles.Any(r => roleNames.Any(roleName => roleName == r.Name))).Select(u=>u.Id);
+            return GetAll().AsEnumerable().Where(u => u.Roles.Any(r => roleNames.Contains(r.Name)));
         }
     }
 }   

@@ -3,7 +3,6 @@ using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Ellegia.Infra.Data.Repositories
 {
     public class WarehouseInOutHistoryRepository : Repository<WarehouseHistoryRecord>

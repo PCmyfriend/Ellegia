@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using AutoMapper;
 using Ellegia.Application.Contracts;
@@ -43,6 +44,9 @@ namespace Ellegia.Application.Services
 
         public OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteDto orderRouteDto)
         {
+            if (orderRouteDto.RecipientId.Value == senderId)
+                return null;
+
             var order = _orderRepository.GetById(orderId);
 
             if (order == null)
@@ -50,7 +54,17 @@ namespace Ellegia.Application.Services
 
             var orderRoute = new OrderRoute(orderRouteDto.RecipientId.Value, senderId, orderId, orderRouteDto.Comment);
             order.Send(orderRoute);
-         
+
+            switch (order.OrderStatus)
+            {
+                case OrderStatus.OnEditing:
+                    var ellegiaUsers = _ellegiaUserRepository.GetUsersInRoles(new[] { Roles.Stockkeeper }).ToImmutableList();
+
+                    if (ellegiaUsers.Any(ellegiaUser => ellegiaUser.Id == orderRouteDto.RecipientId.Value))
+                        order.ChangeStatus(OrderStatus.Active);
+                    break;
+            }
+
             _unitOfWork.Complete();
 
             orderRoute = _orderRouteRepository.GetById(orderRoute.Id);

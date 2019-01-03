@@ -1,6 +1,8 @@
-﻿using Ellegia.Application.Contracts;
+﻿using System.Threading.Tasks;
+using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
+using Ellegia.Infra.CrossCutting.Identity.Constants;
 using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,8 +20,9 @@ namespace Ellegia.WebApi.Controllers
             
         public OrderRoutesController(UserManager<EllegiaUser> userManager, IOrderRouteAppService orderRouteAppService)
         {
-            _orderRouteAppService = orderRouteAppService;   
             _userManager = userManager;
+            _orderRouteAppService = orderRouteAppService;   
+           
         }
 
         [HttpGet("permittedRoutes")]

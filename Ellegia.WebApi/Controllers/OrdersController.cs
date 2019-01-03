@@ -3,12 +3,14 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ellegia.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/orders")]
     public class OrdersController : Controller
     {
