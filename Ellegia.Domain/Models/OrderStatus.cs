@@ -6,6 +6,7 @@
         Active,
         ActivePartiallyReleased,
         CompletedPartiallyReleased,
+        Completed,
         Released,
         Closed  
     }

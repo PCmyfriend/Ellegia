@@ -40,11 +40,13 @@ namespace Ellegia.Application.Services
         {
             IEnumerable<Order> orders;
 
+            var allOrders = _orderRepository.GetAll().ToImmutableList();
+
             if (orderStatus == OrderStatus.Active || orderStatus == OrderStatus.ActivePartiallyReleased)
             {
-                var activerOrders = _orderRepository.GetByType(OrderStatus.Active).ToImmutableList();
+                var activeOrders = _orderRepository.GetByType(OrderStatus.Active).ToImmutableList();
                 var activePartiallyReleasedOrders = _orderRepository.GetByType(OrderStatus.ActivePartiallyReleased).ToImmutableList();
-                orders = activerOrders.AddRange(activePartiallyReleasedOrders);
+                orders = activeOrders.AddRange(activePartiallyReleasedOrders);
             }     
             else
                 orders = _orderRepository.GetByType(orderStatus).ToImmutableList();
@@ -66,7 +68,7 @@ namespace Ellegia.Application.Services
                 Roles.Manager
             }).ToImmutableList();
 
-            var orderDtos = orders.Where(o => o.IsAviableForUser(ellegiaUser.Id)).Select(o =>
+            var orderDtos = orders.Select(o =>
             {
                 var orderDto = Mapper.Map<OrderDto>(o);
 

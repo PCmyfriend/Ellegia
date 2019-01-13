@@ -18,7 +18,6 @@ namespace Ellegia.Domain.Models
         public OrderStatus OrderStatus { get; private set; }
         public int QuantityInKg { get; private set; }
         public decimal PricePerKg { get; private set; }
-        public decimal TotalPrice { get; private set; } 
         public int HolderId { get; private set; }
 
         protected Order()
@@ -26,6 +25,8 @@ namespace Ellegia.Domain.Models
             OrderRoutes = new Collection<OrderRoute>();
             OrderStatus = OrderStatus.OnEditing;
         }
+        
+        public decimal TotalPrice => PricePerKg * QuantityInKg;
 
         public void Send(OrderRoute orderRoute)
         {   
