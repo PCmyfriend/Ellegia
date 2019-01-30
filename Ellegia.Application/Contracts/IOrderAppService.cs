@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ellegia.Application.Dtos;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Contracts 

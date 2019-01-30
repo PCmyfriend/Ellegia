@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Ellegia.Domain.Core.Models;
+using Ellegia.Domain.Enums;
 
 namespace Ellegia.Domain.Models
 {

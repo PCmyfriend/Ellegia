@@ -1,6 +1,7 @@
 ﻿using System;
 using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;

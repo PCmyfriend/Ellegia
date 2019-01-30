@@ -6,6 +6,7 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using Ellegia.Domain.Services.PdfFileIO.PdfFileReader;
 using Ellegia.Domain.Services.PdfFileIO.PdfFileWriter;

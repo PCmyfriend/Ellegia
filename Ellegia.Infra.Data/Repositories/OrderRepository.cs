@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ellegia.Domain.Contracts.Data.Repositories;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;

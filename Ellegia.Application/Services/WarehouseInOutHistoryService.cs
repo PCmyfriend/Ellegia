@@ -4,6 +4,7 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Services

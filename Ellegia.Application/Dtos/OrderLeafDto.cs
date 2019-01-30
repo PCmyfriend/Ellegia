@@ -1,4 +1,5 @@
-﻿using Ellegia.Domain.Models;
+﻿using Ellegia.Domain.Enums;
+using Ellegia.Domain.Models;
 
 namespace Ellegia.Application.Dtos
 {

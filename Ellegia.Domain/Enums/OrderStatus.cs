@@ -1,4 +1,4 @@
-﻿namespace Ellegia.Domain.Models
+﻿namespace Ellegia.Domain.Enums
 {
     public enum OrderStatus
     {

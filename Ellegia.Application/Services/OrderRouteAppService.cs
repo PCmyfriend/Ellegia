@@ -7,6 +7,7 @@ using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
 using Ellegia.Domain.Contracts.Data.Repositories.Factories;
+using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.CrossCutting.Identity.Constants;
 
