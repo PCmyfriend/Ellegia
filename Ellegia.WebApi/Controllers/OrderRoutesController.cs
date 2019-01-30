@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using Ellegia.Application.Contracts;
+﻿using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Models;
-using Ellegia.Infra.CrossCutting.Identity.Constants;
 using Ellegia.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
