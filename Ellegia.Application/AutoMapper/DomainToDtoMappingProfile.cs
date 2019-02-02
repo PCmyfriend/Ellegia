@@ -113,7 +113,6 @@ namespace Ellegia.Application.AutoMapper
         private void CreateOrderRouteMap()
         {
             CreateMap<OrderRoute, OrderRouteDto>();
-            CreateMap<OrderRoute, OrderRouteFormDto>();
         }
 
         private void CreatePermittedOrderRouteMap()
