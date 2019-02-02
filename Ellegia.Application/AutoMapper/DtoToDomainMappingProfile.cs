@@ -22,7 +22,6 @@ namespace Ellegia.Application.AutoMapper
             CreateOrderMap();
             CreateWarehouseMap();
             CreateEllegiaUserMap();
-            CreateOrderRouteMap();
             CreateWarehouseInOutHistoryMap();
         }
 
@@ -92,11 +91,6 @@ namespace Ellegia.Application.AutoMapper
         private void CreateEllegiaUserMap()
         {
             CreateMap<EllegiaUserDto, EllegiaUser>();
-        }
-
-        private void CreateOrderRouteMap()
-        {
-            CreateMap<OrderRouteFormDto, OrderRoute>();
         }
 
         private void CreateWarehouseMap()
