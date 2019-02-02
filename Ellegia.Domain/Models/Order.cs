@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Ellegia.Domain.Core.Models;
 using Ellegia.Domain.Enums;
@@ -20,6 +21,9 @@ namespace Ellegia.Domain.Models
         public int QuantityInKg { get; private set; }
         public decimal PricePerKg { get; private set; }
         public int HolderId { get; private set; }
+
+        [NotMapped]
+        public string Name => $"{Customer.Name}, {ProductType.Name}";
 
         protected Order()
         {

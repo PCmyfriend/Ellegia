@@ -1,11 +1,11 @@
-﻿using Ellegia.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Ellegia.Application.Dtos
-{   
-    public class OrderRouteDto
+{
+    public class OrderRouteFormDto
     {
+        [Required]
         public int? RecipientId { get; set; }
         public string Comment { get; set; }
-        public OrderStatus OrderStatus { get; set; }
     }
-}
+}   

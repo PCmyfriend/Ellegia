@@ -5,7 +5,7 @@ namespace Ellegia.Application.Contracts
 {   
     public interface IOrderRouteAppService
     {
-        OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteDto orderRouteDto);
+        OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteFormDto orderRouteFormDto);
         IEnumerable<PermittedOrderRouteDto> GetPermittedRoutes(int userId);
     }
 }

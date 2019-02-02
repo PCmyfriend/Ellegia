@@ -6,7 +6,6 @@ using Ellegia.Application.Contracts;
 using Ellegia.Application.Dtos;
 using Ellegia.Domain.Contracts.Data;
 using Ellegia.Domain.Contracts.Data.Repositories;
-using Ellegia.Domain.Contracts.Data.Repositories.Factories;
 using Ellegia.Domain.Enums;
 using Ellegia.Domain.Models;
 using Ellegia.Infra.CrossCutting.Identity.Constants;
@@ -41,11 +40,11 @@ namespace Ellegia.Application.Services
                 .Select(_mapper.Map<PermittedOrderRouteDto>);
 
             return permittedOrderRoutesDto;
-        }
+        }   
 
-        public OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteDto orderRouteDto)
+        public OrderRouteDto AddOrderRoute(int orderId, int senderId, OrderRouteFormDto orderRouteFormDto)
         {
-            if (orderRouteDto.RecipientId.Value == senderId)
+            if (orderRouteFormDto.RecipientId.Value == senderId)
                 return null;
 
             var order = _orderRepository.GetById(orderId);
@@ -53,7 +52,7 @@ namespace Ellegia.Application.Services
             if (order == null)
                 return null;
 
-            var orderRoute = new OrderRoute(orderRouteDto.RecipientId.Value, senderId, orderId, orderRouteDto.Comment);
+            var orderRoute = new OrderRoute(orderRouteFormDto.RecipientId.Value, senderId, orderId, orderRouteFormDto.Comment);
             order.Send(orderRoute);
 
             switch (order.OrderStatus)
@@ -61,7 +60,7 @@ namespace Ellegia.Application.Services
                 case OrderStatus.OnEditing:
                     var ellegiaUsers = _ellegiaUserRepository.GetUsersInRoles(new[] { Roles.Stockkeeper }).ToImmutableList();
 
-                    if (ellegiaUsers.Any(ellegiaUser => ellegiaUser.Id == orderRouteDto.RecipientId.Value))
+                    if (ellegiaUsers.Any(ellegiaUser => ellegiaUser.Id == orderRouteFormDto.RecipientId.Value))
                         order.ChangeStatus(OrderStatus.Active);
                     break;
             }
@@ -69,7 +68,10 @@ namespace Ellegia.Application.Services
             _unitOfWork.Complete();
 
             orderRoute = _orderRouteRepository.GetById(orderRoute.Id);
-            return _mapper.Map<OrderRouteDto>(orderRoute); 
+            var orderRouteDto = _mapper.Map<OrderRouteDto>(orderRoute);
+            orderRouteDto.OrderStatus = order.OrderStatus;
+
+            return orderRouteDto; 
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Ellegia.Application.Dtos
         public bool IsMine { get; set; }
         public bool IsDeletionPermitted { get; set; }
         public bool IsCompletionPermitted { get; set; }
+        public string Name { get; set; }
 
         public OrderDto()
         {
