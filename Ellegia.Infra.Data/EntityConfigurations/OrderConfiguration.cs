@@ -8,6 +8,8 @@ namespace Ellegia.Infra.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.Ignore(o => o.Name);
+            
             builder
                 .HasOne(o => o.Customer)
                 .WithMany()
