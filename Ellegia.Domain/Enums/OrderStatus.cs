@@ -2,12 +2,12 @@
 {
     public enum OrderStatus
     {
-        OnEditing,
-        Active,
-        ActivePartiallyReleased,
-        CompletedPartiallyReleased,
-        Completed,
-        Released,
-        Closed  
+        OnEditing = 0,
+        Active = 1,
+        ActivePartiallyReleased = 2,
+        CompletedPartiallyReleased = 3,
+        Completed = 4,
+        Released = 5,
+        Closed = 6  
     }
 }   

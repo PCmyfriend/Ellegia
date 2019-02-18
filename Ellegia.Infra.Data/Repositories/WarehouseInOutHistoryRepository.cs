@@ -10,7 +10,6 @@ namespace Ellegia.Infra.Data.Repositories
         public WarehouseInOutHistoryRepository(EllegiaContext context)  
             : base(context)
         {
-
         }
 
         public override WarehouseHistoryRecord GetById(int id)
@@ -23,15 +22,18 @@ namespace Ellegia.Infra.Data.Repositories
         {
             return base.GetAll()
                 .Include(whr => whr.ProductType)
-                .ThenInclude(whr => whr.FilmType)
-                .ThenInclude(whr => whr.Children)
+                    .ThenInclude(whr => whr.FilmType)
+                    .ThenInclude(whr => whr.Children)
                 .Include(whr => whr.ProductType)
-                .ThenInclude(whr => whr.StandardSize)
-                .ThenInclude(whr => whr.PlasticBagType)
+                    .ThenInclude(whr => whr.StandardSize)
+                    .ThenInclude(whr => whr.PlasticBagType)
                 .Include(whr => whr.ProductType)
-                .ThenInclude(whr => whr.FilmTypeOption)
+                    .ThenInclude(whr => whr.FilmTypeOption)
                 .Include(whr => whr.FilmType)
                 .Include(whr => whr.Order)
+                    .ThenInclude(o => o.Customer)
+                .Include(whr => whr.Order)
+                    .ThenInclude(o => o.ProductType)
                 .Include(whr => whr.MeasurementUnit)
                 .Include(whr => whr.Shift)
                 .Include(whr => whr.Color)

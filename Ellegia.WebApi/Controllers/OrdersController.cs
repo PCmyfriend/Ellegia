@@ -25,13 +25,13 @@ namespace Ellegia.WebApi.Controllers
         }
 
         [HttpGet("{orderStatus}")]
-        public IActionResult GetByType(string orderStatus)
+        public IActionResult GetByType(int orderStatus)
         {
-            if (!Enum.TryParse(orderStatus, true, out OrderStatus outOrderStatus))
-                return BadRequest();
+            if (!Enum.IsDefined(typeof(OrderStatus), orderStatus))
+                return BadRequest($"Order status {orderStatus} is not defined.");
 
             var userId = _userManager.GetUserIdAsInt(User);
-            return Ok(_orderAppService.GetByType(outOrderStatus, userId));
+            return Ok(_orderAppService.GetByType((OrderStatus) orderStatus, userId));
         }
 
         [HttpPost]

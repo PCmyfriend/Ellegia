@@ -22,7 +22,6 @@ namespace Ellegia.Domain.Models
         public decimal PricePerKg { get; private set; }
         public int HolderId { get; private set; }
 
-        [NotMapped]
         public string Name => $"{Customer.Name}, {ProductType.Name}";
 
         protected Order()

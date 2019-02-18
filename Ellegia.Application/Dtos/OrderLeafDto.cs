@@ -11,5 +11,6 @@ namespace Ellegia.Application.Dtos
         public decimal PricePerKg { get; set; }
         public decimal TotalPrice { get; set; }
         public int HolderId { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -18,24 +18,22 @@ namespace Ellegia.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IRepository<OrderRoute> _orderRouteRepository;
-        private readonly IUserRepository _ellegiaUserRepository;
+        private readonly IUserRepository _userRepository;
 
-        public OrderRouteAppService(
-            IMapper mapper,
-            IUnitOfWork unitOfWork)
+        public OrderRouteAppService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _orderRepository = unitOfWork.Orders;
             _orderRouteRepository = unitOfWork.OrderRoutes;
-            _ellegiaUserRepository = unitOfWork.Users;
+            _userRepository = unitOfWork.Users;
         }
 
         public IEnumerable<PermittedOrderRouteDto> GetPermittedRoutes(int userId)
         {
-            var ellegiaUsers = _ellegiaUserRepository.GetAll();
+            var users = _userRepository.GetAll();
 
-            var permittedOrderRoutesDto = ellegiaUsers.AsEnumerable()
+            var permittedOrderRoutesDto = users.AsEnumerable()
                 .Where(u => u.Id != userId && u.Roles.Any(r => r.Name != Roles.Admin))
                 .Select(_mapper.Map<PermittedOrderRouteDto>);
 
@@ -52,24 +50,28 @@ namespace Ellegia.Application.Services
             if (order == null)
                 return null;
 
-            var orderRoute = new OrderRoute(orderRouteFormDto.RecipientId.Value, senderId, orderId, orderRouteFormDto.Comment);
+            var oldOrderStatus = order.OrderStatus;
+
+            var recipientId = orderRouteFormDto.RecipientId.Value;
+            var orderRoute = new OrderRoute(recipientId, senderId, orderId, orderRouteFormDto.Comment);
             order.Send(orderRoute);
 
-            switch (order.OrderStatus)
+            if (order.OrderStatus == OrderStatus.OnEditing)
             {
-                case OrderStatus.OnEditing:
-                    var ellegiaUsers = _ellegiaUserRepository.GetUsersInRoles(new[] { Roles.Stockkeeper }).ToImmutableList();
+                var users = _userRepository
+                    .GetUsersInRoles(new[] { Roles.Stockkeeper })
+                    .ToImmutableList();
 
-                    if (ellegiaUsers.Any(ellegiaUser => ellegiaUser.Id == orderRouteFormDto.RecipientId.Value))
-                        order.ChangeStatus(OrderStatus.Active);
-                    break;
+                if (users.Any(u => u.Id == orderRouteFormDto.RecipientId.Value))
+                    order.ChangeStatus(OrderStatus.Active);
             }
 
             _unitOfWork.Complete();
 
             orderRoute = _orderRouteRepository.GetById(orderRoute.Id);
             var orderRouteDto = _mapper.Map<OrderRouteDto>(orderRoute);
-            orderRouteDto.OrderStatus = order.OrderStatus;
+            orderRouteDto.OldOrderStatus = oldOrderStatus;
+            orderRouteDto.NewOrderStatus = order.OrderStatus;
 
             return orderRouteDto; 
         }

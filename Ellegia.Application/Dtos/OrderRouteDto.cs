@@ -6,6 +6,7 @@ namespace Ellegia.Application.Dtos
     {
         public int? RecipientId { get; set; }
         public string Comment { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public OrderStatus NewOrderStatus { get; set; }
+        public OrderStatus OldOrderStatus { get; set; }
     }
 }
