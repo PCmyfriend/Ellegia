@@ -21,6 +21,7 @@ namespace Ellegia.Infra.Data.Context.Extensions
         public static async void EnsureSeeded(this EllegiaContext context, IServiceProvider serviceProvider, 
             IEnumerable<UserInfo> usersInfo)
         {   
+
             var userManager =
                 serviceProvider.GetRequiredService<UserManager<EllegiaUser>>();
             var roleManager =
