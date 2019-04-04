@@ -22,7 +22,7 @@ namespace Ellegia.Domain.Models
         public decimal PricePerKg { get; private set; }
         public int HolderId { get; private set; }
 
-        public string Name => $"{Customer.Name}, {ProductType.Name}";
+        public string Name => $"{Customer?.Name ?? string.Empty}, {ProductType?.Name ?? string.Empty}";
 
         protected Order()
         {

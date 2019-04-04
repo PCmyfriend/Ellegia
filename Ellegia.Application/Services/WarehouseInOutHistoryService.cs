@@ -14,7 +14,7 @@ namespace Ellegia.Application.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
-        private readonly IRepository<Warehouse> _warehouseRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
         private readonly IRepository<WarehouseHistoryRecord> _warehouseInOutHistoryRepository;
 
         public WarehouseInOutHistoryService(
