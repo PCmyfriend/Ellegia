@@ -12,9 +12,8 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public MeasurementUnit(int id, string name)
+        public MeasurementUnit(string name)
         {
-            Id = id;
             Name = name;
         }
     }

@@ -8,9 +8,9 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders.Fake
         protected override IEnumerable<Color> Seeds =>
             new[]
             {
-                new Color(0, "Зеленый"),
-                new Color(0, "Белый"),
-                new Color(0, "Бесцветный")
+                new Color("Зеленый"),
+                new Color("Белый"),
+                new Color("Бесцветный")
             };
     }
 }

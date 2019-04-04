@@ -8,9 +8,9 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders.Fake
         protected override IEnumerable<FilmType> Seeds 
             => new []
             {
-                new FilmType(0, "ПНД"),
-                new FilmType(0, "УФА", 1),
-                new FilmType(0, "123", 2)
+                new FilmType("ПНД"),
+                new FilmType("УФА", 1),
+                new FilmType("123", 2)
             };
     }
 }

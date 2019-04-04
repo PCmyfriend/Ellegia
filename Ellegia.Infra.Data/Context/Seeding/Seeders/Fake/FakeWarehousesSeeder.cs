@@ -7,7 +7,7 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders.Fake
     {
         protected override IEnumerable<Warehouse> Seeds => new[]    
         {
-            new Warehouse(1, "Склад №1")
+            new Warehouse("Склад #1")
         };
     }
 }

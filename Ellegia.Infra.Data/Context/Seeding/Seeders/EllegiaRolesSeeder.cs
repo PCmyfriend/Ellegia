@@ -11,7 +11,8 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders
             new EllegiaRole {Name = Roles.Admin, NormalizedName = Roles.AdminNormalizedName},
             new EllegiaRole {Name = Roles.Manager, NormalizedName = Roles.ManagerNormalizedName},
             new EllegiaRole {Name = Roles.Technologist, NormalizedName = Roles.TechnologistNormalizedName},
-            new EllegiaRole {Name = Roles.Stockkeeper, NormalizedName = Roles.StockkeeperNormalizedName}
+            new EllegiaRole {Name = Roles.Stockkeeper, NormalizedName = Roles.StockkeeperNormalizedName},
+            new EllegiaRole {Name = Roles.Supervisor, NormalizedName = Roles.SupervisorNormalizedName}
         };
     }
 }

@@ -14,9 +14,9 @@ namespace Ellegia.Infra.Data.Utilities.ConfigurationReader
             Configuration = configuration;
         }
 
-        public IEnumerable<UserInfo> Read()
+        public IEnumerable<Users> Read()
         {           
-            var usersInfo = new List<UserInfo>();
+            var usersInfo = new List<Users>();
             Configuration.GetSection("Users").Bind(usersInfo);
 
             return usersInfo;

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ellegia.Domain.Models;
+using Ellegia.Infra.CrossCutting.Identity.Constants;
 using Ellegia.Infra.Data.Context.Seeding;
+using Ellegia.Infra.Data.Context.Seeding.Seeders.Fake;
+using Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts;
 using Ellegia.Infra.Data.Utilities.ConfigurationReader.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,35 +21,45 @@ namespace Ellegia.Infra.Data.Context.Extensions
                 seeder.Seed(context);
             }
         }
-
-        public static async void EnsureSeeded(this EllegiaContext context, IServiceProvider serviceProvider, 
-            IEnumerable<UserInfo> usersInfo)
-        {   
+            
+        public static void EnsureSeeded(this EllegiaContext context, 
+            IServiceProvider serviceProvider, IConfigurationReader configurationReader)
+        {
+            var users = configurationReader.Read();
 
             var userManager =
                 serviceProvider.GetRequiredService<UserManager<EllegiaUser>>();
             var roleManager =
                 serviceProvider.GetRequiredService<RoleManager<EllegiaRole>>();
-                
-            foreach (var userInfo in usersInfo)     
+
+            foreach (var user in users)
             {
-                if (await userManager.FindByNameAsync(userInfo.Name) != null) continue;
+                if (userManager.FindByNameAsync(user.Name).Result != null)
+                    continue;
 
-                if (await roleManager.FindByNameAsync(userInfo.Role) == null)
-                    await roleManager.CreateAsync(new EllegiaRole { Name = userInfo.Role });
-
-                var user = new EllegiaUser
+                if (roleManager.FindByNameAsync(user.Role).Result == null)
                 {
-                    UserName = userInfo.Name,
-                    Email = userInfo.Email,
-                    FullName = userInfo.FullName
-                };
+                    var createRoleResult = roleManager.CreateAsync(new EllegiaRole {Name = user.Role}).Result;
+                }
 
-                var result = await userManager
-                    .CreateAsync(user, userInfo.Password);
-                if (result.Succeeded)
-                    await userManager.AddToRoleAsync(user, userInfo.Role);
-            }          
+                var warehouse = context.Warehouses.First();                 
+                var ellegiaUser = new EllegiaUser(user.Name, user.Email, user.FullName, warehouse.Id);
+
+                var createUserResult = userManager
+                    .CreateAsync(ellegiaUser, user.Password).Result;
+                if (createUserResult.Succeeded)
+                {
+                    var addUserToRoleResult = userManager.AddToRoleAsync(ellegiaUser, user.Role).Result;
+                }
+            }
+
+            var ellegiaUsers = userManager.GetUsersInRoleAsync(Roles.SupervisorNormalizedName).Result;
+
+            if (!context.Shifts.Any())
+            {
+                context.Shifts.Add(new Shift("Смена #1", ellegiaUsers.First().Id));
+                context.SaveChanges();
+            }
         }
     }
 }

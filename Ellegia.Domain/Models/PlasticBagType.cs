@@ -17,9 +17,8 @@ namespace Ellegia.Domain.Models
             StandardSizes = new Collection<StandardSize>();
         }
 
-        public PlasticBagType(int id, string name) : this()
+        public PlasticBagType(string name) : this()
         {
-            Id = id;
             Name = name;
         }
 

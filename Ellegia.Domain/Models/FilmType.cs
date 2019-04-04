@@ -25,15 +25,14 @@ namespace Ellegia.Domain.Models
             Children = new Collection<FilmType>();
         }
 
-        public FilmType(int id, string name)
+        public FilmType(string name)
             : this()
         {   
-            Id = id;
             Name = name;
         }
 
-        public FilmType(int id, string name, int parentId)
-            : this(id, name)
+        public FilmType(string name, int parentId)
+            : this(name)
         {
             ParentId = parentId;
         }

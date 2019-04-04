@@ -12,9 +12,8 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public FilmTypeOption(int id, string name)
+        public FilmTypeOption(string name)
         {
-            Id = id;
             Name = name;
         }       
     } 

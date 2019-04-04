@@ -12,9 +12,8 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public Color(int id, string name)
+        public Color(string name)
         {
-            Id = id;
             Name = name;
         }               
     }

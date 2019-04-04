@@ -8,7 +8,7 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders.Fake
         protected override IEnumerable<MeasurementUnit> Seeds
             => new[]
             {
-                new MeasurementUnit(0, "кг.")
+                new MeasurementUnit("кг.")
             };
     }
 }

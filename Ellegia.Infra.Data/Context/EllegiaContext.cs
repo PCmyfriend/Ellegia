@@ -9,7 +9,6 @@ using Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FilmType = Ellegia.Domain.Models.FilmType;
 using PlasticBagType = Ellegia.Domain.Models.PlasticBagType;
@@ -67,35 +66,33 @@ namespace Ellegia.Infra.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("EllegiaDb");
-            //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-
+            //optionsBuilder.UseInMemoryDatabase("EllegiaDb");
             optionsBuilder.UseOpenIddict<int>();
-        }   
-        
-        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration, IConfigurationReader configurationReader)
+        }
+
+        public static void Seed(IServiceProvider serviceProvider, IConfigurationReader configurationReader)
         {
             var context = serviceProvider.GetRequiredService<EllegiaContext>();
-            
+
+            context.Database.Migrate();
+
             context.EnsureSeeded(new ISeeder[]
             {
                 new EllegiaRolesSeeder(),
-                new ContactTypesSeeder(),
                 new FakeWarehousesSeeder(),
-                new FakeCustomersSeeder(), 
-                new FakeContactsSeeder(), 
-                new FakeFilmTypesSeeder(), 
-                new FakeFilmTypeOptionsSeeder(), 
+                new ContactTypesSeeder(),
+                new FakeCustomersSeeder(),
+                new FakeContactsSeeder(),
+                new FakeFilmTypesSeeder(),
+                new FakeFilmTypeOptionsSeeder(),
                 new FakeColorsSeeder(),
-                new FakePlasticBagTypesSeeder(), 
+                new FakePlasticBagTypesSeeder(),
                 new FakeStandardSizesSeeder(),
                 new FakeMeasurementUnitsSeeder(),
-                new FakeProductTypesSeeder(),
-                new FakeShiftsSeeder()
+                new FakeProductTypesSeeder()
             });
 
-            var usersInfo = configurationReader.Read();
-            context.EnsureSeeded(serviceProvider, usersInfo);
+            context.EnsureSeeded(serviceProvider, configurationReader);
         }
     }
 }

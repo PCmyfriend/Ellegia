@@ -14,10 +14,10 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public Shift(int id, string name)
+        public Shift(string name, int supervisorId)
         {
-            Id = id;
-            Name = name;    
+            Name = name;
+            SupervisorId = supervisorId;
         }   
     }
 }

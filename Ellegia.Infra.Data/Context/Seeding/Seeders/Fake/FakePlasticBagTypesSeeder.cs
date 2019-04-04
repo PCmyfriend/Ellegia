@@ -8,8 +8,8 @@ namespace Ellegia.Infra.Data.Context.Seeding.Seeders.Fake
         protected override IEnumerable<PlasticBagType> Seeds 
             => new[]
             {
-                new PlasticBagType(0, "Майка"),
-                new PlasticBagType(0, "Вырезная ручка"), 
+                new PlasticBagType("Майка"),
+                new PlasticBagType("Вырезная ручка"), 
             };
     }
 }

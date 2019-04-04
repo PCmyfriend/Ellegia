@@ -5,7 +5,7 @@ namespace Ellegia.Infra.Data.Utilities.ConfigurationReader.Contracts
 {
     public interface IConfigurationReader
     {
-        IEnumerable<UserInfo> Read();   
+        IEnumerable<Users> Read();   
     }   
 }   
     

@@ -6,7 +6,7 @@ namespace Ellegia.Application.Dtos
     public class OrderDto
     {
         public CustomerDto Customer { get; set; }
-        public WarehouseDto Warehouse { get; set; }
+        //public WarehouseDto Warehouse { get; set; }
         public ProductTypeDto ProductType { get; set; }
         public ICollection<PermittedOrderRouteDto> PermittedRoutes { get; set; }
         

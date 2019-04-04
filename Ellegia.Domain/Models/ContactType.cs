@@ -16,9 +16,8 @@ namespace Ellegia.Domain.Models
             // required by EF
         }
 
-        public ContactType(int id, string name, string inputMask, ContactTypeEnum contactTypeEnum)
+        public ContactType(string name, string inputMask, ContactTypeEnum contactTypeEnum)
         {
-            Id = id;
             Name = name;
             InputMask = inputMask;
             ContactTypeEnum = contactTypeEnum;

@@ -14,6 +14,7 @@ using Ellegia.WebApi.MvcFilters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,7 +42,8 @@ namespace Ellegia.WebApi
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EllegiaContext>();
+            services.AddDbContext<EllegiaContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<EllegiaUser, EllegiaRole>(options =>
                 {
@@ -88,8 +90,9 @@ namespace Ellegia.WebApi
 
             RegisterServices(services);
         }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, IConfigurationReader configurationReader)
+        
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            IServiceProvider serviceProvider, IConfigurationReader configurationReader)
         {
             if (env.IsDevelopment())
             {
@@ -116,7 +119,7 @@ namespace Ellegia.WebApi
                     defaults: new { controller = "Spa", action = "Index" });
             });
 
-            EllegiaContext.Seed(serviceProvider, Configuration, configurationReader);
+            EllegiaContext.Seed(serviceProvider, configurationReader);
         }
 
         private void RegisterServices(IServiceCollection services)

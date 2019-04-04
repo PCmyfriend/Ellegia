@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using Ellegia.Domain.Core.Models;
 using Ellegia.Domain.Services.Strategies;
@@ -20,10 +19,9 @@ namespace Ellegia.Domain.Models
             InOutHistory = new Collection<WarehouseHistoryRecord>();
         }
         
-        public Warehouse(int id, string name)
+        public Warehouse(string name)
             : this()
         {
-            Id = id;    
             Name = name;    
         }
             

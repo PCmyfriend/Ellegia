@@ -14,7 +14,15 @@ namespace Ellegia.Domain.Models
         public Warehouse Warehouse { get; private set; }
         public int WarehouseId { get; private set; }
 
-        public string FullName { get; set; }
+        public string FullName { get; private set; }
+
+        public EllegiaUser(string userName, string email,string fullName, int warehouseId)
+        {
+            UserName = userName;
+            Email = email;
+            FullName = fullName;
+            WarehouseId = warehouseId;
+        }
 
         public EllegiaUser()
         {

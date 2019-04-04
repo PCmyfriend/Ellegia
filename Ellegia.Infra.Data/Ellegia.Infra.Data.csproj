@@ -20,9 +20,6 @@
     <ProjectReference Include="..\Ellegia.Infra.CrossCutting.Identity\Ellegia.Infra.CrossCutting.Identity.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
