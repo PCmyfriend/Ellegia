@@ -6,7 +6,7 @@
     <UserSecretsId>ellegia</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-rc3-final" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc2-final" />
